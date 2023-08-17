@@ -17,7 +17,7 @@ module.exports = {
             email: presidentData.email,
             birthDate: presidentData.birthDate,
             password: psw,
-            role: 'presidente',
+            role: 'Presidente',
             ej: ej._id
         })
 
