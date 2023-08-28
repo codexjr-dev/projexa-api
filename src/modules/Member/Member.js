@@ -12,10 +12,14 @@ const MemberSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['assessor', 'diretor', 'trainee', 'estagiário', 'membro'],
+        enum: ["Presidente", "Diretor(a)", "Assessor(a)", "Conselheiro(a)"],
         required: true,
-        default: 'membro'
-    },
+        default: "Assessor(a)",
+      },
+      password: {
+        type: String,
+        required: true,
+      },
     ej: {
         type: Schema.Types.ObjectId,
         ref: Ej,
@@ -27,7 +31,7 @@ const MemberSchema = new Schema({
     },
     entryDate: {
         type: Date,
-        required: true
+        required: false
     },
     phone: {
         type: String,

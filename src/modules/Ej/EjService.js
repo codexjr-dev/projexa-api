@@ -1,5 +1,5 @@
 const Ej = require('@ej/Ej');
-const User = require('@user/User');
+const Member = require('@member/Member');
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -7,12 +7,19 @@ module.exports = {
         const { name } = ejData;
         const { presidentData } = ejData;
 
+        const member = await Member.findOne({ email: presidentData.email });
+        if (member) {
+            throw new Error('Já existe uma EJ cadastrada para esse email!');
+        }
+
         const ej = await Ej.create({
             name: name
         })
 
         const psw = await bcrypt.hash(presidentData.password, parseInt(process.env.SALT_ROUNDS))
-        const user = await User.create({
+
+        const newMember = await Member.create({
+
             name: presidentData.name,
             email: presidentData.email,
             birthDate: presidentData.birthDate,
@@ -21,8 +28,8 @@ module.exports = {
             ej: ej._id
         })
 
-        user.password = undefined
-        return { ej: ej, user: user }
+        newMember.password = undefined
+        return { ej: ej, member: newMember }
     },
 
     // only for test purposes
@@ -34,12 +41,12 @@ module.exports = {
     },
 
     async findPresident(ejId) {
-        const president = await User.findOne({ role: 'presidente', ej: ejId });
+        const president = await Member.findOne({ role: 'presidente', ej: ejId });
         return president;
     },
 
     async findById(ejId) {
         const ej = await Ej.findOne({ _id: ejId });
-        return ej
-    }
+        return ej;
+    },
 }

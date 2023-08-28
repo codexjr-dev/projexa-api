@@ -5,12 +5,17 @@ const { remove } = require('../Ej/Ej');
 module.exports = {
     async save(userData, ejId) {
         const { name, email, role, birthDate, password } = userData
+        
+        const user = await User.findOne({ email: userData.email });
+        if (user) {
+            throw new Error('Já existe um usuário cadastrado para esse email!');
+        }
 
         // password auto generated for first access with 6 digits, mockado por enquanto
         const code = 123456 || Math.floor(Math.random() * (999999 - 100000) + 100000);
         const psw = await bcrypt.hash(`${password || code}`, parseInt(process.env.SALT_ROUNDS))
 
-        const user = await User.create({
+        const newUser = await User.create({
             name: name,
             email: email,
             birthDate: birthDate,
@@ -20,7 +25,7 @@ module.exports = {
         })
 
         userData.senhaGerada = password || code
-        userData._id = user._id
+        userData._id = newUser._id
         return userData;
     },
 

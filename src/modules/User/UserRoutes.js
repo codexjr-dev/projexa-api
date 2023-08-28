@@ -1,10 +1,15 @@
-const router = require('express').Router();
-const { save, findByEj, remove, update } = require('./UserController');
-const { authorizePresident, authorizeUser } = require('@middlewares/auth')
+const router = require("express").Router();
+const { save, findByEj, remove, update } = require("./UserController");
+const {
+  validatedUser,
+  authorizedUser,
+  authorizedLeadership,
+  authorizePresident,
+} = require("@middlewares/auth");
 
-router.post('/user', authorizePresident, save);
-router.get('/user', authorizePresident, findByEj);
-router.delete('/user/:id', authorizePresident, remove);
-router.patch('/user/:id', authorizeUser, update);
+router.post("/user", authorizedLeadership, save);
+router.get("/user", validatedUser, findByEj);
+router.patch("/user/:id", authorizedUser, update);
+router.delete("/user/:id", authorizedLeadership, remove);
 
 module.exports = router;

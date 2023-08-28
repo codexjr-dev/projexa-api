@@ -7,7 +7,7 @@ require('dotenv/config');
 
 const EjRoutes = require('./modules/Ej/EjRoutes');
 const UserRoutes = require('./modules/User/UserRoutes');
-const AuthRoutes = require('./modules/User/Auth/AuthRoutes');
+const AuthRoutes = require('./modules/Member/Auth/AuthRoutes');
 const MemberRoutes = require('./modules/Member/MemberRoutes');
 const ProjectRoutes = require('./modules/Project/ProjectRoutes');
 const LinkRoutes = require('./modules/Link/LinkRoutes');
