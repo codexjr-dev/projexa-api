@@ -1,37 +1,50 @@
-const { Schema, model } = require('mongoose');
-const Ej = require('@ej/Ej')
+const { Schema, model } = require("mongoose");
+const Ej = require("@ej/Ej");
 
-const LinkSchema = new Schema({
+const LinkSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     url: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    tags: [{
+    tags: [
+      {
         type: String,
-        enum: ['importante', 'treinamento'],
-        required: false
-    }],
+        enum: ["Importante", "Treinamento", "Documentação"],
+        required: false,
+      },
+    ],
     ej: {
-        type: Schema.Types.ObjectId,
-        ref: Ej,
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: Ej,
+      required: true,
     },
-    departments: [{
+    departments: [
+      {
         type: String,
-        enum: ['projetos', 'qualidade', 'presedência', 'pessoas'],
-        required: false
-    }],
+        enum: [
+          "Presidência",
+          "Gente & Gestão",
+          "Projetos",
+          "Qualidade",
+          "Marketing",
+          "Negócios",
+        ],
+        required: false,
+      },
+    ],
     observations: {
-        type: String,
-        required: false
-    }
-},
-    {
-        timestamps: true,
-    });
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = model('Link', LinkSchema);
+module.exports = model("Link", LinkSchema);

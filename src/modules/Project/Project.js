@@ -13,7 +13,7 @@ const ProjectSchema = new Schema({
 	},
 	tags: [{
 		type: String,
-		enum: ['backend', 'frontend', 'wordpress', 'assessoria', 'treinamento'],
+		enum: ['Backend', 'Frontend', 'Mobile', 'Wordpress', 'Assessoria', 'Treinamento'],
 		required: false
 	}],
 	ej: {

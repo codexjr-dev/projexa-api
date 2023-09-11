@@ -61,4 +61,4 @@ const authorize = (req, res, next, type) => {
 };
 
 const isLeadership = (member) =>
-  ["Presidente", "Diretor(a)"].includes(`${member.role}`);
+  member && ["Presidente", "Diretor(a)"].includes(`${member.role}`);

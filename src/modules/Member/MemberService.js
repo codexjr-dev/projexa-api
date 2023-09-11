@@ -17,16 +17,18 @@ module.exports = {
       department,
     } = memberData;
 
+    await verifyEmail(email);
+
     const psw = await bcrypt.hash(
       `${password}`,
       parseInt(process.env.SALT_ROUNDS)
     );
 
-    const member = await Member.create({
+    const newMember = await Member.create({
       name,
       email,
       role,
-      password,
+      password: psw,
       birthDate,
       ej: ejId,
       entryDate,
@@ -36,15 +38,17 @@ module.exports = {
       department,
     });
 
-    return getDTOmember(member);
+    return getDTOmember(newMember);
   },
 
   // only for test purposes
-  async findByEj(ejId) {
+  async findByEj(req) {
     // const ejs = await Ej.find().populate({ path: 'president', select: 'name -_id' });
-    const members = await Member.find({ ej: ejId });
+    const members = await Member.find({ ej: req.ejId });
 
     const membersDTO = members.map((member) => {
+      if (member._id.toString() === req.memberId.toString())
+        return { ...getDTOmember(member), ...{ loged: true } };
       return getDTOmember(member);
     });
 
@@ -52,8 +56,13 @@ module.exports = {
   },
 
   async remove(memberId) {
-    const member = await Member.deleteOne({ _id: memberId });
-    return member;
+    const member = await Member.findOne({ _id: memberId });
+
+    await checkMinimumQuantity(member);
+
+    member.delete();
+
+    return getDTOmember(member);
   },
 
   async update(memberId, data) {
@@ -64,15 +73,31 @@ module.exports = {
       );
       data.password = psw;
     }
+  
+    const member = await Member.findOne({ _id: memberId });
+    
+    if (member.email !== data.email) {
+      await verifyEmail(data.email);
+    }
 
-    const updatedMember = await Member.findOneAndUpdate(
-      { _id: memberId },
-      data
-    );
+    if (
+      member.role !== data.role &&
+      !["Presidente", "Diretor(a)"].includes(data.role)
+    )
+      await checkMinimumQuantity(member);
 
+    await member.updateOne(data);
+    const updatedMember = await Member.findOne({ _id: memberId });
     return getDTOmember(updatedMember);
   },
 };
+
+async function verifyEmail(memberEmail) {
+  const emailInUse = await Member.findOne({ email: memberEmail });
+  if (emailInUse) {
+    throw new Error('Já existe um membro cadastrado para esse email!');
+  }
+}
 
 function getDTOmember(member) {
   return {
@@ -88,4 +113,28 @@ function getDTOmember(member) {
     habilities: member.habilities,
     department: member.department,
   };
+}
+
+async function checkMinimumQuantity(memberToDelete) {
+  const members = await Member.find({ ej: memberToDelete.ej });
+
+  let hasALeadership = false;
+
+  members
+    .filter((member) => member._id.toString() !== memberToDelete._id.toString())
+    .forEach((member) => {
+      if (["Presidente", "Diretor(a)"].includes(member.role)) {
+        hasALeadership = true;
+        return;
+      }
+    });
+
+  if (!hasALeadership) {
+    throw new Error(
+      "A presença de ao menos um outro usuário com o cargo de Presidente ou Diretor(a) na EJ é obrigatória."
+    );
+  }
+
+  if (members.length <= 1)
+    throw new Error("A presença de ao menos um usuário na EJ é obrigatória.");
 }

@@ -13,7 +13,7 @@ module.exports = {
             observations
         })
 
-        return link;
+        return getDTOlink(link);
     },
 
     // only for test purposes
@@ -21,16 +21,32 @@ module.exports = {
         // const ejs = await Ej.find().populate({ path: 'president', select: 'name -_id' });
         const links = await Link.find({ ej: ejId });
 
-        return links;
+        const linksDTO = links.map((link) => {
+            return getDTOlink(link);
+        });
+
+        return linksDTO;
     },
 
     async remove(linkId) {
         const link = await Link.deleteOne({ _id: linkId });
-        return link;
+        return getDTOlink(link);
     },
 
     async update(linkId, data) {
         const updatedLink = await Link.findOneAndUpdate({ _id: linkId }, data)
-        return updatedLink
+        return getDTOlink(updatedLink);
+    }
+}
+
+function getDTOlink(link) {
+    return {
+        _id: link._id,
+        name: link.name,
+        url: link.url,
+        tags: link.tags,
+        departments: link.departments,
+        ej: link.ej,
+        observations: link.observations
     }
 }

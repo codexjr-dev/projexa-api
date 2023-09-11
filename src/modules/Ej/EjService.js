@@ -29,7 +29,7 @@ module.exports = {
         })
 
         newMember.password = undefined
-        return { ej: ej, member: newMember }
+        return { ej: getDTOej(ej), member: getDTOmember(newMember) }
     },
 
     // only for test purposes
@@ -37,7 +37,11 @@ module.exports = {
         // const ejs = await Ej.find().populate({ path: 'president', select: 'name -_id' });
         const ejs = await Ej.find();
 
-        return ejs;
+        const ejsDTO = ejs.map((ej) => {
+            return getDTOej(ej);
+        });
+
+        return ejsDTO;
     },
 
     async findPresident(ejId) {
@@ -47,6 +51,29 @@ module.exports = {
 
     async findById(ejId) {
         const ej = await Ej.findOne({ _id: ejId });
-        return ej;
+        return getDTOej(ej);
     },
 }
+
+function getDTOej(ej) {
+    return {
+        _id: ej._id,
+        name: ej.name
+    };
+}
+
+function getDTOmember(member) {
+    return {
+      _id: member._id,
+      name: member.name,
+      email: member.email,
+      role: member.role,
+      ej: member.ej,
+      birthDate: member.birthDate,
+      entryDate: member.entryDate,
+      phone: member.phone,
+      observations: member.observations,
+      habilities: member.habilities,
+      department: member.department,
+    };
+  }
