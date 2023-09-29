@@ -53,6 +53,7 @@ function getDTOproject(project) {
 		startDate: project.startDate,
 		finishDate: project.finishDate,
 		contractLink: project.contractLink,
-		customer: project.customer
+		customer: project.customer,
+      news: project.news
 	};
 }

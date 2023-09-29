@@ -92,10 +92,19 @@ module.exports = {
   },
 };
 
-async function verifyEmail(memberEmail) {
-  const emailInUse = await Member.findOne({ email: memberEmail });
+async function verifyEmail(email) {
+  if (!email) {
+    throw new Error('EMPTY_EMAIL');
+  }
+
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!regex.test(email)) {
+    throw new Error('INVALID_EMAIL_FORMAT');
+  }
+
+  const emailInUse = await Member.findOne({ email: email });
   if (emailInUse) {
-    throw new Error('Já existe um membro cadastrado para esse email!');
+    throw new Error('EMAIL_ALREADY_IN_USE');
   }
 }
 

@@ -45,6 +45,7 @@
     "@project": "src/modules/Project",
     "@link": "src/modules/Link",
     "@member": "src/modules/Member",
+    "@news": "src/modules/News",
     "@config": "src/config"
   }
 }

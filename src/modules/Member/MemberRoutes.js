@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const { save, findByEj, update, remove } = require("./MemberController");
 const {
-  validatedUser,
+  existentUser,
   authorizedUser,
-  authorizedLeadership,
+  isLeadership,
 } = require("@middlewares/auth");
 
-router.post("/member", authorizedLeadership, save);
-router.get("/member", validatedUser, findByEj);
+router.post("/member", isLeadership, save);
+router.get("/member", existentUser, findByEj);
 router.patch("/member/:id", authorizedUser, update);
-router.delete("/member/:id", authorizedLeadership, remove);
+router.delete("/member/:id", isLeadership, remove);
 
 module.exports = router;

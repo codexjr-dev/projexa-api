@@ -11,6 +11,7 @@ const AuthRoutes = require('./modules/Member/Auth/AuthRoutes');
 const MemberRoutes = require('./modules/Member/MemberRoutes');
 const ProjectRoutes = require('./modules/Project/ProjectRoutes');
 const LinkRoutes = require('./modules/Link/LinkRoutes');
+const NewsRoutes = require('./modules/News/NewsRoutes');
 const server = express();
 
 server.use(cors());
@@ -22,7 +23,7 @@ server.get('/', function (req, res) {
 databaseConfig();
 
 server.use(express.json());
-server.use(EjRoutes, UserRoutes, MemberRoutes, ProjectRoutes, AuthRoutes, LinkRoutes);
+server.use(EjRoutes, UserRoutes, MemberRoutes, ProjectRoutes, AuthRoutes, LinkRoutes, NewsRoutes);
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
