@@ -124,6 +124,7 @@ Please, read a **[COLLAB.md](https://github.com/codexjr-dev/dashboard-codex-api/
 - [1.2.1](https://github.com/codexjr-dev/dashboard-codex-api/tree/6300cc4e1b9cf42b05ccc3ead418e30dae10e218) - [User Model Updates and role of user format changed](https://github.com/codexjr-dev/dashboard-codex-api/pull/17).
 - [1.2.2](https://github.com/codexjr-dev/dashboard-codex-api/tree/821a75765695012046d16f6540d6c177e31674ce) - [nodeenv configs, member access, role and email verifications and new roles](https://github.com/codexjr-dev/dashboard-codex-api/pull/27).
 - [1.2.3](https://github.com/codexjr-dev/dashboard-codex-api/tree/b8a880204d038336145321c9e7436bc1a847a22e) - [Bug Fixes and System Improvements](https://github.com/codexjr-dev/dashboard-codex-api/pull/57).
+- [1.2.4](https://github.com/codexjr-dev/dashboard-codex-api/tree/7080d1a37f1f6af227b6387b6f9ceaaf997cd5b2) - [News of Project routes, email format validation and new structure to README.md](https://github.com/codexjr-dev/dashboard-codex-api/pull/70).
 
 ## ✒️ Authors
 
