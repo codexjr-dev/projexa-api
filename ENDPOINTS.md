@@ -3,13 +3,25 @@
 # News
 This route is responsible for the news of projects and has the following attributes:
 
-| Attributes  | Function                                                             |
-| ----------- | -------------------------------------------------------------------- |
-| Member id   | Id of the member who created the news                                |
-| Project id  | Id of the project which the news belongs to                          |
-| Description | Description of the news                                              |
-| image       | Image of news (under development)                                    |
-| Update link | Link of news (like link of the pull request or other important link) |
+| Attributes   | Function                                                             |
+| -----------  | -------------------------------------------------------------------- |
+| Member id    | Id of the member who created the news                                |
+| Project id   | Id of the project which the news belongs to                          |
+| Description  | Description of the news                                              |
+| image        | Image of news (under development)                                    |
+| Update link  | Link of news (like link of the pull request or other important link) |
+
+# Link
+This route is responsible for the junior company links and has the following attributes:
+
+| Attributes   | Function                                                             |
+| ----------   | -------------------------------------------------------------------- |
+| Name         | Name that identifies what the link is about                          |
+| Url          | Uniform Resource Locator - the destination address of the link       |
+| Tags         | Tags that direct to the area that the link relates to                |
+| Ej           | The junior company that added the link                               |
+| Departaments | Departments to which the link is important to know (or most related) |
+| Observations | Observation about added link                                         |
 
 ## 🛠️Methods
 Below are the methods and their expected responses as well as possible errors:
