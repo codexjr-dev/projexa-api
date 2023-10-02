@@ -75,6 +75,8 @@ module.exports = {
     }
   
     const member = await Member.findOne({ _id: memberId });
+
+    if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
     
     if (member.email !== data.email) {
       await verifyEmail(data.email);
@@ -146,4 +148,16 @@ async function checkMinimumQuantity(memberToDelete) {
 
   if (members.length <= 1)
     throw new Error("A presença de ao menos um usuário na EJ é obrigatória.");
+}
+
+function hasPermissionToChange(member, data) {
+   return ['Presidente', 'Diretor(a)'].includes(member.role) ||
+   data.name === data.name &&
+   new Date(data.birthDate).getTime() === member.birthDate.getTime() &&
+   new Date(data.entryDate).getTime() === member.entryDate.getTime() &&
+   data.department === member.department &&
+   data.role === member.role &&
+   data.email === member.email &&
+   data.phone === member.phone &&
+   data.observations === member.observations
 }
