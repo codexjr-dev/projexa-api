@@ -90,7 +90,7 @@ Below are the methods and their expected responses as well as possible errors:
 | Params       | Contais the id of the link                                                      |
 | Body         | Contains the new data of the link                                               |
 
-### ❌DELETE
+### ❌ DELETE
 
 | Requirements | Function                       |
 | ------------ | ------------------------------ |
