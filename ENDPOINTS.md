@@ -11,7 +11,7 @@ This route is responsible for the news of projects and has the following attribu
 | image        | Image of news (under development)                                    |
 | Update link  | Link of news (like link of the pull request or other important link) |
 
-## 🛠️Methods
+## 🛠️ Methods
 Below are the methods and their expected responses as well as possible errors:
 
 | Method | Expected responses | Possible errors |
@@ -21,13 +21,13 @@ Below are the methods and their expected responses as well as possible errors:
 | PATCH  | (200) News updated successfully | (500) Internal error |
 | DELETE | (200) News removed successfully | (500) Internal error |
 
-### ⬇️GET
+### ⬇️ GET
 
 | Requirements | Function                       |
 | ------------ | ------------------------------ |
 | Params       | Contains the id of the project |
 
-### ⬆POST
+### ⬆ POST
 
 | Requirements | Function                                                        |
 | ------------ | --------------------------------------------------------------- |
@@ -35,13 +35,13 @@ Below are the methods and their expected responses as well as possible errors:
 | Middleware   | Contains the id of the member                                   |
 | Body         | Contains the description, image and the update link of the news |
 
-### 🔄PATCH
+### 🔄 PATCH
 
 | Requirements | Function                                                                        |
 | ------------ | ------------------------------------------------------------------------------- |
 | Body         | Contains the id of the news, description, image and the update link of the news |
 
-### ❌DELETE
+### ❌ DELETE
 
 | Requirements | Function                       |
 | ------------ | ------------------------------ |
@@ -83,7 +83,7 @@ Below are the methods and their expected responses as well as possible errors:
 | Middleware   | Contains the id of the ej                                                  |
 | Body         | Contains the name, url, tags, departments and the observations of the link |
 
-### 🔄PATCH
+### 🔄 PATCH
 
 | Requirements | Function                                                                        |
 | ------------ | ------------------------------------------------------------------------------- |
