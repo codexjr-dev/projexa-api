@@ -11,18 +11,6 @@ This route is responsible for the news of projects and has the following attribu
 | image        | Image of news (under development)                                    |
 | Update link  | Link of news (like link of the pull request or other important link) |
 
-# Link
-This route is responsible for the junior company links and has the following attributes:
-
-| Attributes   | Function                                                             |
-| ----------   | -------------------------------------------------------------------- |
-| Name         | Name that identifies what the link is about                          |
-| Url          | Uniform Resource Locator - the destination address of the link       |
-| Tags         | Tags that direct to the area that the link relates to                |
-| Ej           | The junior company that added the link                               |
-| Departaments | Departments to which the link is important to know (or most related) |
-| Observations | Observation about added link                                         |
-
 ## 🛠️Methods
 Below are the methods and their expected responses as well as possible errors:
 
@@ -59,3 +47,51 @@ Below are the methods and their expected responses as well as possible errors:
 | ------------ | ------------------------------ |
 | Params       | Contains the id of the project |
 | Body         | Contains the id of the news    |
+
+# Link
+This route is responsible for the junior company links and has the following attributes:
+
+| Attributes   | Function                                                             |
+| ----------   | -------------------------------------------------------------------- |
+| Name         | Name that identifies what the link is about                          |
+| Url          | Uniform Resource Locator - the destination address of the link       |
+| Tags         | Tags that direct to the area that the link relates to                |
+| Ej           | The junior company that added the link                               |
+| Departments  | Departments to which the link is important to know (or most related) |
+| Observations | Observation about added link                                         |
+
+## 🛠️ Methods
+Below are the methods and their expected responses as well as possible errors:
+
+| Method | Expected responses | Possible errors |
+| ------ | ------------------------------- | -------------------- |
+| GET    | (201) Ej and all its links      | (500) Internal error |
+| POST   | (201) Link created successfully | (500) Internal error |
+| PATCH  | (200) Link updated successfully | (500) Internal error |
+| DELETE | (200) Link removed successfully | (500) Internal error |
+
+### ⬇️ GET
+
+| Requirements | Function                       |
+| ------------ | ------------------------------ |
+| Middleware   | Contains the id of the ej      |
+
+### ⬆ POST
+
+| Requirements | Function                                                                   |
+| ------------ | -------------------------------------------------------------------------- |
+| Middleware   | Contains the id of the ej                                                  |
+| Body         | Contains the name, url, tags, departments and the observations of the link |
+
+### 🔄PATCH
+
+| Requirements | Function                                                                        |
+| ------------ | ------------------------------------------------------------------------------- |
+| Params       | Contais the id of the link                                                      |
+| Body         | Contains the new data of the link                                               |
+
+### ❌DELETE
+
+| Requirements | Function                       |
+| ------------ | ------------------------------ |
+| Params       | Contains the id of the link    |
