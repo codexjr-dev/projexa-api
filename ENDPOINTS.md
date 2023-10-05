@@ -119,8 +119,8 @@ This route is responsible for the junior company projects and has the following 
 ## 🛠️ Methods
 Below are the methods and their expected responses as well as possible errors:
 
-| Method | Expected responses | Possible errors |
-| ------ | ------------------------------- | -------------------- |
+| Method |        Expected responses       |             Possible errors                   |
+| ------ | ------------------------------- | --------------------------------------------- |
 | GET    | (201) All Ej projects                                    | (500) Internal error |
 | POST   | (201) Project created                                    | (500) Internal error |
 | PATCH  | (200) Project updated end "Project updated successfully" | (500) Internal error |
@@ -128,26 +128,26 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬇️ GET
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Middleware   | Contains the id of the ej      |
+| Requirements | Function                                                            |
+| ------------ | ------------------------------------------------------------------- |
+| Middleware   | Contains the id of the ej                                           |
 
 ### ⬆ POST
 
-| Requirements | Function                                                                   |
-| ------------ | -------------------------------------------------------------------------- |
-| Middleware   | Contains the id of the ej                                                  |
-| Body         | Contains the name, url, tags, departments and the observations of the link |
+| Requirements | Function                                                                   
+| ------------ | ------------------------------------------------------------------- |
+| Middleware   | Contains the id of the ej                                           |
+| Body         | Contains project name, description, tags, team, startDate, finishDate, contractLink, customer end news |
 
 ### 🔄 PATCH
 
-| Requirements | Function                                                                        |
-| ------------ | ------------------------------------------------------------------------------- |
-| Params       | Contais the id of the link                                                      |
-| Body         | Contains the new data of the link                                               |
+| Requirements | Function                                                            |
+| ------------ | ------------------------------------------------------------------- |
+| Params       | Contais the id of the project                                       |
+| Body         | Contains the new data to be updated for the project                 |
 
 ### ❌ DELETE
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Params       | Contains the id of the link    |
+| Requirements | Function                                                            |
+| ------------ | ------------------------------------------------------------------- |
+| Params       | Contains the id of the removed project                              |
