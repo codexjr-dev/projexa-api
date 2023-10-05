@@ -121,10 +121,10 @@ Below are the methods and their expected responses as well as possible errors:
 
 | Method | Expected responses | Possible errors |
 | ------ | ------------------------------- | -------------------- |
-| GET    | (201) Ej and all its links      | (500) Internal error |
-| POST   | (201) Link created successfully | (500) Internal error |
-| PATCH  | (200) Link updated successfully | (500) Internal error |
-| DELETE | (200) Link removed successfully | (500) Internal error |
+| GET    | (201) All Ej projects                                    | (500) Internal error |
+| POST   | (201) Project created                                    | (500) Internal error |
+| PATCH  | (200) Project updated end "Project updated successfully" | (500) Internal error |
+| DELETE | (200) Project removed end "Project removed successfully" | (500) Internal error |
 
 ### ⬇️ GET
 
