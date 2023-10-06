@@ -20,7 +20,7 @@ This route is responsible for the members of the junior company and has the foll
 ## 🛠️ Methods
 Below are the methods and their expected responses as well as possible errors:
 
-| Method | Expected responses                | Possible errors |
+| Method | Expected responses                | Possible errors      |
 | ------ | --------------------------------- | -------------------- |
 | GET    | (200) All members of the Ej       | (500) Internal error |
 | POST   | (201) Member created successfully | (500) Internal error |
