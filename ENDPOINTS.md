@@ -1,4 +1,4 @@
-# 🖥️Projexa API - Endpoints
+# 🖥️ Projexa API - Endpoints
 
 # News
 This route is responsible for the news of projects and has the following attributes:
