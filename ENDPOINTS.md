@@ -1,5 +1,22 @@
 # 🖥️ Projexa API - Endpoints
 
+# Member
+This route is responsible for the members of the junior company and has the following attributes:
+
+| Attributes      | Function                                                             |
+| --------------  | -------------------------------------------------------------------- |
+| Name            | Name that identifies the member of the junior company                |
+| E-mail          | E-mail of member, that will be yours login e-mail                    |
+| Role            | The role that this member has in the junior company                  |
+| Password        | Password of member, that will be yours login password                |
+| Ej              | The junior company that this member is part of                       |
+| Birth date      | The birth date of member                                             |
+| Entry date      | The date the member joined the junior company                        |
+| Phone           | Member' number of phone to contact                                   |
+| Observations    | Any observation of member that is relevant to be reported            |
+| Habilities      | Habilities that member has (back-end, front-end and others)          |
+| Department      | The department this member belongs to                                |
+
 # News
 This route is responsible for the news of projects and has the following attributes:
 
