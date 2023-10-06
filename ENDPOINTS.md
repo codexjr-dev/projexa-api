@@ -17,6 +17,16 @@ This route is responsible for the members of the junior company and has the foll
 | Habilities      | Habilities that member has (back-end, front-end and others)          |
 | Department      | The department this member belongs to                                |
 
+## 🛠️ Methods
+Below are the methods and their expected responses as well as possible errors:
+
+| Method | Expected responses                | Possible errors |
+| ------ | --------------------------------- | -------------------- |
+| GET    | (200) All members of the Ej       | (500) Internal error |
+| POST   | (201) Member created successfully | (500) Internal error |
+| PATCH  | (200) Member updated successfully | (500) Internal error |
+| DELETE | (200) Member removed successfully | (500) Internal error |
+
 # News
 This route is responsible for the news of projects and has the following attributes:
 
