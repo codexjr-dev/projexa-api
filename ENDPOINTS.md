@@ -27,6 +27,32 @@ Below are the methods and their expected responses as well as possible errors:
 | PATCH  | (200) Member updated successfully | (500) Internal error |
 | DELETE | (200) Member removed successfully | (500) Internal error |
 
+### ⬇️ GET
+
+| Requirements | Function                       |
+| ------------ | ------------------------------ |
+| Middleware       | Contains the id of the Ej      |
+
+### ⬆ POST
+
+| Requirements | Function                                                                                                                     |
+| ------------ | -----------------------------------------------------------------------------------------------------------------------------|
+| Middleware   | Contains the id of the ej                                                                                                    |
+| Body         | Contains the name, email, role, password, birthDate, entryDate, phone, observations, habilities and department of the member |
+
+### 🔄 PATCH
+
+| Requirements | Function                                                                          |
+| ------------ | --------------------------------------------------------------------------------- |
+| Middleware   | Contais the id of the member                                                      |
+| Body         | Contains the new data of the member                                               |
+
+### ❌ DELETE
+
+| Requirements | Function                       |
+| ------------ | ------------------------------ |
+| Middleware   | Contains the id of the member  |
+
 # News
 This route is responsible for the news of projects and has the following attributes:
 
