@@ -202,7 +202,7 @@ You can also see the list of all contributors who participated in this project.
 
 ## 📄 Licença
 
-This project is under license **GNU General Public License v3.0 (GNU GPLv3)** - see the file [LICENSE.md](https://github.com/usuario/projeto/licenca) for details.
+This project is under license **GNU General Public License v3.0 (GNU GPLv3)** - see the file [LICENSE.md](https://github.com/codexjr-dev/dashboard-codex-api/blob/main/LICENSE.md) for details.
 
 ---
 
