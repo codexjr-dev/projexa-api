@@ -1,6 +1,6 @@
 # 🖥️ Projexa API - Endpoints
 
-# Middleware (auth.js)
+# 🌉 Middleware (auth.js)
 It is responsible for authenticating whether the member trying to perform this action actually has permission to do so. Additionally, it provides the member and ej id from the token.
 
 | Attributes      | Function                                                             |
@@ -15,7 +15,7 @@ It is responsible for authenticating whether the member trying to perform this a
 | authorizedUser          | Verify if the member has authorization to do that action       |
 | isLeadership            | Verify if the member is a leadership (director or president)   |
 | isMemberOnProject       | Verify if the member is on the project                         |
-| haveRightsToNews        | Verify if the member is the owner of the news                  |
+| haveRightsToTheNews     | Verify if the member is the owner of the news                  |
 
 # Member
 This route is responsible for the members of the junior company and has the following attributes:
@@ -93,30 +93,34 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬇️ GET
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Params       | Contains the id of the project |
+| Requirements                     | Function                       |
+| -------------------------------- | ------------------------------ |
+| Params                           | Contains the id of the project |
+| Authentication (from middleware) | existentUser                   |
 
 ### ⬆ POST
 
-| Requirements | Function                                                        |
-| ------------ | --------------------------------------------------------------- |
-| Params       | Contains the id of the project                                  |
-| Middleware   | Contains the id of the member                                   |
-| Body         | Contains the description, image and the update link of the news |
+| Requirements                     | Function                                                        |
+| -------------------------------- | --------------------------------------------------------------- |
+| Params                           | Contains the id of the project                                  |
+| Middleware                       | Contains the id of the member                                   |
+| Authentication (from middleware) | isMemberOnProject                                               |
+| Body                             | Contains the description, image and the update link of the news |
 
 ### 🔄 PATCH
 
-| Requirements | Function                                                                        |
-| ------------ | ------------------------------------------------------------------------------- |
-| Body         | Contains the id of the news, description, image and the update link of the news |
+| Requirements                     | Function                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| Authentication (from middleware) | haveRightsToTheNews                                                             |
+| Body                             | Contains the id of the news, description, image and the update link of the news |
 
 ### ❌ DELETE
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Params       | Contains the id of the project |
-| Body         | Contains the id of the news    |
+| Requirements                     | Function                       |
+| -------------------------------- | ------------------------------ |
+| Params                           | Contains the id of the project |
+| Authentication (from middleware) | haveRightsToTheNews            |
+| Body                             | Contains the id of the news    |
 
 # Link
 This route is responsible for the junior company links and has the following attributes:
