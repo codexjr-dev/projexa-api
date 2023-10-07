@@ -1,5 +1,22 @@
 # 🖥️ Projexa API - Endpoints
 
+# Middleware (auth.js)
+It is responsible for authenticating whether the member trying to perform this action actually has permission to do so. Additionally, it provides the member and ej id from the token.
+
+| Attributes      | Function                                                             |
+| --------------  | -------------------------------------------------------------------- |
+| Token           | Jsonwebtoken which contains informations about the member            |
+
+## ⚙ Functions
+
+| Name                    | Function                                                       |
+| ----------------------- | -------------------------------------------------------------- |
+| existentUser            | Verify if the member exists                                    |
+| authorizedUser          | Verify if the member has authorization to do that action       |
+| isLeadership            | Verify if the member is a leadership (director or president)   |
+| isMemberOnProject       | Verify if the member is on the project                         |
+| haveRightsToNews        | Verify if the member is the owner of the news                  |
+
 # Member
 This route is responsible for the members of the junior company and has the following attributes:
 
