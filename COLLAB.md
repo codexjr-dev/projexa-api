@@ -9,21 +9,21 @@ Kanban is a visual methodology used to manage projects, offering a clear view of
 ## How each column works in Kanban
 
 ### 🆕 New
-In this column, we record Issues without complete detail. We haven't done the description and priority mapping yet. They wait to be evaluated and prioritized before being moved to the next step.
+    In this column, we record Issues without complete detail. We haven't done the description and priority mapping yet. They wait to be evaluated and prioritized before being moved to the next step.
 
 ### 📋 Backlog
-The Issues in this column have been prioritized and have priority mapping, but have not yet been voted on for difficulty. They wait for the availability of resources or the completion of other activities to move forward.
+    The Issues in this column have been prioritized and have priority mapping, but have not yet been voted on for difficulty. They wait for the availability of resources or the completion of other activities to move forward.
 
 
 ### 📝 Ready
-Here, the Issues were noted in detail, mapped, voted on and judged important for the current Sprint. They are ready to go and all the necessary resources are available.
+    Here, the Issues were noted in detail, mapped, voted on and judged important for the current Sprint. They are ready to go and all the necessary resources are available.
 
 
 ### 🚀 In Progress
-At this stage, Issues are being actively worked on. Each team member can sign off on a task, even if they are just studying about it. If for some reason the task cannot be completed, it can be returned to the Ready column.
+    At this stage, Issues are being actively worked on. Each team member can sign off on a task, even if they are just studying about it. If for some reason the task cannot be completed, it can be returned to the Ready column.
 
 ### 🔍 In Review
-The Issues in this column have been completed and are undergoing a final review before acceptance to be merged into the **dev** branch. This is important to ensure the work meets established standards and requirements.
+    The Issues in this column have been completed and are undergoing a final review before acceptance to be merged into the dev branch. This is important to ensure the work meets established standards and requirements.
  
 ### ✅ Done
-In this final stage, the Issues were finalized, reviewed in the Sprint Review and have already been merged into Main. Therefore, at the end of the Sprint they will already be in production.
+    In this final stage, the Issues were finalized, reviewed in the Sprint Review and have already been merged into Main. Therefore, at the end of the Sprint they will already be in production.
