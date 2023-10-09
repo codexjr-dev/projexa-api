@@ -83,14 +83,14 @@ After making the changes, you need to add and commit the changes. Use the follow
      git add .
      git commit -m "Description of changes made"
 
-### Upload to Remote Repository:
+### 5 - Upload to Remote Repository:
 Now, push the changes to your remote repository using the command:
 
          git push origin <branch-name>
     
 If the branch is already created in the remote repository, it will update it and you don't need to do anything else, if it is not created, it will create a new branch with that name.
 
-### Creating the Pull Request:
+### 6 - Creating the Pull Request:
 When pushing, if it is a new branch in the remote repository, a link will appear on the terminal
     
      1 - Click on it to be directed to the pull request page.
