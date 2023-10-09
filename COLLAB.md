@@ -27,3 +27,28 @@ Kanban is a visual methodology used to manage projects, offering a clear view of
  
 ### ✅ Done
     In this final stage, the Issues were finalized, reviewed in the Sprint Review and have already been merged into Main. Therefore, at the end of the Sprint they will already be in production.
+
+
+
+### 📝 How to Subscribe to an Issue?
+
+**1º Choose Priority:**
+- Select an issue based on its priority and your availability.
+
+**2º Assign to Yourself:**
+- In the 'Assignees' field, add your name to indicate that you are responsible for the task.
+
+**3º - Move to "In Progress":**
+- Drag the card to the "In Progress" column on the Kanban board.
+
+**4º - Complete the Task:**
+- After finishing the work, move the card to "In Review".
+
+**5º - Review the Task:**
+- If necessary, mark the review stage as "To Review" for possible corrections.
+
+After this, your code will be evaluated. If any corrections are needed, it will be marked as "To Correct" and you will be notified. If everything is fine, it will be merged into the main branch and marked as "Merged".
+
+
+
+
