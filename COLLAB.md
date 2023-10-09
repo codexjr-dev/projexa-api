@@ -50,58 +50,58 @@ Kanban is a visual methodology used to manage projects, offering a clear view of
 After this, your code will be evaluated. If any corrections are needed, it will be marked as "To Correct" and you will be notified. If everything is fine, it will be merged into the main branch and marked as "Merged".
 
 
-# Como fazer um Pull Riquest?
+# How to do a Pull Riquest?
 
-Levando em consideração que já tenha feito o clone do projeto e que já esteja rodando em sua máquina. Antes de começar a fazer alterações, abra o terminal, digite os comandos e crie uma branch para trabalhar. certifique-se de que esteja na raiz do projeto.
+Taking into account that you have already cloned the project and that it is already running on your machine. Before you start making changes, open the terminal, type the commands and create a branch to work on. make sure it is in the root of the project.
 
-### 1 - Crie uma nova Branch:
-para uma melhor indentificação, use o padrão "iss#" + "número da issue no kanban" para nomear a branch [ ex: iss#09 ].
+### 1 - Create a new Branch:
+for better identification, use the pattern "iss#" + "issue number in kanban" to name the branch [ex: iss#09].
 
-    Caso você vá trabalhar sozinho nessa branch, use o seguinte comando e siga para o passo 2:
+     If you are going to work alone on this branch, use the following command and go to step 2:
 
-        git chekout -b <nome-da-branch>
-
-
-    Caso você queira trabalhar a partir de uma branch remota já existente, use o comando abaixo e siga para o passo 3:
-
-        git checkout -b <nome-da-branch> origin/<nome-da-branch-remota>
+         git chekout -b <branch-name>
 
 
-### 2 - Verifique se tem atualizações na branch remota dev:
-isso é importante para que você começe a trabalhar alinhado com as atualizações da branch remota dev.
+     If you want to work from an existing remote branch, use the command below and go to step 3:
 
-    git pull origin dev
+         git checkout -b <branch-name> origin/<remote-branch-name>
 
 
-### 3 - Faça as Alterações: 
+### 2 - Check if there are updates in the remote dev branch:
+This is important so that you can start working in line with updates to the remote dev branch.
 
-Agora, faça as alterações necessárias no código.
+     git pull origin dev
 
-### 4 - Commit das Alterações: 
-Após realizar as alterações, você precisa adicionar e commitar as mudanças. Utilize os seguintes comandos:
+
+### 3 - Make the Changes:
+
+Now, make the necessary changes to the code.
+
+### 4 - Commit Changes:
+After making the changes, you need to add and commit the changes. Use the following commands:
     
-    git add .
-    git commit -m "Descrição das alterações feitas"
+     git add .
+     git commit -m "Description of changes made"
 
-### Envie para o Repositório remoto: 
-Agora, envie as alterações para o seu repositório remoto usando o comando:
+### Upload to Remote Repository:
+Now, push the changes to your remote repository using the command:
 
-        git push origin <nome-da-branch>
+         git push origin <branch-name>
     
-Caso a branch já esteja criada no repositório remoto, irá atualiza-la e não precisa fazer mais nada, caso não esteja criada, irá criar uma nova branch com esse nome.
+If the branch is already created in the remote repository, it will update it and you don't need to do anything else, if it is not created, it will create a new branch with that name.
 
-### Criando o Pull Request:
-Ao realizar o push, caso seja uma branch nova no repositório remoto, irá aparecer no terminal um link
+### Creating the Pull Request:
+When pushing, if it is a new branch in the remote repository, a link will appear on the terminal
     
-    1 - Clique nele para ser direcionado para a página de pull request.
+     1 - Click on it to be directed to the pull request page.
 
-    2 - No campo "base repository" selecione o "projeto codexjr-dev/dashboard-codex-api", no caso do repositório do repositorio backend, para o repositorio web, selecione "projeto codexjr-dev/dashboard-codex-web".
+     2 - In the "base repository" field, select the "codexjr-dev/dashboard-codex-api project", in the case of the backend repository repository, for the web repository, select "codexjr-dev/dashboard-codex-web project".
 
-    3 - No campo "base" selecione a branch "dev".
+     3 - In the "base" field select the "dev" branch.
 
-    4 - Copie o link da página em que você está.
+     4 - Copy the link of the page you are on.
 
-    5 - Aperte no botão de Pull Request.
+     5 - Press the Pull Request button.
 
-    6 - Abra sua Issue no quadro Kanban e cole nos comentários o link copiado acima.
+     6 - Open your Issue on the Kanban board and paste the link copied above in the comments.
 
