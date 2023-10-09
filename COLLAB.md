@@ -1,0 +1,3 @@
+# 📊 Codex
+
+**CodeX** is a non-profit organization, founded on October 15, 2018. As the **junior company for Computer Science at UFCG**, its main objective is to develop high-quality creative and innovative solutions and promote a learning environment, entrepreneurship, and, in conjunction with these endeavors, foster leadership and offer computer science students experiences in other areas such as **personnel management, project management, financial management, prospecting, marketing, among others.**
