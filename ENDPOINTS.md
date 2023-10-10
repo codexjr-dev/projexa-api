@@ -206,26 +206,30 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬇️ GET
 
-| Requirements | Function                                                            |
-| ------------ | ------------------------------------------------------------------- |
-| Middleware   | Contains the id of the ej                                           |
+| Requirements                     | Function                                              |
+| -------------------------------- | ----------------------------------------------------- |
+| Middleware                       | Contains the id of the ej                             |
+| Authentication (from middleware) | existentUser                                          |
 
 ### ⬆ POST
 
-| Requirements | Function                                                                   
-| ------------ | ------------------------------------------------------------------- |
-| Middleware   | Contains the id of the ej                                           |
-| Body         | Contains project name, description, tags, team, startDate, finishDate, contractLink, customer end news |
+| Requirements                      | Function                                            |                      
+| --------------------------------- | ---------------------------------------------------- |
+| Middleware                        | Contains the id of the ej                            |
+| Authentication (from middleware)	| isLeadership                                         |
+| Body                              | Contains project name, description, tags, team, startDate, finishDate, contractLink, customer end news |
 
 ### 🔄 PATCH
 
-| Requirements | Function                                                            |
-| ------------ | ------------------------------------------------------------------- |
-| Params       | Contais the id of the project                                       |
-| Body         | Contains the new data to be updated for the project                 |
+| Requirements                     | Function                                              |
+| -------------------------------- | ----------------------------------------------------- |
+| Params                           | Contais the id of the project                         |
+| Authentication (from middleware) | authorizedUser                                        |
+| Body                             | Contains the new data to be updated for the project   |
 
 ### ❌ DELETE
 
-| Requirements | Function                                                            |
-| ------------ | ------------------------------------------------------------------- |
-| Params       | Contains the id of the removed project                              |
+| Requirements                      | Function                                             |
+| --------------------------------- | ---------------------------------------------------- |
+| Params                            | Contains the id of the removed project               |
+| Authentication (from middleware)	| isLeadership                                         |
