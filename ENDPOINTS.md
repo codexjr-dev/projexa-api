@@ -48,7 +48,7 @@ Below are the methods and their expected responses as well as possible errors:
 
 | Requirements | Function                       |
 | ------------ | ------------------------------ |
-| Middleware       | Contains the id of the Ej      |
+| Middleware   | Contains the id of the Ej      |
 
 ### ⬆ POST
 
@@ -146,29 +146,33 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬇️ GET
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Middleware   | Contains the id of the ej      |
+| Requirements                     | Function                       |
+| -------------------------------- | ------------------------------ |
+| Middleware                       | Contains the id of the ej      |
+| Authentication (from middleware) | existentUser                   |
 
 ### ⬆ POST
 
-| Requirements | Function                                                                   |
-| ------------ | -------------------------------------------------------------------------- |
-| Middleware   | Contains the id of the ej                                                  |
-| Body         | Contains the name, url, tags, departments and the observations of the link |
+| Requirements                     | Function                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| Middleware                       | Contains the id of the ej                                                  |
+| Authentication (from middleware) | isLeadership                                                               |
+| Body                             | Contains the name, url, tags, departments and the observations of the link |
 
 ### 🔄 PATCH
 
 | Requirements | Function                                                                        |
-| ------------ | ------------------------------------------------------------------------------- |
-| Params       | Contais the id of the link                                                      |
-| Body         | Contains the new data of the link                                               |
+| -------------------------------- | ----------------------------------------------------------- |
+| Params                           | Contais the id of the link                                  |
+| Authentication (from middleware) | authorizedUser                                              |
+| Body                             | Contains the new data of the link                           |
 
 ### ❌ DELETE
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Params       | Contains the id of the link    |
+| Requirements                     | Function                                                    |
+| -------------------------------- | ----------------------------------------------------------- |
+| Params                           | Contains the id of the link                                 |
+| Authentication (from middleware) | isLeadership                                                |
 
 # Projects
 
