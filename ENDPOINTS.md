@@ -239,6 +239,7 @@ Below are the methods and their expected responses as well as possible errors:
 This route is responsible for the junior company and has the following attributes:
 
 | Attributes   | Function                                                             |
+| ------------ | -------------------------------------------------------------------- |
 | Name         | Name that identifies the junior company                              |
 | Departaments | Departments that the junior company has                              |
 | Skills       | Skills that the junior company has                                   |
