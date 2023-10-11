@@ -137,7 +137,7 @@ This route is responsible for the junior company links and has the following att
 ## 🛠️ Methods
 Below are the methods and their expected responses as well as possible errors:
 
-| Method | Expected responses | Possible errors |
+| Method | Expected responses              | Possible errors      |
 | ------ | ------------------------------- | -------------------- |
 | GET    | (201) Ej and all its links      | (500) Internal error |
 | POST   | (201) Link created successfully | (500) Internal error |
@@ -213,7 +213,7 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬆ POST
 
-| Requirements                      | Function                                            |                      
+| Requirements                      | Function                                             |                      
 | --------------------------------- | ---------------------------------------------------- |
 | Middleware                        | Contains the id of the ej                            |
 | Authentication (from middleware)	| isLeadership                                         |
@@ -233,3 +233,35 @@ Below are the methods and their expected responses as well as possible errors:
 | --------------------------------- | ---------------------------------------------------- |
 | Params                            | Contains the id of the removed project               |
 | Authentication (from middleware)	| isLeadership                                         |
+
+# Ej
+
+This route is responsible for the junior company and has the following attributes:
+
+| Attributes   | Function                                                             |
+| Name         | Name that identifies the junior company                              |
+| Departaments | Departments that the junior company has                              |
+| Skills       | Skills that the junior company has                                   |
+
+
+## 🛠️ Methods
+Below are the methods and their expected responses as well as possible errors:
+
+| Method | Expected responses                          | Possible errors      |
+| ------ | ------------------------------------------- | -------------------- |
+| GET    | (201) Data about ej and who created it      | (500) Internal error |
+| POST   | (201) Ej created successfully               | (500) Internal error |
+| PATCH  | (200) Ej updated successfully               | (500) Internal error |
+| DELETE | (200) Ej removed successfully               | (500) Internal error |
+
+### ⬆ POST
+
+| Requirements                     | Function                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| Body                             | Contains the name, presidentData                                           |
+
+### ⬇️ GET
+
+| Requirements                     | Function                                              |
+| -------------------------------- | ----------------------------------------------------- |
+| Middleware                       | Contains the id of the ej                             |
