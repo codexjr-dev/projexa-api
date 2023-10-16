@@ -46,29 +46,33 @@ Below are the methods and their expected responses as well as possible errors:
 
 ### ⬇️ GET
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Middleware   | Contains the id of the Ej      |
+| Requirements                     | Function                       |
+| -------------------------------- | ------------------------------ |
+| Middleware                       | Contains the id of the Ej      |
+| Authentication (from middleware) | existentUser                   |
 
 ### ⬆ POST
 
 | Requirements | Function                                                                                                                     |
-| ------------ | -----------------------------------------------------------------------------------------------------------------------------|
-| Middleware   | Contains the id of the ej                                                                                                    |
-| Body         | Contains the name, email, role, password, birthDate, entryDate, phone, observations, habilities and department of the member |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------|
+| Middleware                       | Contains the id of the ej                                                                                |
+| Authentication (from middleware) | isLeadership                                                                                             |
+| Body                             | Contains the name, email, role, password, birthDate, entryDate, phone, observations, habilities and department of the member |
 
 ### 🔄 PATCH
 
-| Requirements | Function                                                                          |
-| ------------ | --------------------------------------------------------------------------------- |
-| Middleware   | Contais the id of the member                                                      |
-| Body         | Contains the new data of the member                                               |
+| Requirements                     | Function                                                      |
+| -------------------------------- | ------------------------------------------------------------- |
+| Middleware                       | Contais the id of the member                                  |
+| Authentication (from middleware) | authorizedUser                                                |
+| Body                             | Contains the new data of the member                           |
 
 ### ❌ DELETE
 
-| Requirements | Function                       |
-| ------------ | ------------------------------ |
-| Middleware   | Contains the id of the member  |
+| Requirements                     | Function                       |
+| -------------------------------- | ------------------------------ |
+| Middleware                       | Contains the id of the member  |
+| Authentication (from middleware) | isLeadership                   |
 
 # News
 This route is responsible for the news of projects and has the following attributes:
