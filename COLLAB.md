@@ -153,3 +153,25 @@ When pushing, if it is a new branch in the remote repository, a link will appear
 
      6 - Open your Issue on the Kanban board and paste the link copied above in the comments.
 
+
+# Teams categories
+
+Projexa is a project that uses the SCRUM methodology, so, we have some teams categories/roles like the **Scrum Master** (SM), **Product Owner** (PO), **Quality Assurance** (QA), **Tech Leader** (TL) and, of course, the **Developers** and the **UI Designers**. Each one of these categories is detailed below:
+
+### ⭐ Scrum Master (SM)
+The Scrum Master is **essential for implementing and ensuring the use of Scrum methods in a project**. Their roles include facilitating events, removing impediments, coaching, practicing servant leadership, promoting continuous improvement, facilitating communication, and protecting the team from distractions, making them a crucial asset in Scrum-oriented projects.
+
+### 👨‍💼 Product Owner (PO)
+The Product Owner acts as a **liaison between real clients and the project team**, conveying updates to clients and representing their needs to the team. The PO is crucial for ensuring alignment between the team and the client requirements while also keeping clients informed about project progress.
+
+### ✅ Quality Assurance (QA)
+The Quality Assurance involves four key steps. First, the QA team **collaborates with the Product Owner** to understand the **product requirements** and **user stories**. Then, they **create test cases and plans** to validate these requirements during development. Throughout the sprint, QA **continuously tests and verifies the product's functionality, reporting any defects**. Finally, they participate in the sprint review to **ensure the product meets quality standards** and is ready for release.
+
+### 👩‍🏫 Tech Leader (TL)
+A Tech Leader serves as the **technical authority**, guiding the team's technical decisions and ensuring adherence to best practices. They **facilitate collaboration**, **help resolve technical challenges**, and **maintain product quality** by overseeing technical aspects of the project.
+
+### 👨‍💻 Developers
+The Developers are responsible for **turning product requirements into working software**. They collaborate closely, self-organize, and continuously communicate to achieve sprint goals. Developers also participate in Scrum events and **maintain a commitment to delivering high-quality products**.
+
+### 👩‍🎨 UI Designers
+The UI Designers are responsible for **crafting project prototypes** and ensuring the project's visuals are of the highest quality. Their primary objectives are to **create designs that not only attract clients but also provide an easy and intuitive access to the system**.
