@@ -28,7 +28,55 @@ The Issues in this column have been completed and are undergoing a final review 
 ### ✅ Done
 In this final stage, the Issues were finalized, reviewed in the Sprint Review and have already been merged into Main. Therefore, at the end of the Sprint they will already be in production.
 
+## 🏷️ TAGS
+We have some tags that can help to organize the issues in Kanban, so let's see how it works:
 
+### 👨🏽‍💻 Assignees
+The one/those who will resolve the issue.
+
+### ❗ Priority
+Priority level to resolve the issue.
+
+### ↕ Size
+The difficult/effort level of the issue. (We use a customized Fibbonaci sequence to meansure this level {0.5, 1, 2, 3, 5, 8, 13, 21, ☕}).
+
+### 📈 Sprint
+Which sprint the issue belongs.
+
+### 💻 Occupation
+Which repository the issue belongs (Frontend, Backend or UI Design).
+
+### 📋 Review stage
+The review stage of the issue, which can be "To Review" (when you resolve the issue and wait for the review), "To Correct" (when the reviewer find something that need to correct and move your issue to column "In Progress") and "Merged" (when the reviewer approved your solution and merged at dev branch).
+
+### ↕ Width
+Integer version of Size (all values in size are strings so the github can't use this values to meansure in the graphics).
+
+
+### 🔨 How to create an issue and move to backlog?
+
+**1 - Identify which repository the issue belongs**
+- Frontend, Backend or UI Design
+
+**2 - Identify the type of the issue**
+- Which could be: Feature, Fix, Refactor, Docs and Tests.
+
+**3 - Name the issue and give a simple description**
+- Use the previews information you got to name the issue.
+- Example: Backend > Docs > Criar o arquivo COLLAB.md.
+
+**4 - Select which repository the issue belongs**
+- If it's a frontend issue, select projexa-web, else if it's backend select projexa-api, else is dashboard-codex-ui-designers.
+
+**5 - Select some tags**
+- Select the tags: Priority and occupation.
+- Obs: The size and sprint is discussed in the sprint planning.
+
+**6 - Describe the issue in detail**
+- Explain the issue in detail to discuss in the sprint planning.
+
+**7 - Move the issue to backlog**
+- Now you can put the issue in backlog, but always put in the end of the list to keep the column and kanban organized.
 
 ### 📝 How to Subscribe to an Issue?
 
