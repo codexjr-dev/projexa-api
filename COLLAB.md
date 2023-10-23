@@ -156,7 +156,7 @@ When pushing, if it is a new branch in the remote repository, a link will appear
 
 # Teams categories
 
-Projexa is a project that uses the SCRUM methodology, so, we have some teams categories/roles like the **Scrum Master** (SM), **Product Owner** (PO), **Quality Assurance** (QA), **Tech Leader** (TL) and, of course, the **Developers** and the **UI Designers**. Each one of these categories is detailed below:
+**Projexa** is a project that uses the SCRUM methodology, so, we have some teams categories/roles like the **Scrum Master** (SM), **Product Owner** (PO), **Quality Assurance** (QA), **Tech Leader** (TL) and, of course, the **Developers** and the **UI Designers**. Each one of these categories is detailed below:
 
 ### ⭐ Scrum Master (SM)
 The Scrum Master is **essential for implementing and ensuring the use of Scrum methods in a project**. Their roles include facilitating events, removing impediments, coaching, practicing servant leadership, promoting continuous improvement, facilitating communication, and protecting the team from distractions, making them a crucial asset in Scrum-oriented projects.
