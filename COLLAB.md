@@ -2,6 +2,10 @@
 
 **CodeX** is a non-profit organization, founded on October 15, 2018. As the **junior company for Computer Science at UFCG**, its main objective is to develop high-quality creative and innovative solutions and promote a learning environment, entrepreneurship, and, in conjunction with these endeavors, foster leadership and offer computer science students experiences in other areas such as **personnel management, project management, financial management, prospecting, marketing, among others.**
 
+## How to be part of Codex?
+
+**Every six months, **CodeX** carries out a new selection process for new members.** If you are interested in being part of our team, keep an eye on our social media, especially our [Instagram](https://www.instagram.com/codexjr/). In the selection process, we evaluate the participants' **hard skills and soft skills** through development challenges and, subsequently, **interviews are carried out with the candidates**. After that, the results of those approved are published and **you become a Codex Trainee**. **After three months of training**, if you are interested in remaining at our company, **you are signed as an Effective Member of Codex**.
+
 # 📌Kanban
 
 Kanban is a visual methodology used to manage projects, offering a clear view of task progress on a virtual board. In our project, it was used to control the workflow from idea to completion. The table has columns representing different stages of the process. Each task is represented by a card that moves between columns as it progresses. Allowing a clear view of the status of each task, making it easier to identify possible problems and plan the next steps.
