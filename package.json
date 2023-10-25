@@ -1,6 +1,6 @@
 {
   "name": "projexa",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "API do gerenciador de EJs",
   "main": "index.js",
   "scripts": {
