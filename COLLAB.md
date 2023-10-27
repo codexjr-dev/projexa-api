@@ -166,11 +166,11 @@ When pushing, if it is a new branch in the remote repository, a link will appear
 
 # 👥 Teams categories
 
-**Projexa** is a project that uses the SCRUM methodology, so, we have some teams categories/roles like the **Scrum Master** (SM), **Product Owner** (PO), **Quality Assurance** (QA), **Tech Leader** (TL) and, of course, the **Developers** and the **UI Designers**. Each one of these categories is detailed below:
+**Projexa** is a project that uses the SCRUM methodology, so, we have some teams categories/roles like the **SCRUM Master** (SM), **Product Owner** (PO), **Quality Assurance** (QA), **Tech Leader** (TL) and, of course, the **Developers** and the **UI Designers**. Each one of these categories is detailed below:
 
-### ⭐ Scrum Master (SM)
+### ⭐ SCRUM Master (SM)
 
-The Scrum Master is **essential for implementing and ensuring the use of Scrum methods in a project**. Their roles include facilitating events, removing impediments, coaching, practicing servant leadership, promoting continuous improvement, facilitating communication, and protecting the team from distractions, making them a crucial asset in Scrum-oriented projects.
+The SCRUM Master is **essential for implementing and ensuring the use of SCRUM methods in a project**. Their roles include facilitating events, removing impediments, coaching, practicing servant leadership, promoting continuous improvement, facilitating communication, and protecting the team from distractions, making them a crucial asset in SCRUM-oriented projects.
 
 ### 👨‍💼 Product Owner (PO)
 
@@ -186,7 +186,7 @@ A Tech Leader serves as the **technical authority**, guiding the team's technica
 
 ### 👨‍💻 Developers
 
-The Developers are responsible for **turning product requirements into working software**. They collaborate closely, self-organize, and continuously communicate to achieve sprint goals. Developers also participate in Scrum events and **maintain a commitment to delivering high-quality products**.
+The Developers are responsible for **turning product requirements into working software**. They collaborate closely, self-organize, and continuously communicate to achieve sprint goals. Developers also participate in SCRUM events and **maintain a commitment to delivering high-quality products**.
 
 ### 👩‍🎨 UI Designers
 
@@ -196,7 +196,7 @@ The UI Designers are responsible for **crafting project prototypes** and ensurin
 
 Following the SCRUM principles, at **Projexa**, we value the practice of **Dailies** and the use of **Sprint Planning** and **Sprint Review**, these components of SCRUM are explained below.
 
-## 🗓 Daily
+## 🗓 Daily Stand-ups
 
 It is basically a **daily** message where you will **summarize what you did in the last day** it **helps the team to keep aligned** and **promotes mutual help among teammates**.<br>
 
@@ -219,10 +219,14 @@ We send **one Daily message per day in the week**, we do not send dailies on the
           ...
      ...
 
-# 🤝 Sprint Planning
+# 🎯 Sprint Planning
 
-TODO
+Sprint planning in SCRUM is a **meeting** where the SCRUM team defines the work they'll tackle in the **upcoming Sprint**. It involves **selecting items from the product backlog, setting a Sprint Goal, estimating tasks, doing Poker Planning to set the sizes of the tasks, and creating a Sprint Backlog**. This collaborative session typically lasts a few hours and **ensures the team is aligned on what to deliver during the Sprint**.
 
-# 📝 Sprint Review
+At Projexa, the Sprint Planning occurs on the **first Tuesday** of the Sprint, in the afternoon.
 
-TODO
+# 📝 Sprint Retrospective
+
+A SCRUM Sprint Retrospective is a meeting that **occurs at the end of each Sprint**. It's a time for the SCRUM team to **reflect on the past Sprint** and discuss what went well, what could be improved, and any potential changes for the next Sprint. **The focus is on continuous improvement, fostering open communication, and ensuring the team becomes more effective with each iteration**.
+
+At Projexa, the Sprint Retrospective occurs on the **last Friday** of the Sprint, in the afternoon.
