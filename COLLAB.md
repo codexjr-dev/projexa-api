@@ -230,3 +230,13 @@ At Projexa, the Sprint Planning occurs on the **first Tuesday** of the Sprint, i
 A SCRUM Sprint Retrospective is a meeting that **occurs at the end of each Sprint**. It's a time for the SCRUM team to **reflect on the past Sprint** and discuss what went well, what could be improved, and any potential changes for the next Sprint. **The focus is on continuous improvement, fostering open communication, and ensuring the team becomes more effective with each iteration**.
 
 At Projexa, the Sprint Retrospective occurs on the **last Friday** of the Sprint, in the afternoon.
+
+# 🤝 Sprint Review
+
+A Sprint Review is **a meeting held at the end of each Sprint** where **the SCRUM team presents the work they've completed**. The team demonstrates the **product increment**, gathers **feedback from stakeholders**, and **discusses what was done and what's left to do**. It's a **crucial step** in the SCRUM framework to **ensure transparency, inspection, and adaptation in the development process**.
+
+At Projexa, the Sprint Review occurs on the **last Tuesday** of the Sprint (that's when the Sprint ends). Usually it occurs in the night, at the end of a general weekly **Codex Jr**'s meeting.
+
+# ⏳ Sprint Length
+
+Typically, our Sprint length is **two weeks**.
