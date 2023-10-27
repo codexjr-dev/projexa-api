@@ -6,6 +6,12 @@
 
 **Every six months, **CodeX** carries out a new selection process for new members.** If you are interested in being part of our team, keep an eye on our social media, especially our [Instagram](https://www.instagram.com/codexjr/). In the selection process, we evaluate the participants' **hard skills and soft skills** through development challenges and, subsequently, **interviews are carried out with the candidates**. After that, the results of those approved are published and **you become a Codex Trainee**. **After three months of training**, if you are interested in remaining at our company, **you are signed as an Effective Member of Codex**.
 
+# 🖥️ Projexa
+
+**Projexa** is a dashboard to **organize and manage** the team and the projects of our enterprise.
+
+With the aim of creating efficient management and centralized data collection, access to leaders and other members of the junior company, **Projexa offers an environment for the construction and continuous evolution of a web system, open-source and, mainly, promoted by developers CodeX Jr**. internals. The application has a register of members, projects and links, available for viewing by the entire company, as well as management over each one, according to the authorization level of each user.
+
 # 📌Kanban
 
 Kanban is a visual methodology used to manage projects, offering a clear view of task progress on a virtual board. In our project, it was used to control the workflow from idea to completion. The table has columns representing different stages of the process. Each task is represented by a card that moves between columns as it progresses. Allowing a clear view of the status of each task, making it easier to identify possible problems and plan the next steps.
