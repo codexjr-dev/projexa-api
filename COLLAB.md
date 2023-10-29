@@ -6,11 +6,62 @@
 
 **Every six months, **CodeX** carries out a new selection process for new members.** If you are interested in being part of our team, keep an eye on our social media, especially our [Instagram](https://www.instagram.com/codexjr/). In the selection process, we evaluate the participants' **hard skills and soft skills** through development challenges and, subsequently, **interviews are carried out with the candidates**. After that, the results of those approved are published and **you become a Codex Trainee**. **After three months of training**, if you are interested in remaining at our company, **you are signed as an Effective Member of Codex**.
 
+## 🪪 Contacts
+<div align="center" >
+ <a href="https://codexjr.com.br/"><img src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white"/> </a>
+<a href="https://www.linkedin.com/company/codexjr/?originalSubdomain=br"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/> </a>
+<a href="https://www.instagram.com/codexjr/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/> </a>
+<a href="diretoria@codexjr.com.br"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/> </a>
+</div>
+
 # 🖥️ Projexa
 
 **Projexa** is a dashboard to **organize and manage** the team and the projects of our enterprise.
 
 With the aim of creating efficient management and centralized data collection, access to leaders and other members of the junior company, **Projexa offers an environment for the construction and continuous evolution of a web system, open-source and, mainly, promoted by developers CodeX Jr**. internals. The application has a register of members, projects and links, available for viewing by the entire company, as well as management over each one, according to the authorization level of each user.
+
+## 🖌 prototyping
+Main features presented by Projexa, which were developed using Figma.
+
+### 📁 1. Registering a president
+A president is the person who will manage the entire dashboard, registering it means giving access to others involved in a junior company.
+![01 cadastrando](https://github.com/codexjr-dev/projexa-api/assets/62821027/374080d5-abde-4789-aecc-f6354bc13974)
+
+### 📁 1.1 Login as President
+Login as a president, after already registered.
+![02 login como presidente](https://github.com/codexjr-dev/projexa-api/assets/62821027/d9062dbb-94d6-4dc7-ad60-5ec21174a3d2)
+
+### 📁 1.2 Add and view member
+Screen for adding a member to a specific company, in addition to viewing all of that person's data.
+![03 visualizar membro e editar membro](https://github.com/codexjr-dev/projexa-api/assets/62821027/d0fd1a36-f7d0-47bf-a689-6bd345d11f84)
+
+### 📁 1.3 Add and view link
+Screen to add a specific link with important information for the company, in addition to being able to view, copy this link, delete and edit.
+![04 links](https://github.com/codexjr-dev/projexa-api/assets/62821027/75405974-f659-4b37-8fa3-bab7bdb2f896)
+
+### 📁 1.4 Add project
+Add a project that is being developed by the company, complete with customer information, details of each member's functions, in addition to the description.
+![05 cadastrar projeto](https://github.com/codexjr-dev/projexa-api/assets/62821027/561b29af-4e9b-49c8-8492-d5e858fb9057)
+
+### 📁 1.5 Create and view project updates
+Create an update to a project, in addition to viewing that specific update.
+![06 criar e visualizar atualização de projeto](https://github.com/codexjr-dev/projexa-api/assets/62821027/e95285d8-ae40-4a3f-bd04-fc0aed86a54c)
+
+### 📁 2. Login as advisor
+Login as an advisor and viewing possible restrictions.
+![07 visualização do contexto de acessor](https://github.com/codexjr-dev/projexa-api/assets/62821027/0ce33cae-a400-43ea-8a5d-566ac50a6d80)
+
+### 📁 2.1 View members
+View an advisor's restrictions, such as not being able to edit another member or delete.
+![08 visualizar membros no contexto de acessor](https://github.com/codexjr-dev/projexa-api/assets/62821027/05be3ee7-8635-4edc-881e-3bb394aed6b6)
+
+### 📁 2.2 View project update
+Update views also have restrictions, such as not being able to directly edit or delete unless you are a member of the project.
+![09 visualizar atualização assessor](https://github.com/codexjr-dev/projexa-api/assets/62821027/462322d9-dd26-460f-83ed-eb39c11fc598)
+
+### 📁 2.3 View link
+Viewing a link in the context of an advisor.
+![10 visualizar link assessor](https://github.com/codexjr-dev/projexa-api/assets/62821027/8f0aee81-0805-4522-b1fe-d71c17941979)
 
 # 📌Kanban
 
