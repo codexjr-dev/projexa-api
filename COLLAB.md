@@ -1,5 +1,10 @@
 # 📊 Codex
 
+```
+This documentation is about Projexa.
+But first... Let's talk about our organization:
+```
+
 **CodeX** is a non-profit organization, founded on October 15, 2018. As the **junior company for Computer Science at UFCG**, its main objective is to develop high-quality creative and innovative solutions and promote a learning environment, entrepreneurship, and, in conjunction with these endeavors, foster leadership and offer computer science students experiences in other areas such as **personnel management, project management, financial management, prospecting, marketing, among others.**
 
 ## How to be part of Codex?
@@ -14,14 +19,16 @@
 <a href="diretoria@codexjr.com.br"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/> </a>
 </div>
 
+___
+
 # 🖥️ Projexa
 
 **Projexa** is a dashboard to **organize and manage** the team and the projects of our enterprise.
 
 With the aim of creating efficient management and centralized data collection, access to leaders and other members of the junior company, **Projexa offers an environment for the construction and continuous evolution of a web system, open-source and, mainly, promoted by developers CodeX Jr**. internals. The application has a register of members, projects and links, available for viewing by the entire company, as well as management over each one, according to the authorization level of each user.
 
-## 🖌 prototyping
-Main features presented by Projexa, which were developed using Figma.
+## 🖌 Prototyping
+Main features presented by Projexa, which were developed using [Figma](https://www.figma.com/files/project/104424051/Projexa?fuid=1049118183093665393).
 
 ### 📁 1. Registering a president
 A president is the person who will manage the entire dashboard, registering it means giving access to others involved in a junior company.
@@ -63,6 +70,8 @@ Update views also have restrictions, such as not being able to directly edit or 
 Viewing a link in the context of an advisor.
 ![10 visualizar link assessor](https://github.com/codexjr-dev/projexa-api/assets/62821027/8f0aee81-0805-4522-b1fe-d71c17941979)
 
+___
+
 # 📌Kanban
 
 Kanban is a visual methodology used to manage projects, offering a clear view of task progress on a virtual board. In our project, it was used to control the workflow from idea to completion. The table has columns representing different stages of the process. Each task is represented by a card that moves between columns as it progresses. Allowing a clear view of the status of each task, making it easier to identify possible problems and plan the next steps.
@@ -89,6 +98,8 @@ The Issues in this column have been completed and are undergoing a final review 
 ### ✅ Done
 In this final stage, the Issues were finalized, reviewed in the Sprint Review and have already been merged into Main. Therefore, at the end of the Sprint they will already be in production.
 
+___
+
 ## 🏷️ TAGS
 We have some tags that can help to organize the issues in Kanban, so let's see how it works:
 
@@ -98,7 +109,7 @@ The one/those who will resolve the issue.
 ### ❗ Priority
 Priority level to resolve the issue.
 
-### ↕ Size
+### 📐 Size
 The difficult/effort level of the issue. (We use a customized Fibbonaci sequence to meansure this level {0.5, 1, 2, 3, 5, 8, 13, 21, ☕}).
 
 ### 📈 Sprint
@@ -110,9 +121,10 @@ Which repository the issue belongs (Frontend, Backend or UI Design).
 ### 📋 Review stage
 The review stage of the issue, which can be "To Review" (when you resolve the issue and wait for the review), "To Correct" (when the reviewer find something that need to correct and move your issue to column "In Progress") and "Merged" (when the reviewer approved your solution and merged at dev branch).
 
-### ↕ Width
+### ⚖️ Width
 Integer version of Size (all values in size are strings so the github can't use this values to meansure in the graphics).
 
+___
 
 ### 🔨 How to create an issue and move to backlog?
 
@@ -127,7 +139,7 @@ Integer version of Size (all values in size are strings so the github can't use 
 - Example: Backend > Docs > Criar o arquivo COLLAB.md.
 
 **4 - Select which repository the issue belongs**
-- If it's a frontend issue, select projexa-web, else if it's backend select projexa-api, else is dashboard-codex-ui-designers.
+- If it's a frontend issue, `select projexa-web`, else if it's backend select `projexa-api`, else is `dashboard-codex-ui-designers`.
 
 **5 - Select some tags**
 - Select the tags: Priority and occupation.
@@ -214,6 +226,7 @@ When pushing, if it is a new branch in the remote repository, a link will appear
 
      6 - Open your Issue on the Kanban board and paste the link copied above in the comments.
 
+___
 
 # 👥 Teams categories
 
