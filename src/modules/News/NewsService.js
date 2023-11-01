@@ -67,6 +67,19 @@ module.exports = {
       } else {
          throw new Error('Atualização não encontrada.');
       }
+    },
+
+    async getAllNewsByEJ(ejId) {
+      const projects = await Project.find({ ej: ejId }).select('_id');
+
+      let projectsIds = projects.map((project) => project._id.toString());
+
+      return await News.find({ project: { $in: projectsIds } })
+      .select('_id member project description images updateLink createdAt updatedAt')
+      .populate('member', '_id name')
+      .populate('project', '_id name')
+      .sort({_id:-1}) 
+      .exec();
     }
 }
 
