@@ -49,6 +49,7 @@ module.exports = {
       return await News.find({ project: updatedNews.project })
          .select('_id member project description images updateLink createdAt updatedAt')
          .populate('member', '_id name')
+         .populate('project', '_id name')
          .sort({_id:-1}) 
          .exec();
 	},
