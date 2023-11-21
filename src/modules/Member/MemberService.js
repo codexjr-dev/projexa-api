@@ -65,7 +65,7 @@ module.exports = {
     return getDTOmember(member);
   },
 
-  async update(memberId, data) {
+  async update(memberId, data, loggedInMemberId) {
     if (data.hasOwnProperty("password")) {
       const psw = await bcrypt.hash(
         data.password,
@@ -73,11 +73,14 @@ module.exports = {
       );
       data.password = psw;
     }
-  
-    const member = await Member.findOne({ _id: memberId });
 
-    if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
+    const loggedInMember = await Member.findOne({ _id: loggedInMemberId });
     
+    const member = await Member.findOne({ _id: memberId });
+    
+    if (!hasPermissionToChange(loggedInMember, data)) 
+      throw new Error('WITHOUT_PERMISSION');
+
     if (member.email !== data.email) {
       await verifyEmail(data.email);
     }
@@ -150,14 +153,14 @@ async function checkMinimumQuantity(memberToDelete) {
     throw new Error("A presença de ao menos um usuário na EJ é obrigatória.");
 }
 
-function hasPermissionToChange(member, data) {
-   return ['Presidente', 'Diretor(a)'].includes(member.role) ||
-   data.name === data.name &&
-   new Date(data.birthDate).getTime() === member.birthDate.getTime() &&
-   new Date(data.entryDate).getTime() === member.entryDate.getTime() &&
-   data.department === member.department &&
-   data.role === member.role &&
-   data.email === member.email &&
-   data.phone === member.phone &&
-   data.observations === member.observations
+function hasPermissionToChange(loggedInMember, data) {
+  return  ["Presidente", "Diretor(a)"].includes(loggedInMember.role) ||
+    data.name === loggedInMember.name &&
+    new Date(data.birthDate).getTime() === loggedInMember.birthDate.getTime() &&
+    new Date(data.entryDate).getTime() === loggedInMember.entryDate.getTime() &&
+    data.department === loggedInMember.department &&
+    data.role === loggedInMember.role &&
+    data.email === loggedInMember.email &&
+    data.phone === loggedInMember.phone &&
+    data.observations === loggedInMember.observations
 }
