@@ -20,6 +20,9 @@ module.exports = {
         if (!member)
             return { erro: 'Usuário ou senha incorreta' }
 
+        if (member.role === "Ex-Trainee")
+            return { erro: 'Usuário sem permissão' }
+
         const match = await bcrypt.compare(password, member.password);
 
         if (!match)
