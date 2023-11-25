@@ -1,4 +1,4 @@
-const { save, findByProject, remove, update } = require("./NewsService");
+const { save, findByProject, remove, update, getAllNewsByEJ } = require("./NewsService");
 
 module.exports = {
     async save(req, res) {
@@ -35,5 +35,14 @@ module.exports = {
         } catch (error) {
             return res.status(500).send({ error: error.message });
         }
-    },    
+    },
+
+    async getAllNewsByEJ(req, res) {
+      try {
+         const allNewsByEJ = await getAllNewsByEJ(req.ejId);
+         return res.status(200).send({ news: allNewsByEJ });
+      } catch (error) {
+            return res.status(500).send({ error: error.message });
+      }
+    }
 }
