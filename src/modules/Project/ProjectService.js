@@ -22,13 +22,18 @@ module.exports = {
 	// only for test purposes
 	async findByEj(ejId) {
 		// const ejs = await Ej.find().populate({ path: 'president', select: 'name -_id' });
-		const projects = await Project.find({ ej: ejId }).populate({ path: 'team', select: 'name role _id' });;
+		const projects = await Project.find({ ej: ejId }).populate({ path: 'team', select: 'name role _id' });
 
 		const projectsDTO = projects.map((project) => {
 			return getDTOproject(project);
 		});
 
 		return projectsDTO;
+	},
+
+	async findById(projectId) {
+		const project = await Project.findOne({_id: projectId}).populate({ path: 'team', select: 'name role _id' });
+		return getDTOproject(project);
 	},
 
 	async remove(projectId) {
@@ -54,6 +59,6 @@ function getDTOproject(project) {
 		finishDate: project.finishDate,
 		contractLink: project.contractLink,
 		customer: project.customer,
-      news: project.news
+      	news: project.news
 	};
 }

@@ -1,4 +1,4 @@
-const { save, findByEj, remove, update } = require('./ProjectService');
+const { save, findByEj, findById, remove, update } = require('./ProjectService');
 
 module.exports = {
     async save(req, res) {
@@ -14,6 +14,15 @@ module.exports = {
         try {
             const projects = await findByEj(req.ejId);
             return res.status(201).send({ projects: projects });
+        } catch (error) {
+            return res.status(500).send({ error: error.message });
+        }
+    },
+
+    async findById(req, res) {
+        try {
+            const project = await findById(req.params.id);
+            return res.status(200).send({project: project});
         } catch (error) {
             return res.status(500).send({ error: error.message });
         }
