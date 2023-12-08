@@ -26,7 +26,7 @@ module.exports = {
         .status(200)
         .send({
           member: removedMember,
-          message: "Membero removido com sucesso!",
+          message: "Membro removido com sucesso!",
         });
     } catch (error) {
       return res.status(500).send({ error: error.message });

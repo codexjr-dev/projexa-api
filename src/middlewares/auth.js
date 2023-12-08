@@ -47,13 +47,15 @@ const authorize = (req, res, next, type) => {
       case "existent":
         if (!member)
           return res.status(404).send({ error: "Usuário não existe." });
+        else if (isOnBlacklist(member))
+          return res.status(401).send({ error: "Usuário sem permissão." });
         break;
 
       case "authorized":
-        if (!isLeadership(member) && member._id.toString() !== req.body._id)
+        if (!isLeadership(member) && ((member._id.toString() !== req.body._id) || isOnBlacklist(member)))
           return res.status(403).send({ error: "Usuário sem permissão." });
         break;
-
+      
       case "leadership":
         if (!isLeadership(member))
           return res.status(403).send({ error: "Usuário sem permissão." });
@@ -61,13 +63,13 @@ const authorize = (req, res, next, type) => {
 
       case "team":
         const project = await Project.findOne({ _id: req.params.projectId });
-        if(!isLeadership(member) && !isMemberProject(project, member))
+        if(!isLeadership(member) && !isMemberProject(project, member) || isOnBlacklist(member))
           return res.status(403).send({ error: "Usuário sem permissão." });
         break;
 
       case "newsOwner":
          const news = await News.findOne({_id: req.body.newsId});
-        if(!isLeadership(member) && !isNewsOwner(news, member))
+        if(!isLeadership(member) && !isNewsOwner(news, member) || isOnBlacklist(member))
           return res.status(403).send({ error: "Usuário sem permissão." });
         break;
     }
@@ -86,3 +88,6 @@ const isMemberProject = (project, member) =>
 
 const isNewsOwner = (news, member) =>
    news.member.toString() === member._id.toString();
+
+const isOnBlacklist = (member) =>
+  member && ["Ex-Trainee"].includes(`${member.role}`);
