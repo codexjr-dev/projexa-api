@@ -22,7 +22,7 @@ module.exports = {
     async remove(req, res) {
         try {
             const removedLink = await remove(req.params.id);
-            return res.status(200).send({ project: removedLink, message: 'Projeto removido com sucesso!' });
+            return res.status(200).send({ project: removedLink, message: 'Link removido com sucesso!' });
         } catch (error) {
             return res.status(500).send({ error: error.message });
         }
@@ -31,7 +31,7 @@ module.exports = {
     async update(req, res) {
         try {
             const updatedLink = await update(req.params.id, req.body);
-            return res.status(200).send({ link: updatedLink, message: 'Projeto atualizado com sucesso!' });
+            return res.status(200).send({ link: updatedLink, message: 'Link atualizado com sucesso!' });
         } catch (error) {
             return res.status(500).send({ error: error.message });
         }
