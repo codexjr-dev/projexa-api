@@ -65,7 +65,7 @@ module.exports = {
     return getDTOmember(member);
   },
 
-  async update(memberId, data) {
+  async update(memberId, memberToBeUpdatedId,  data) {
     if (data.hasOwnProperty("password")) {
       const psw = await bcrypt.hash(
         data.password,
@@ -74,22 +74,23 @@ module.exports = {
       data.password = psw;
     }
   
-    const member = await Member.findOne({ _id: memberId });
+    const applicant = await Member.findOne({ _id: memberId });
+    const memberToBeUpdated = await Member.findOne({ _id: memberToBeUpdatedId });
 
-    if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
+    if (!hasPermissionToChange(applicant, memberToBeUpdated, data)) throw new Error('WITHOUT_PERMISSION');
     
-    if (member.email !== data.email) {
+    if (memberToBeUpdated.email !== data.email) {
       await verifyEmail(data.email);
     }
 
     if (
-      member.role !== data.role &&
+      memberToBeUpdated.role !== data.role &&
       !["Presidente", "Diretor(a)"].includes(data.role)
     )
-      await checkMinimumQuantity(member);
+      await checkMinimumQuantity(memberToBeUpdated);
 
-    await member.updateOne(data);
-    const updatedMember = await Member.findOne({ _id: memberId });
+    await memberToBeUpdated.updateOne(data);
+    const updatedMember = await Member.findOne({ _id: memberToBeUpdatedId });
     return getDTOmember(updatedMember);
   },
 };
@@ -150,8 +151,8 @@ async function checkMinimumQuantity(memberToDelete) {
     throw new Error("A presença de ao menos um usuário na EJ é obrigatória.");
 }
 
-function hasPermissionToChange(member, data) {
-   return ['Presidente', 'Diretor(a)'].includes(member.role) ||
+function hasPermissionToChange(applicant, member, data) {
+   return ['Presidente', 'Diretor(a)', 'Guardiã(o)'].includes(applicant.role) ||
    data.name === data.name &&
    new Date(data.birthDate).getTime() === member.birthDate.getTime() &&
    new Date(data.entryDate).getTime() === member.entryDate.getTime() &&
