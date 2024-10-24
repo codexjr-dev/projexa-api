@@ -81,7 +81,7 @@ const authorize = (req, res, next, type) => {
 };
 
 const isLeadership = (member) =>
-  member && ["Presidente", "Diretor(a)"].includes(`${member.role}`);
+  member && ["Presidente", "Diretor(a)", "Guardiã(o)"].includes(`${member.role}`);
 
 const isMemberProject = (project, member) =>
   project && project.team.includes(member._id);
