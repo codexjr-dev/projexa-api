@@ -35,8 +35,7 @@ module.exports = {
 
   async update(req, res) {
     try {
-      const updatedMember = await update(req.memberId, req.params.id, req.body);
-      
+      const updatedMember = await update(req.params.id, req.body, req.memberId.toString());
       return res
         .status(200)
         .send({
