@@ -86,13 +86,13 @@ module.exports = {
     }
 
     if (
-      member.role !== data.role &&
+      memberToBeUpdated.role !== data.role &&
       !["Presidente", "Diretor(a)"].includes(data.role)
     )
-      await checkMinimumQuantity(member);
+      await checkMinimumQuantity(memberToBeUpdated);
 
-    await member.updateOne(data);
-    const updatedMember = await Member.findOne({ _id: memberId });
+    await memberToBeUpdated.updateOne(data);
+    const updatedMember = await Member.findOne({ _id: memberToBeUpdatedId });
     return getDTOmember(updatedMember);
   },
 };
@@ -154,7 +154,7 @@ async function checkMinimumQuantity(memberToDelete) {
 }
 
 function hasPermissionToChange(loggedInMember, data) {
-  return  ["Presidente", "Diretor(a)"].includes(loggedInMember.role) ||
+  return  ["Presidente", "Diretor(a)", "Guardiã(o)"].includes(loggedInMember.role) ||
     data.name === loggedInMember.name &&
     new Date(data.birthDate).getTime() === loggedInMember.birthDate.getTime() &&
     new Date(data.entryDate).getTime() === loggedInMember.entryDate.getTime() &&
