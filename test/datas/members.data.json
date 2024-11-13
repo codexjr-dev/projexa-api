@@ -1,0 +1,20 @@
+{
+    "memberDefault": {
+        "_id": "62dfd9b329f42950568f34ae",
+        "name": "Fulano",
+        "email": "fulano@codexjr.com.br",
+        "role": "Assessor(a)",
+        "password": "strongpassword",
+        "birthDate": "01-01-1970",
+        "entryDate": "13-11-2024",
+        "phone": "(83) 9 XXXX-XXXX",
+        "observations": "observations",
+        "habilities": "Habilidade",
+        "department": "Projetos"
+    },
+    "HTTP_CODE": {
+        "OK": 200,
+        "CREATED": 201,
+        "INTERNAL_SERVER_ERROR": 500
+    }
+}
