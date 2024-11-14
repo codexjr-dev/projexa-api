@@ -1,9 +1,8 @@
 {
     "memberDefault": {
-        "_id": "62dfd9b329f42950568f34ae",
         "name": "Fulano",
-        "email": "fulano@codexjr.com.br",
-        "role": "Assessor(a)",
+        "email": "teste@codexjr.com.br",
+        "role": "Presidente",
         "password": "strongpassword",
         "birthDate": "01-01-1970",
         "entryDate": "13-11-2024",
@@ -15,6 +14,6 @@
     "HTTP_CODE": {
         "OK": 200,
         "CREATED": 201,
-        "INTERNAL_SERVER_ERROR": 500
+        "INTERNAL_ERROR": 500
     }
 }
