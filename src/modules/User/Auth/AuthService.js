@@ -22,7 +22,7 @@ module.exports = {
 
         if (!match)
             return { erro: 'Usuário ou senha incorreta' }
-        
+
         delete user._doc.password
 
         const token = signToken(user);
