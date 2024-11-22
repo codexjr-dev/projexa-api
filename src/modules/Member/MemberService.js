@@ -17,6 +17,8 @@ module.exports = {
       department,
     } = memberData;
 
+    verifyEmptyField(name, 'EMPTY_NAME');
+    verifyEmptyField(password, 'EMPTY_PASSWORD');
     await verifyEmail(email);
 
     const psw = await bcrypt.hash(
@@ -94,10 +96,12 @@ module.exports = {
   },
 };
 
+const verifyEmptyField = (field, errorMessage) => {
+  if (!field) throw new Error(errorMessage);
+};
+
 async function verifyEmail(email) {
-  if (!email) {
-    throw new Error('EMPTY_EMAIL');
-  }
+  verifyEmptyField(email, 'EMPTY_EMAIL');
 
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!regex.test(email)) {
