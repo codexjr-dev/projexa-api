@@ -55,7 +55,7 @@ const authorize = (req, res, next, type) => {
         if (!isLeadership(member) && ((member._id.toString() !== req.body._id) || isOnBlacklist(member)))
           return res.status(403).send({ error: "Usuário sem permissão." });
         break;
-      
+
       case "leadership":
         if (!isLeadership(member))
           return res.status(403).send({ error: "Usuário sem permissão." });

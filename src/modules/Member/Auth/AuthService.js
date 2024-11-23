@@ -27,7 +27,7 @@ module.exports = {
 
         if (!match)
             return { erro: 'Usuário ou senha incorreta' }
-        
+
         delete member._doc.password
 
         // remove o campo password de 'member' antes de retorná-lo
