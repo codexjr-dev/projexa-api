@@ -15,7 +15,7 @@ describe('@EJ', async function () {
     before( async () => {
         // Administrador
         await chai.request(server).post('/ej').send(ejDefault);
-        await chai.request(server).post('/ej').send();
+
     });
 
     // it('POST   | EJ | Cadastro de EJ', function (done) {
@@ -90,4 +90,4 @@ describe('@EJ', async function () {
     //             done();
     //         })
     // });
-})
+});
