@@ -98,12 +98,13 @@
     "patchDefault": {
         "password": "newPassword",
         "email": "teste.novo@codexjr.com.br",
-        "role": "Assessor(a)"
+        "role": "Trainee"
     },
     "HTTP_CODE": {
         "OK": 200,
         "CREATED": 201,
         "UNAUTHORIZED": 401,
+        "FORBIDDEN": 403,
         "INTERNAL_ERROR": 500
     }
 }
