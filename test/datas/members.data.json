@@ -1,4 +1,13 @@
 {
+    "ejDefault": {
+        "name": "CodeX Jr.",
+        "presidentData": {
+            "name": "Fulano Presidente",
+            "email": "teste.presidente@codexjr.com.br",
+            "password": "senha",
+            "birthDate": "1998-08-01T03:00:00.000Z"
+        }
+    },
     "memberDefault": {
         "name": "Fulano Presidente",
         "email": "teste.presidente@codexjr.com.br",

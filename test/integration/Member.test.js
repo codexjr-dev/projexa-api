@@ -6,6 +6,7 @@ const chai_http = require('chai-http');
 /* Project Imports */
 const data = require('../datas/members.data.json');
 const Member = require('@member/Member');
+const ejDefault = require('../data.json').ejDefault;
 
 /* Constants */
 const HTTP_CODE = data.HTTP_CODE;
@@ -15,51 +16,28 @@ const ADVISOR = data.memberAdvisor;
 const DIRECTOR = data.memberDirector;
 const PRESIDENT = data.memberDirector;
 const PATCH_DEFAULT = data.patchDefault;
-const ejDefault = require('../data.json').ejDefault;
+const ejMockDefault = data.ejDefault;
 
 chai.use(chai_http);
 
-/* Crie um teste para:
-* 01. POST /member, com os campos vazios;
-* 02. POST /member, com o campo de name vazio;
-* 03. POST /member, com o campo de email vazio;
-* 04. POST /member, com o campo de role vazio;
-* 05. POST /member, com o campo de password vazio;
-* 06. POST /member, com o campo de birthDate vazio;
-* 07. POST /member, com o campo de entryDate vazio;
-* 08. POST /member, com o campo de department vazio;
-* 09. POST /member, com todos os campos preenchidos;
-* 10. POST /member, com o campo de email repetido;
-* 11. POST /member, com o campo de email mal formatado;
-* 12. GET /member, sem authorization no header;
-* 13. GET /member, com o token mal formatado no campo \'Authorization\' do cabeçalho;
-* 14. GET /member, com o token invalido no campo \'Authorization\' do cabeçalho;
-* 15. GET /member, com o token válido para Assessor no campo \'Authorization\' do cabeçalho;
-* 16. GET /member, com o token válido para Presidente no campo \'Authorization\' do cabeçalho;
-* 17. GET /member, com o token válido para Diretor(a) no campo \'Authorization\' do cabeçalho;
-* 18. PATCH /member/:id, com um :id invalido;
-* 19. PATCH /member/:id, sem um :id;
-* 20. PATCH /member/:id, com um :id válido, mas sem authorization no header;
-* 21. PATCH /member/:id, com um :id válido, mas com o token mal formatado no campo \'Authorization\' do cabeçalho;
-* 22. PATCH /member/:id, com um :id válido, mas com o token válido para Assessor (não dono do Membro) no campo \'Authorization\' do cabeçalho;
-* 23. PATCH /member/:id, com um :id válido, com o token válido para Assessor (dono do Membro) no campo \'Authorization\' do cabeçalho;
-* 24. PATCH /member/:id, com um :id válido, com o token válido para Presidente no campo \'Authorization\' do cabeçalho;
-* 25. PATCH /member/:id, com um :id válido, com o token válido para Diretor(a) no campo \'Authorization\' do cabeçalho;
-* 26. PATCH /member/:id, com um :id válido, com o token válido e com permissão no campo \'Authorization\' do cabeçalho, mas com email mal formatado;
-* 27. PATCH /member/:id, com um :id válido, com o token válido e com permissão no campo \'Authorization\' do cabeçalho, mas com email mal repetido;
-* 28. PATCH /member/:id, com um :id válido, com o token válido para Assessor (dono do Membro) no campo \'Authorization\' do cabeçalho, buscando alterar o role;
-* 29. PATCH /member/:id, com um :id válido, com o token válido para Assessor (dono do Membro) no campo \'Authorization\' do cabeçalho, buscando alterar a diretoria;
-* 30. PATCH /member/:id, com um :id válido, com o token válido para Liderança no campo \'Authorization\' do cabeçalho, buscando alterar o role;
-* 31. PATCH /member/:id, com um :id válido, com o token válido para Liderança no campo \'Authorization\' do cabeçalho, buscando alterar a diretoria;
-* 32. PATCH /member/:id, com um :id válido, com o token válido e com permissão no campo \'Authorization\' do cabeçalho, alterando os demais campos;
-33. DELETE /member/:id, com o :id invalido;
-34. DELETE /member/:id, sem um :id;
-35. DELETE /member/:id, com um :id válido, mas sem authorization no header;
-36. DELETE /member/:id, com um :id válido, com o token mal formatado no campo \'Authorization\' do cabeçalho;
-37. DELETE /member/:id, com um :id válido, mas com o token válido para Assessor no campo \'Authorization\' do cabeçalho;
-38. DELETE /member/:id, com um :id válido, com o token válido para Liderança no campo \'Authorization\' do cabeçalho;
-*/
 describe('@Member', () => {
+    let EJ_MOCK = {};
+
+    before(async () => {
+        const response = await chai.request(server)
+            .post('/ej')
+            .send({
+                ...ejMockDefault,
+                name: "CodeX Jr. 2",
+            });
+        EJ_MOCK = response.body.ej;
+        DEFAULT.ej = EJ_MOCK._id;
+        PRESIDENT.ej = EJ_MOCK._id;
+        DIRECTOR.ej = EJ_MOCK._id;
+        ADVISOR.ej = EJ_MOCK._id;
+        TRAINEE.ej = EJ_MOCK._id;
+    });
+
     describe('POST /member', () => {
         const login = {};
 
@@ -363,7 +341,7 @@ describe('@Member', () => {
             DEFAULT.token = login.president.body.dados.token;
             DEFAULT.valid_id = login.president.body.dados.member._id;
 
-            // DIRECTOR
+            /* DIRECTOR */
             await chai.request(server)
                 .post('/member')
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}`})
@@ -377,7 +355,7 @@ describe('@Member', () => {
             DIRECTOR.token = login.director.body.dados.token;
             DIRECTOR.valid_id = login.director.body.dados.member._id;
 
-            // ADVISOR
+            /* ADVISOR */
             await chai.request(server)
                 .post('/member')
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}`})
@@ -391,7 +369,7 @@ describe('@Member', () => {
             ADVISOR.token = login.advisor.body.dados.token;
             ADVISOR.valid_id = login.advisor.body.dados.member._id;
 
-            // TRAINEE
+            /* TRAINEE */
             await chai.request(server)
                 .post('/member')
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}`})
@@ -411,7 +389,7 @@ describe('@Member', () => {
                 .patch(`/member/${INVALID_ID}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` })
                 .send({
-                    email: "teste.18@codexjr.com.br"
+                    password: "password18"
                 });
 
             response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
@@ -419,12 +397,13 @@ describe('@Member', () => {
             response.body.error.should.equals("INVALID_ID");
         });
 
-        it('19. No :id parameter, should fail', async () => {
+        // TODO There is no PATCH /member/ route without an ID.
+        it.skip('19. No :id parameter, should fail', async () => {
             const response = await chai.request(server)
                 .patch(`/member/${EMPTY_ID}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` })
                 .send({
-                    email: "teste.19@codexjr.com.br"
+                    password: "password19"
                 });
 
             response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
@@ -436,7 +415,7 @@ describe('@Member', () => {
             const response = await chai.request(server)
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .send({
-                    email: "teste.20@codexjr.com.br"
+                    password: "password20"
                 });
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
@@ -449,7 +428,7 @@ describe('@Member', () => {
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .set({ 'Authorization': `Bear ${DEFAULT.token}` })
                 .send({
-                    email: "teste.21@codexjr.com.br"
+                    password: "password21"
                 });
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
@@ -462,7 +441,7 @@ describe('@Member', () => {
                 .patch(`/member/${TRAINEE.valid_id}`)
                 .set({ 'Authorization': `Bearer ${ADVISOR.token}` })
                 .send({
-                    email: "teste.22@codexjr.com.br"
+                    password: "password22"
                 });
 
             response.should.have.status(HTTP_CODE.FORBIDDEN);
@@ -475,7 +454,7 @@ describe('@Member', () => {
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .set({ 'Authorization': `Bearer ${ADVISOR.token}` })
                 .send({
-                    email: "teste.23@codexjr.com.br"
+                    password: "password23",
                 });
 
             response.should.have.status(HTTP_CODE.OK);
@@ -488,7 +467,7 @@ describe('@Member', () => {
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` })
                 .send({
-                    email: "teste.24@codexjr.com.br"
+                    password: "password24",
                 });
 
             response.should.have.status(HTTP_CODE.OK);
@@ -500,7 +479,9 @@ describe('@Member', () => {
             const response = await chai.request(server)
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .set({ 'Authorization': `Bearer ${DIRECTOR.token}` })
-                .send(PATCH_DEFAULT);
+                .send({
+                    password: "password25",
+                });
 
             response.should.have.status(HTTP_CODE.OK);
             response.body.should.have.property("message");
@@ -512,7 +493,6 @@ describe('@Member', () => {
                 .patch(`/member/${ADVISOR.valid_id}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` })
                 .send({
-                    ...PATCH_DEFAULT,
                     email: "teste@codexjr",
                 });
 
@@ -541,7 +521,6 @@ describe('@Member', () => {
                 .send({
                     role: "Trainee",
                 });
-
 
             response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
             response.body.should.have.property("error");
@@ -624,44 +603,114 @@ describe('@Member', () => {
             response.should.have.status(HTTP_CODE.OK);
             response.body.should.have.property("message");
             response.body.message.should.equal("Membro atualizado com sucesso!");
-            // response.body.member.email.equal("teste.novo@codexjr.com.br");
-            // response.body.member.role.equal("Trainee");
         });
     });
 
-    describe('DELETE', async () => {
-        beforeEach( () => {
-            //TODO Criar um usuário para ser apagado
+    describe('DELETE /member/:id', async () => {
+        const login = {};
+        const INVALID_ID = "5630c99bbeee65b2ca1e40c8";
+        const EMPTY_ID = "";
+
+        beforeEach(async () => {
+            login.default = await chai.request(server).post('/signIn').send({
+                email: ejDefault.presidentData.email,
+                password: ejDefault.presidentData.password,
+            });
+            DEFAULT.token = login.default.body.dados.token;
+
+            /* ADVISOR */
+            await chai.request(server)
+                .post('/member')
+                .set({ 'Authorization': `Bearer ${DEFAULT.token}`})
+                .send(ADVISOR);
+            login.advisor = await chai.request(server)
+                .post('/signIn')
+                .send({
+                    email: ADVISOR.email,
+                    password: ADVISOR.password,
+                });
+            ADVISOR.token = login.advisor.body.dados.token;
+            ADVISOR.valid_id = login.advisor.body.dados.member._id;
+
+            /* TRAINEE */
+            await chai.request(server)
+                .post('/member')
+                .set({ 'Authorization': `Bearer ${DEFAULT.token}`})
+                .send(TRAINEE);
+            login.trainee = await chai.request(server)
+                .post('/signIn')
+                .send({
+                    email: TRAINEE.email,
+                    password: TRAINEE.password,
+                });
+            TRAINEE.token = login.trainee.body.dados.token;
+            TRAINEE.valid_id = login.trainee.body.dados.member._id;
         });
 
-        afterEach( () => {
-            //TODO Apagar o usuário criado, se ainda existir
+        afterEach(async () => {
+            await Member.deleteOne({ name: "Fulano Assessor"});
+            await Member.deleteOne({ name: "Fulano Trainee"});
         });
 
-        it('33. Com o :id invalido', async () => {
-            const response = await chai.request(server).delete('');
+        it('33. With an invalid :id, should fail', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${INVALID_ID}`)
+                .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
+
+            response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
+            response.body.should.have.property("error");
+            response.body.error.should.equal("INVALID_ID");
         });
 
-        it('34. Sem um :id', async () => {
+        // TODO There isn't any DELETE /member/ route without an ID.
+        it.skip('34. Without any :id, should fail', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${EMPTY_ID}`)
+                .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
+
+            response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
+            response.body.should.have.property("error");
+            response.body.error.should.equal("EMPTY_ID");
+        });
+
+        it('35. Valid :id parameter, but no\'Authorization\' on the header, should fail', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${TRAINEE.valid_id}`);
+
+            response.should.have.status(HTTP_CODE.UNAUTHORIZED);
+            response.body.should.have.property("error");
+            response.body.error.should.equal("Requisição sem token.");
+        });
+
+        it('36. Valid :id parameter, but badly formatted \'Authorization\' on header, should fail', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${TRAINEE.valid_id}`)
+                .set({ 'Authorization': `Bear ${DEFAULT.token}` });
+
+            response.should.have.status(HTTP_CODE.UNAUTHORIZED);
+            response.body.should.have.property("error");
+            response.body.error.should.equal("Token mal formatado.");
 
         });
 
-        it('35. Com um :id válido, mas sem authorization no header', async () => {
+        it('37. Valid :id parameter, with a valid Advisor token on \'Authorization\' on header, should fail', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${TRAINEE.valid_id}`)
+                .set({ 'Authorization': `Bear ${ADVISOR.token}` });
 
+            response.should.have.status(HTTP_CODE.UNAUTHORIZED);
+            response.body.should.have.property("error");
+            response.body.error.should.equal("Token mal formatado.");
         });
 
-        it('36. Com um :id válido, com o token mal formatado no campo \'Authorization\' do cabeçalho', async () => {
+        it('38. Valid :id parameter, valid leadership token on \'Authorization\' on header, should succeed', async () => {
+            const response = await chai.request(server)
+                .delete(`/member/${TRAINEE.valid_id}`)
+                .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
 
-        });
-
-        it('37. Com um :id válido, mas com o token válido para Assessor no campo \'Authorization\' do cabeçalho', async () => {
-
-        });
-
-        it('38. Com um :id válido, com o token válido para Liderança no campo \'Authorization\' do cabeçalho', async () => {
-
+            response.should.have.status(HTTP_CODE.OK);
+            response.body.should.have.property("message");
+            response.body.message.should.equal("Membro removido com sucesso!");
         });
     });
 });
-
-
