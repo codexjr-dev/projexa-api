@@ -3,12 +3,12 @@
   "version": "1.2.4",
   "description": "API do gerenciador de EJs",
   "main": "index.js",
-  "scripts": {
-    "start": "NODE_ENV=prod node src/server.js",
-    "test": "NODE_ENV=test mocha ./test/integration/*.test.js --timeout 10000 --exit",
-    "dev": "NODE_ENV=dev nodemon src/server.js",
-    "debug": "NODE_ENV=dev nodemon --inspect src/server.js"
-  },
+ "scripts": {
+   "start": "set NODE_ENV=prod node && src/server.js",
+   "test": "set NODE_ENV=test && mocha ./test/integration/*.test.js --timeout 10000 --exit",
+   "dev": "set NODE_ENV=dev && nodemon src/server.js",
+   "debug": "set NODE_ENV=dev nodemon && --inspect src/server.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codexjr-dev/dashboard-codex-api.git"

@@ -13,7 +13,7 @@ module.exports = {
       entryDate,
       phone,
       observations,
-      habilities,
+      abilities,
       department,
     } = memberData;
 
@@ -36,7 +36,7 @@ module.exports = {
       entryDate,
       phone,
       observations,
-      habilities,
+      abilities,
       department,
     });
 
@@ -125,7 +125,7 @@ function getDTOmember(member) {
     entryDate: member.entryDate,
     phone: member.phone,
     observations: member.observations,
-    habilities: member.habilities,
+    abilities: member.abilities,
     department: member.department,
   };
 }
