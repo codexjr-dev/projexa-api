@@ -14,11 +14,11 @@ const MemberSchema = new Schema({
         type: String,
         enum: ["Presidente", "Diretor(a)", "Assessor(a)", "Conselheiro(a)", "Pós-Júnior", "Guardiã(o)", "Trainee", "Ex-Trainee"],
         default: "Assessor(a)",
-      },
-      password: {
+    },
+    password: {
         type: String,
         required: true,
-      },
+    },
     ej: {
         type: Schema.Types.ObjectId,
         ref: Ej,
