@@ -75,11 +75,11 @@ module.exports = {
       );
       data.password = psw;
     }
-  
+
     const member = await Member.findOne({ _id: memberId });
 
     if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
-    
+
     if (member.email !== data.email) {
       await verifyEmail(data.email);
     }
@@ -155,13 +155,20 @@ async function checkMinimumQuantity(memberToDelete) {
 }
 
 function hasPermissionToChange(member, data) {
-   return ['Presidente', 'Diretor(a)'].includes(member.role) ||
-   data.name === data.name &&
-   new Date(data.birthDate).getTime() === member.birthDate.getTime() &&
-   new Date(data.entryDate).getTime() === member.entryDate.getTime() &&
-   data.department === member.department &&
-   data.role === member.role &&
-   data.email === member.email &&
-   data.phone === member.phone &&
-   data.observations === member.observations
+  if (member.role in ["Presiente", "Diretor(a)"]) return true;
+
+  const PERMITTED_FIELDS = ["password", "abilities"];
+  for (let field in data) {
+    if (field in PERMITTED_FIELDS) continue;
+    if (!isFieldEqual(member, data, field)) return false;
+  }
+  return true;
+}
+
+function isFieldEqual(object1, object2, field) {
+  if (!(Object.hasOwn(object1, field) &&
+        Object.hasOwn(object2, field)))
+        return false;
+  if (object1[field] !== object2[field]) return false;
+  return true;
 }
