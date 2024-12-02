@@ -159,7 +159,7 @@ function hasPermissionToChange(member, data) {
 
   const PERMITTED_FIELDS = ["password", "abilities"];
   for (let field in data) {
-    if (field in PERMITTED_FIELDS) continue;
+    if (PERMITTED_FIELDS.includes(field)) continue;
     if (!isFieldEqual(member, data, field)) return false;
   }
   return true;
