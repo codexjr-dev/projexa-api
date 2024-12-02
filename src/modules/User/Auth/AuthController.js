@@ -1,9 +1,9 @@
-const { signIn } = require('./AuthService');
+const { sign-in } = require('./AuthService');
 
 module.exports = {
-    async signIn(req, res) {
+    async sign-in(req, res) {
         try {
-            const dados = await signIn(req.body)
+            const dados = await sign-in(req.body)
 
             if (dados.hasOwnProperty('erro')) {
                 return res.status(401).send({ error: dados.erro })

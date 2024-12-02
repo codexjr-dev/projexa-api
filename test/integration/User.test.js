@@ -46,7 +46,7 @@ describe('@User', async function () {
 
     it('POST   | USER | Login com senha incorreta', function (done) {
         chai.request(server)
-            .post('/signIn')
+            .post('/sign-in')
             .send({ "email": presidentDefault.email, "password": "senhaerrada" })
             .end(function (err, response) {
                 response.should.have.status(data.HTTP_CODE.UNAUTHORIZED);
@@ -56,7 +56,7 @@ describe('@User', async function () {
 
     it('POST   | USER | Login com email inexistente', function (done) {
         chai.request(server)
-            .post('/signIn')
+            .post('/sign-in')
             .send({ "email": "email@gmail.com", "password": "senhasenha" })
             .end(function (err, response) {
                 response.should.have.status(data.HTTP_CODE.UNAUTHORIZED);
@@ -66,7 +66,7 @@ describe('@User', async function () {
 
     it('POST   | USER | Login com dados corretos', function (done) {
         chai.request(server)
-            .post('/signIn')
+            .post('/sign-in')
             .send({ "email": presidentDefault.email, "password": "senha" })
             .end(function (err, response) {
                 response.should.have.status(data.HTTP_CODE.OK);
