@@ -73,7 +73,7 @@ function getDTOmember(member) {
       entryDate: member.entryDate,
       phone: member.phone,
       observations: member.observations,
-      habilities: member.habilities,
+      abilities: member.abilities,
       department: member.department,
     };
   }
