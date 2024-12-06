@@ -11,7 +11,7 @@ const signToken = member => {
 }
 
 module.exports = {
-    async sign-in(dados) {
+    async signIn(dados) {
         const { email, password } = dados;
 
         // ao recuperar o objeto 'member', ele conterá o campo 'ej' preenchido com o nome da ej
