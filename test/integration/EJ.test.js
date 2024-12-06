@@ -50,7 +50,7 @@ describe('@EJ', async function () {
 
     // it('POST   | USER | Login com senha incorreta', function (done) {
     //     chai.request(server)
-    //         .post('/adm/sign-in')
+    //         .post('/adm/signIn')
     //         .send({ "email": default_adm.email, "password": "senhaerrada" })
     //         .end(function (err, response) {
     //             response.should.have.status(data.HTTP_CODE.UNAUTHORIZED);
@@ -60,7 +60,7 @@ describe('@EJ', async function () {
 
     // it('POST   | USER | Login com email inexistente', function (done) {
     //     chai.request(server)
-    //         .post('/adm/sign-in')
+    //         .post('/adm/signIn')
     //         .send({ "email": "email@gmail.com", "password": "senhasenha" })
     //         .end(function (err, response) {
     //             response.should.have.status(data.HTTP_CODE.NOT_FOUND);
@@ -70,7 +70,7 @@ describe('@EJ', async function () {
 
     // it('POST   | USER | Login com dados corretos', function (done) {
     //     chai.request(server)
-    //         .post('/adm/sign-in')
+    //         .post('/adm/signIn')
     //         .send({ "email": default_adm.email, "password": "senhasenha" })
     //         .end(function (err, response) {
     //             response.should.have.status(data.HTTP_CODE.OK);

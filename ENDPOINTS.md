@@ -31,7 +31,7 @@ This route is responsible for the members of the junior company and has the foll
 | Entry date      | The date the member joined the junior company                        |
 | Phone           | Member' number of phone to contact                                   |
 | Observations    | Any observation of member that is relevant to be reported            |
-| abilities      | abilities that member has (back-end, front-end and others)          |
+| Habilities      | Habilities that member has (back-end, front-end and others)          |
 | Department      | The department this member belongs to                                |
 
 ## 🛠️ Methods
@@ -57,7 +57,7 @@ Below are the methods and their expected responses as well as possible errors:
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------|
 | Middleware                       | Contains the id of the ej                                                                                |
 | Authentication (from middleware) | isLeadership                                                                                             |
-| Body                             | Contains the name, email, role, password, birthDate, entryDate, phone, observations, abilities and department of the member |
+| Body                             | Contains the name, email, role, password, birthDate, entryDate, phone, observations, habilities and department of the member |
 
 ### 🔄 PATCH
 
