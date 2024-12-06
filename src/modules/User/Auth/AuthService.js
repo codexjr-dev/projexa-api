@@ -11,7 +11,7 @@ const signToken = user => {
 }
 
 module.exports = {
-    async signIn(dados) {
+    async sign-in(dados) {
         const { email, password } = dados;
         const user = await User.findOne({ email: email }).populate({ path: 'ej', select: 'name' });
 
