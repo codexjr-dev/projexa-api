@@ -46,7 +46,7 @@ const MemberSchema = new Schema({
         type: String,
         required: false
     },
-    habilities: [{
+    abilities: [{
         type: String,
         required: false
     }],

@@ -57,7 +57,7 @@ Below are the methods and their expected responses as well as possible errors:
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------|
 | Middleware                       | Contains the id of the ej                                                                                |
 | Authentication (from middleware) | isLeadership                                                                                             |
-| Body                             | Contains the name, email, role, password, birthDate, entryDate, phone, observations, habilities and department of the member |
+| Body                             | Contains the name, email, role, password, birthDate, entryDate, phone, observations, abilities and department of the member |
 
 ### 🔄 PATCH
 
