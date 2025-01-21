@@ -11,7 +11,7 @@ const signToken = member => {
 }
 
 module.exports = {
-    async sign-in(dados) {
+    async signIn(dados) {
         const { email, password } = dados;
 
         // ao recuperar o objeto 'member', ele conterá o campo 'ej' preenchido com o nome da ej
@@ -27,7 +27,7 @@ module.exports = {
 
         if (!match)
             return { erro: 'Usuário ou senha incorreta' }
-        
+
         delete member._doc.password
 
         // remove o campo password de 'member' antes de retorná-lo

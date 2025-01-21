@@ -4,11 +4,16 @@
   "description": "API do gerenciador de EJs",
   "main": "index.js",
  "scripts": {
-   "start": "set NODE_ENV=prod node && src/server.js",
-   "test": "set NODE_ENV=test && mocha ./test/integration/*.test.js --timeout 10000 --exit",
-   "dev": "set NODE_ENV=dev && nodemon src/server.js",
-   "debug": "set NODE_ENV=dev nodemon && --inspect src/server.js"
-},
+    "start": "NODE_ENV=prod node src/server.js",
+    "test": "NODE_ENV=test mocha ./test/integration/*.test.js --timeout 10000 --exit",
+    "dev": "NODE_ENV=dev nodemon src/server.js",
+    "debug": "NODE_ENV=dev nodemon --inspect src/server.js",
+    "start:w": "set NODE_ENV=prod && node src/server.js",
+    "test:w": "set NODE_ENV=test && mocha ./test/integration/*.test.js --timeout 10000 --exit",
+    "dev:w": "set NODE_ENV=dev && nodemon src/server.js",
+    "debug:w": "set NODE_ENV=dev && nodemon --inspect src/server.js"
+  } 
+,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codexjr-dev/dashboard-codex-api.git"
@@ -28,7 +33,8 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "mongoose": "^6.1.4",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "projexa": "file:"
   },
   "devDependencies": {
     "chai": "^4.2.0",

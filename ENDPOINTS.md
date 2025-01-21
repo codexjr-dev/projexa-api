@@ -31,7 +31,7 @@ This route is responsible for the members of the junior company and has the foll
 | Entry date      | The date the member joined the junior company                        |
 | Phone           | Member' number of phone to contact                                   |
 | Observations    | Any observation of member that is relevant to be reported            |
-| abilities      | abilities that member has (back-end, front-end and others)          |
+| Habilities      | Habilities that member has (back-end, front-end and others)          |
 | Department      | The department this member belongs to                                |
 
 ## 🛠️ Methods

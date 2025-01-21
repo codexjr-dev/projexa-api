@@ -75,11 +75,11 @@ module.exports = {
       );
       data.password = psw;
     }
-  
+
     const member = await Member.findOne({ _id: memberId });
 
     if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
-    
+
     if (member.email !== data.email) {
       await verifyEmail(data.email);
     }
