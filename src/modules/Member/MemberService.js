@@ -9,6 +9,7 @@ module.exports = {
       email,
       role,
       password,
+      gender,
       birthDate,
       entryDate,
       phone,
@@ -20,6 +21,7 @@ module.exports = {
     verifyEmptyField(name, 'EMPTY_NAME');
     verifyEmptyField(password, 'EMPTY_PASSWORD');
     await verifyEmail(email);
+    checkValidGender(gender);
 
     const psw = await bcrypt.hash(
       `${password}`,
@@ -31,6 +33,7 @@ module.exports = {
       email,
       role,
       password: psw,
+      gender,
       birthDate,
       ej: ejId,
       entryDate,
@@ -121,6 +124,7 @@ function getDTOmember(member) {
     email: member.email,
     role: member.role,
     ej: member.ej,
+    gender: member.gender,
     birthDate: member.birthDate,
     entryDate: member.entryDate,
     phone: member.phone,
@@ -157,6 +161,7 @@ async function checkMinimumQuantity(memberToDelete) {
 function hasPermissionToChange(member, data) {
    return ['Presidente', 'Diretor(a)'].includes(member.role) ||
    data.name === data.name &&
+   data.gender === member.gender &&
    new Date(data.birthDate).getTime() === member.birthDate.getTime() &&
    new Date(data.entryDate).getTime() === member.entryDate.getTime() &&
    data.department === member.department &&
@@ -164,4 +169,10 @@ function hasPermissionToChange(member, data) {
    data.email === member.email &&
    data.phone === member.phone &&
    data.observations === member.observations
+}
+
+function checkValidGender(gender) {
+  const VALID_GENDERS = ["Masculino", "Feminino", "Outro"];
+  if (gender in VALID_GENDERS) return;
+  throw new Error("INVALID_GENDER");
 }

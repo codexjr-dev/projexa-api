@@ -24,6 +24,12 @@ const MemberSchema = new Schema({
         ref: Ej,
         required: true
     },
+    gender: {
+        type: String,
+        enum: ["Masculino", "Feminino", "Outro"],
+        default: "Masculino",
+        required: true
+    },
     birthDate: {
         type: Date,
         required: false
