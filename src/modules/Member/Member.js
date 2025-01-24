@@ -12,7 +12,7 @@ const MemberSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ["Presidente", "Diretor(a)", "Assessor(a)", "Conselheiro(a)", "Pós-Júnior", "Guardiã(o)", "Trainee", "Ex-Trainee"],
+        enum: ["Presidente", "Diretor(a)", "Assessor(a)", "Conselheiro(a)", "Pós-Júnior", "Guardiã(o)", "Trainee", "Ex-Trainee", "Diretor(a) Interino(a)", "Cliente", "Professor"],
         default: "Assessor(a)",
       },
       password: {
