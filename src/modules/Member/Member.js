@@ -14,14 +14,20 @@ const MemberSchema = new Schema({
         type: String,
         enum: ["Presidente", "Diretor(a)", "Assessor(a)", "Conselheiro(a)", "Pós-Júnior", "Guardiã(o)", "Trainee", "Ex-Trainee", "Diretor(a) Interino(a)", "Cliente", "Professor"],
         default: "Assessor(a)",
-      },
-      password: {
+    },
+    password: {
         type: String,
         required: true,
-      },
+    },
     ej: {
         type: Schema.Types.ObjectId,
         ref: Ej,
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ["Masculino", "Feminino", "Outro"],
+        default: "Masculino",
         required: true
     },
     birthDate: {

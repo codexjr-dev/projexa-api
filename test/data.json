@@ -5,7 +5,7 @@
             "name": "Pamplona",
             "email": "fulano@codexjr.com.br",
             "password": "senha",
-            "birthDate": "24-07-1998"
+            "birthDate": "1998-08-01T03:00:00.000Z"
         }
     },
     "presidentDefault": {
