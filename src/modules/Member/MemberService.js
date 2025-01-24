@@ -78,6 +78,8 @@ module.exports = {
   
     const member = await Member.findOne({ _id: memberId });
 
+    if (member == null) throw new Error('INVALID_ID')
+
     if (!hasPermissionToChange(member, data)) throw new Error('WITHOUT_PERMISSION');
     
     if (member.email !== data.email) {
