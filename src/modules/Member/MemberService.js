@@ -26,6 +26,7 @@ module.exports = {
       parseInt(process.env.SALT_ROUNDS)
     );
 
+    checksLeaders(ejId, role)
     const newMember = await Member.create({
       name,
       email,
@@ -99,6 +100,17 @@ module.exports = {
 const verifyEmptyField = (field, errorMessage) => {
   if (!field) throw new Error(errorMessage);
 };
+
+async function checksLeaders(ejId, role){
+  if (role === "Presidente" || role === "Conselheiro(a)"){
+    const ej = await Member.find({ej: ejId})
+    const ejMember = ej.find(user => user.role === role)
+    console.log(ejMember)
+    if (ejMember){
+      await ejMember.updateOne({role: "Assessor"})
+    }
+  } 
+}
 
 async function verifyEmail(email) {
   verifyEmptyField(email, 'EMPTY_EMAIL');
