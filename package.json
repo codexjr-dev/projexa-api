@@ -34,11 +34,15 @@
     "nodemailer": "7.0.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.3",
     "chai": "5.3.1",
     "chai-http": "5.1.2",
     "mocha": "11.7.1",
     "mongodb-memory-server": "10.2.0",
-    "nodemon": "3.1.10"
+    "nodemon": "3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "_moduleAliases": {
     "@": "src",
