@@ -41,12 +41,20 @@ async function update(request: Request, response: Response): Promise<any> {
     try {
         const id = new Schema.Types.ObjectId(request.params.id);
         const updatedUser = await service.update(id, request.body);
-        return response.status(200).send(
-            { user: updatedUser, message: 'Usuário atualizado com sucesso!' }
-        );
+        return response.status(200).send({
+            user: updatedUser,
+            message: 'Usuário atualizado com sucesso!'
+        });
     } catch (error: unknown) {
         if (error instanceof Error)
             return response.status(500).send({ error: error.message });
         return response.status(500).send(error);
     }
+}
+
+export {
+    save,
+    findByEj,
+    remove,
+    update,
 }

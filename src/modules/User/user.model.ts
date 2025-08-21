@@ -12,6 +12,7 @@ interface IUser {
         "Trainee" | "Ex-Trainee";
     birthDate: Date;
     ej: Schema.Types.ObjectId;
+    __v: number;
 }
 
 const UserSchema = new Schema<IUser>({

@@ -43,7 +43,7 @@ async function save(userData: IUser, ejId: string): Promise<IUser> {
 }
 
 async function findByEj(ejId: ID): Promise<IUser[]> {
-    const users = await User.find({ ej: ejId }).select("-password");
+    const users = await User.find({ ej: ejId }).select("-password -__v");
     return users;
 }
 
@@ -52,13 +52,25 @@ async function remove(userId: ID): Promise<DeleteResult> {
     return removedUser;
 }
 
-async function update(userId: ID, data: IUser) {
-    if (data.hasOwnProperty("password")) {
+    /**
+     * Atualiza um usuário existente no sistema
+     * @param {ID} userId - Id do usuário a ser atualizado.
+     * @param {IUser} data - Novos valores a serem atualizados.
+     * @returns {Promise<IUser | null>} Retorna o usuário com os dados
+     * atualizados.
+     */
+async function update
+(userId: ID, data: UpdateUserInterface): Promise<IUser | null> {
+    if (data.hasOwnProperty("password"))
         data.password = await bcrypt.hash(data.password, SALT_ROUNDS);
-    }
-    return await User.findOneAndUpdate({ _id: data._id }, data );
+    return await User
+        .findOneAndUpdate({ _id: userId }, data )
+        .select("-password -_id -__v");
 }
 
 export default {
-    save, findByEj, remove, update,
+    save,
+    findByEj,
+    remove,
+    update,
 }
