@@ -1,13 +1,16 @@
 {
   "name": "projexa",
-  "version": "1.2.4",
+  "version": "1.4.0",
   "description": "API do gerenciador de EJs",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=prod && node src/server.js",
+    "start": "NODE_ENV=dev nodemon src/server.js",
+    "debug": "NODE_ENV=dev nodemon --inspect src/server.js",
     "test": "NODE_ENV=test mocha ./test/integration/*.test.js --timeout 10000 --exit",
-    "dev": "NODE_ENV=dev nodemon src/server.js",
-    "debug": "NODE_ENV=dev nodemon --inspect src/server.js"
+    "start:win32": "set NODE_ENV=dev && nodemon src/server.js",
+    "debug:win32": "set NODE_ENV=dev && nodemon --inspect src/server.js",
+    "test:win32": "set NODE_ENV=test && mocha ./test/integration/*.test.js --timeout 10000 --exit",
+    "deploy": "NODE_ENV=prod node src/server.js"
   },
   "repository": {
     "type": "git",
