@@ -4,7 +4,7 @@
   "description": "API do gerenciador de EJs",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=prod node src/server.js",
+    "start": "set NODE_ENV=prod && node src/server.js",
     "test": "NODE_ENV=test mocha ./test/integration/*.test.js --timeout 10000 --exit",
     "dev": "NODE_ENV=dev nodemon src/server.js",
     "debug": "NODE_ENV=dev nodemon --inspect src/server.js"
@@ -20,22 +20,22 @@
   },
   "homepage": "https://github.com/codexjr-dev/dashboard-codex-api#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.1",
+    "bcrypt": "6.0.0",
+    "body-parser": "2.2.0",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "module-alias": "^2.2.2",
-    "mongoose": "^6.1.4",
-    "nodemailer": "^6.7.2"
+    "dotenv": "17.2.1",
+    "express": "5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "2.2.3",
+    "mongoose": "8.17.2",
+    "nodemailer": "7.0.5"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^10.0.0",
-    "mongodb-memory-server": "^6.9.3",
-    "nodemon": "^2.0.15"
+    "chai": "5.3.1",
+    "chai-http": "5.1.2",
+    "mocha": "11.7.1",
+    "mongodb-memory-server": "10.2.0",
+    "nodemon": "3.1.10"
   },
   "_moduleAliases": {
     "@": "src",
