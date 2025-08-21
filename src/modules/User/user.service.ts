@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import User, { IUser } from "./user";
+import User, { IUser } from "./user.model";
 import { DeleteResult, Schema } from "mongoose";
 const SALT_ROUNDS = `${process.env.SALT_ROUNDS}`;
 type ID = Schema.Types.ObjectId;
