@@ -15,7 +15,21 @@ interface IUser {
     __v: number;
 }
 
-const UserSchema = new Schema<IUser>({
+interface UserOptional {
+    _id?: Schema.Types.ObjectId;
+    name?: string;
+    email?: string;
+    password?: string;
+    role?:
+        "Presidente" | "Diretor(a)" | "Assessor(a)" |
+        "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
+        "Trainee" | "Ex-Trainee";
+    birthDate?: Date;
+    ej?: Schema.Types.ObjectId;
+    __v?: number;
+}
+
+const USER_SCHEMA = new Schema<IUser>({
     name: {
         type: String,
         required: true,
@@ -50,5 +64,5 @@ const UserSchema = new Schema<IUser>({
 },
 { timestamps: true, });
 
-export default model("User", UserSchema);
-export { IUser };
+export default model("User", USER_SCHEMA);
+export { IUser, UserOptional };
