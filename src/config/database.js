@@ -21,18 +21,10 @@ module.exports = async () => {
         if (process.env.NODE_ENV !== "test") {
             console.log('Conectado com o banco de dados!');
         }
-    })
-
+    });
     mongoose.connection.on('error', (err) => {
         console.log("Erro na conexão com o banco de dados: " + err);
     });
-
     mongoose.set("strictQuery", false);
-
-    mongoose.connect(BD_URL, {
-        useNewUrlParser: true,
-        // poolSize: 5,
-        useUnifiedTopology: true,
-        // useCreateIndex: true,
-    });
+    mongoose.connect(BD_URL);
 }
