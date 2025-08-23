@@ -15,7 +15,7 @@ interface IUser {
     __v: number;
 }
 
-interface UserOptional {
+interface UserParameters {
     _id?: Schema.Types.ObjectId;
     name?: string;
     email?: string;
@@ -29,7 +29,7 @@ interface UserOptional {
     __v?: number;
 }
 
-const USER_SCHEMA = new Schema<IUser>({
+const userSchema = new Schema<IUser>({
     name: {
         type: String,
         required: true,
@@ -64,5 +64,5 @@ const USER_SCHEMA = new Schema<IUser>({
 },
 { timestamps: true, });
 
-export default model("User", USER_SCHEMA);
-export { IUser, UserOptional };
+export default model("User", userSchema);
+export { IUser, UserParameters };

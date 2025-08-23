@@ -13,6 +13,7 @@ interface ICustomer {
 }
 
 interface IProject {
+    _id: ID;
     name: string;
     description: string;
     tags: Tag[];
@@ -25,7 +26,8 @@ interface IProject {
     news: ID[];
 }
 
-interface ProjectOptional {
+interface ProjectParameters {
+    _id: ID;
     name?: string;
     description?: string;
     tags?: Tag[];
@@ -38,13 +40,13 @@ interface ProjectOptional {
     news?: ID[];
 }
 
-const CUSTOMER_SCHEMA = new Schema<ICustomer>({
+const customerSchema = new Schema<ICustomer>({
     email: String,
     contact: String,
     name: String,
 });
 
-const PROJECT_SCHEMA = new Schema<IProject>({
+const projectSchema = new Schema<IProject>({
     name: {
         type: String,
         required: true,
@@ -89,7 +91,7 @@ const PROJECT_SCHEMA = new Schema<IProject>({
         type: String,
         required: false,
     },
-    customer: CUSTOMER_SCHEMA,
+    customer: customerSchema,
     news: [{
         type: Schema.Types.ObjectId,
         ref: "News",
@@ -98,5 +100,5 @@ const PROJECT_SCHEMA = new Schema<IProject>({
     }],
 }, { timestamps: true });
 
-export default model("Project", PROJECT_SCHEMA);
-export { IProject, ProjectOptional, ICustomer };
+export default model("Project", projectSchema);
+export { IProject, ProjectParameters, ICustomer };

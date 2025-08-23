@@ -1,28 +1,30 @@
 import { Schema, model } from "mongoose";
-import member from "../Member/Member";
+import User from "../user/user.model";
 type ID = Schema.Types.ObjectId;
 type Buffer = Schema.Types.Buffer;
 
 interface INews {
-    member: ID;
+    _id: ID;
+    user: ID;
     project: ID;
     description: string;
     image?: Buffer;
     updateLink?: string;
 }
 
-interface NewsOptional {
-    member?: ID;
+interface NewsParameters {
+    _id?: ID;
+    user?: ID;
     project?: ID;
     description?: string;
     image?: Buffer;
     updateLink?: string;
 }
 
-const NEWS_SCHEMA = new Schema<INews>({
-    member: {
+const newsSchema = new Schema<INews>({
+    user: {
         type: Schema.Types.ObjectId,
-        ref: member,
+        ref: User,
         required: true,
     },
     project: {
@@ -40,5 +42,5 @@ const NEWS_SCHEMA = new Schema<INews>({
     },
 }, { timestamps: true });
 
-export default model("News", NEWS_SCHEMA);
-export { INews, NewsOptional };
+export default model("News", newsSchema);
+export { INews, NewsParameters };

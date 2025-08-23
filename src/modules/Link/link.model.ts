@@ -19,7 +19,7 @@ interface ILink {
     observations: string;
 }
 
-interface LinkOptional {
+interface LinkParameters {
     name?: string;
     url?: string;
     tags?: Tag[];
@@ -28,7 +28,7 @@ interface LinkOptional {
     observations?: string;
 }
 
-const LINK_SCHEMA = new Schema<ILink>({
+const linkSchema = new Schema<ILink>({
     name: {
         type: String,
         required: true,
@@ -65,5 +65,5 @@ const LINK_SCHEMA = new Schema<ILink>({
     }
 }, { timestamps: true });
 
-export default model("Link", LINK_SCHEMA);
-export { ILink, LinkOptional }
+export default model("Link", linkSchema);
+export { ILink, LinkParameters };
