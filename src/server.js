@@ -6,12 +6,12 @@ require('module-alias/register');
 require('dotenv/config');
 
 const EjRoutes = require('./modules/Ej/EjRoutes');
-const UserRoutes = require('./modules/User/UserRoutes');
+const UserRoutes = require('./modules/user/UserRoutes');
 const AuthRoutes = require('./modules/Member/Auth/AuthRoutes');
 const MemberRoutes = require('./modules/Member/MemberRoutes');
-const ProjectRoutes = require('./modules/Project/ProjectRoutes');
-const LinkRoutes = require('./modules/Link/LinkRoutes');
-const NewsRoutes = require('./modules/News/NewsRoutes');
+const ProjectRoutes = require('./modules/project/ProjectRoutes');
+const LinkRoutes = require('./modules/link/LinkRoutes');
+const NewsRoutes = require('./modules/news/NewsRoutes');
 const server = express();
 
 server.use(cors());

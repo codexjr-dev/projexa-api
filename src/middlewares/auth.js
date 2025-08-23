@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Member = require("@member/Member");
 const Project = require("@project/Project");
-const News = require("../modules/News/News");
+const News = require("../modules/news/News");
 
 module.exports = {
   existentUser(req, res, next) {
