@@ -29,7 +29,7 @@ async function findByOrganization(request: Request, response: Response) {
     try {
         const { organizationID } = response.locals;
 
-        const links = await service.findByEj(organizationID);
+        const links = await service.findByOrganization(organizationID);
         return response.status(200).send({ links });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({

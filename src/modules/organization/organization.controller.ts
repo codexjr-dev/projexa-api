@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import service from "./organization.service";
-import { OrganizationParameters } from "./organization.model";
-import { UserParameters } from "modules/user/user.model";
+import { UserParameters } from "../user/user.model";
 
 async function save(request: Request, response: Response) {
     try {
@@ -27,7 +26,7 @@ async function save(request: Request, response: Response) {
 async function findAll(request: Request, response: Response) {
     try {
         const organizations = await service.findAll();
-        return response.status(200).send({ ejs: organizations });
+        return response.status(200).send({ organizations });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
             error: "Erro inesperado",
@@ -41,7 +40,7 @@ async function findById(request: Request, response: Response) {
         const { id } = request.params;
 
         const organization = await service.findById(id);
-        return response.status(200).send({ ej: organization });
+        return response.status(200).send({ organization });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
             error: "Erro inesperado",

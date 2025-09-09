@@ -3,17 +3,17 @@ import Project, { ProjectParameters } from "./project.model";
 type SearchResult = ProjectParameters | null;
 
 async function save
-(parameters: ProjectParameters, ejId: string): Promise<ProjectParameters> {
+(parameters: ProjectParameters, organizationID: string): Promise<ProjectParameters> {
     const newProject = {
         ...parameters!,
-        ej: new Schema.Types.ObjectId(ejId),
+        organization: new Schema.Types.ObjectId(organizationID),
     };
     return await Project.create(newProject);
 }
 
-async function findByOrganization(ejId: string): Promise<SearchResult[]> {
+async function findByOrganization(organizationID: string): Promise<SearchResult[]> {
     const projects = await Project
-        .find({ ej: new Schema.Types.ObjectId(ejId) })
+        .find({ organization: new Schema.Types.ObjectId(organizationID) })
         .populate({ path: "team", select: "name role _id" });
     return projects;
 }

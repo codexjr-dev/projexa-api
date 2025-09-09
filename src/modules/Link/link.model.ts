@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import ej from "../Ej/Ej";
+import Organization from "../organization/organization.model";
 type ID = Schema.Types.ObjectId;
 type Tag = "Importante" | "Treinamento" | "Documentação";
 type Department =
@@ -14,7 +14,7 @@ interface ILink {
     name: string;
     url: string;
     tags: Tag[];
-    ej: ID;
+    organization: ID;
     departments: Department[];
     observations: string;
 }
@@ -23,7 +23,7 @@ interface LinkParameters {
     name?: string;
     url?: string;
     tags?: Tag[];
-    ej?: ID;
+    organization?: ID;
     departments?: Department[];
     observations?: string;
 }
@@ -42,9 +42,9 @@ const linkSchema = new Schema<ILink>({
         enum: ["Importante", "Treinamento", "Documentação"],
         required: false,
     },],
-    ej: {
+    organization: {
         type: Schema.Types.ObjectId,
-        ref: ej,
+        ref: Organization,
         required: true,
     },
     departments: [{

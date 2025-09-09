@@ -16,7 +16,7 @@ async function signIn(request: Request) {
     const { email, password } = request.params;
     const user: IUser | null = await User
         .findOne({ email })
-        .populate({ path: "ej", select: "name" });
+        .populate({ path: "organization", select: "name" });
 
     if (!user) return { erro: "Usuário ou senha incorretos" };
 

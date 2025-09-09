@@ -82,7 +82,7 @@ async function getAllNewsByOrg(request: Request, response: Response) {
     try {
         const { organizationID } = response.locals;
 
-        const allNews = await service.getAllNewsByEJ(organizationID);
+        const allNews = await service.getAllNewsByOrganization(organizationID);
         return response.status(200).send({ news: allNews });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({

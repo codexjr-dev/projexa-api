@@ -1,6 +1,6 @@
-import { DeleteResult, Schema } from "mongoose";
+import { Schema } from "mongoose";
 import News, { INews, NewsParameters } from "./news.model";
-import Project, { IProject, ProjectParameters } from "modules/project/project.model";
+import Project, { IProject, ProjectParameters } from "../project/project.model";
 type SearchResult = NewsParameters | null;
 type NewsAndProject = {
     news: NewsParameters;
@@ -17,11 +17,10 @@ async function save(userId: string, projectId: string, parameters: NewsParameter
         image: parameters.image,
         updateLink: parameters.updateLink,
     });
-    const updatedProject = await Project
-        .findOneAndUpdate(
-            { _id: projectObjectID },
-            { $push: { news: news._id } }
-        );
+    await Project.findOneAndUpdate(
+        { _id: projectObjectID },
+        { $push: { news: news._id } }
+    );
     return news;
 }
 
@@ -79,8 +78,8 @@ async function remove(projectId: string, parameters: NewsParameters): Promise<Se
         .exec() as NewsParameters;
 }
 
-async function getAllNewsByEJ(ejId: string) {
-    const projects = await Project.find({ ej: ejId }).select("_id");
+async function getAllNewsByOrganization(organizationID: string) {
+    const projects = await Project.find({ organization: organizationID }).select("_id");
     let projectsIds = projects.map(
         (project: IProject) => project._id.toString()
     );
@@ -95,7 +94,7 @@ async function getAllNewsByEJ(ejId: string) {
 
 export default {
     findByProject,
-    getAllNewsByEJ,
+    getAllNewsByOrganization,
     remove,
     save,
     update,

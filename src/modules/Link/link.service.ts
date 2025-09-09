@@ -2,15 +2,15 @@ import { DeleteResult } from "mongoose";
 import Link, { ILink, LinkParameters } from "./link.model";
 type SearchResult = ILink | null;
 
-async function save(parameters: LinkParameters, ejId: string): Promise<ILink> {
+async function save(parameters: LinkParameters, organizationID: string): Promise<ILink> {
     return Link.create({
         ...parameters,
-        ej: ejId,
+        organization: organizationID,
     });
 }
 
-async function findByEj(ejId: string): Promise<ILink[]> {
-    const links: Promise<ILink[]> = Link.find({ ej: ejId });
+async function findByOrganization(organizationID: string): Promise<ILink[]> {
+    const links: Promise<ILink[]> = Link.find({ organization: organizationID });
     return links;
 }
 
@@ -25,7 +25,7 @@ async function update(linkId: string, parameters: LinkParameters): Promise<Searc
 }
 
 export default {
-    findByEj,
+    findByOrganization,
     remove,
     save,
     update,

@@ -21,7 +21,7 @@ interface IProject {
     name: string;
     description: string;
     tags: Tag[];
-    ej: ID;
+    organization: ID;
     team: ID[];
     startDate?: Date;
     finishDate?: Date;
@@ -35,7 +35,7 @@ interface ProjectParameters {
     name?: string;
     description?: string;
     tags?: Tag[];
-    ej?: ID;
+    organization?: ID;
     team?: ID[];
     startDate?: Date;
     finishDate?: Date;
@@ -72,7 +72,7 @@ const projectSchema = new Schema<IProject>({
         ],
         required: false,
     }],
-    ej: {
+    organization: {
         type: Schema.Types.ObjectId,
         ref: Organizations,
         required: true,
