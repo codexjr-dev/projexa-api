@@ -1,5 +1,10 @@
 import express from "express";
-import { save, findByEj, remove, update } from "./user.controller";
+import {
+    save,
+    findByEj,
+    remove,
+    update
+} from "./user.controller";
 import {
     existentUser,
     authorizedUser,
