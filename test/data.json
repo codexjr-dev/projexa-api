@@ -1,5 +1,5 @@
 {
-    "ejDefault": {
+    "organizationDefault": {
         "name": "CodeX Jr.",
         "presidentData": {
             "name": "Pamplona",
@@ -14,7 +14,7 @@
         "email": "fulano@codexjr.com.br",
         "password": "$2b$10$N3Fbht3j7ItAPAkRlsPf7eXYVzzs40Z0l520RC4NIcC4JL6wdhIB.",
         "role": "presidente",
-        "ej": "62dfd9b329f42950568f34ab",
+        "organization": "62dfd9b329f42950568f34ab",
         "createdAt": "2022-07-26T12:10:27.808Z",
         "updatedAt": "2022-07-26T12:10:27.808Z",
         "__v": 0
