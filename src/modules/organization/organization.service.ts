@@ -24,7 +24,7 @@ async function save
         birthDate: president.birthDate,
         password,
         role: "Presidente",
-        ej: organization._id,
+        organization: organization._id,
     })) as UserParameters;
 
     delete newMember.password;
@@ -36,7 +36,7 @@ async function findAll(): Promise<IOrganization[]> {
 }
 
 async function findPresident(organizationID: ID): Promise<SearchResult> {
-    const president = User.findOne({ role: "Presidente", ej: organizationID });
+    const president = User.findOne({ role: "Presidente", organization: organizationID });
     return president;
 }
 

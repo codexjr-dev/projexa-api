@@ -108,7 +108,7 @@ function authorize
                 break;
         }
 
-        response.locals.organization._id = user.ej;
+        response.locals.organization._id = user.organization;
         response.locals.user._id = user._id;
         return next();
     }); return next();

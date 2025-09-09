@@ -1,10 +1,14 @@
 import { Schema, model } from "mongoose";
-import ej from "../Ej/Ej";
-import member from "../Member/Member";
+import Organizations from "../organization/organization.model";
+import Users from "../user/user.model";
 type ID = Schema.Types.ObjectId;
-type Tag =
-    ( "Backend" | "Frontend" | "Mobile" |
-    "Wordpress" | "Assessoria" | "Treinamento");
+type Tag = "Backend"
+        | "Frontend"
+        | "Mobile"
+        | "Wordpress"
+        | "Assessoria"
+        | "Treinamento"
+        | "Outro";
 
 interface ICustomer {
     email?: string;
@@ -64,18 +68,19 @@ const projectSchema = new Schema<IProject>({
             "Wordpress",
             "Assessoria",
             "Treinamento",
+            "Outro"
         ],
         required: false,
     }],
     ej: {
         type: Schema.Types.ObjectId,
-        ref: ej,
+        ref: Organizations,
         required: true,
     },
     team: [
         {
             type: Schema.Types.ObjectId,
-            ref: member,
+            ref: Users,
             required: false,
         },
     ],

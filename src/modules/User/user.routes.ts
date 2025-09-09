@@ -1,7 +1,7 @@
 import express from "express";
 import {
     save,
-    findByEj,
+    findByOrganization,
     remove,
     update
 } from "./user.controller";
@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.post("/user", isLeadership, save);
-router.get("/user", existentUser, findByEj);
+router.get("/user", existentUser, findByOrganization);
 router.patch("/user/:id", authorizedUser, update);
 router.delete("/user/:id", isLeadership, remove);
 

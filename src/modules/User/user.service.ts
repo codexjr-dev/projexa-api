@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import User, { IUser } from "./user.model";
+import User, { IUser, UserParameters } from "./user.model";
 import { DeleteResult, Schema } from "mongoose";
 const SALT_ROUNDS = `${process.env.SALT_ROUNDS}`;
 type ID = Schema.Types.ObjectId;
@@ -14,25 +14,25 @@ interface UpdateUserInterface {
         "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
         "Trainee" | "Ex-Trainee";
     birthDate?: Date,
-    ej?: ID
+    organization?: ID
 }
 
-async function save(userData: IUser, ejId: string): Promise<IUser> {
+async function save(userData: IUser, organizationID: string): Promise<IUser> {
     const { name, email, role, birthDate, password } = userData;
-    const ej = new Schema.Types.ObjectId(ejId);
+    const organization = new Schema.Types.ObjectId(organizationID);
 
     const user = await User.findOne({ email });
     if (user) throw new Error("Já existe um usuário cadastrado para esse email!");
 
     const psw = await bcrypt.hash(password, SALT_ROUNDS);
-    const newUser = await User.create({
+    const newUser = (await User.create({
         name,
         email,
         birthDate,
         password: psw,
         role,
-        ej,
-    });
+        organization: organization,
+    })) as IUser;
 
     /**
      * TODO Atentar para esse trecho. O backend jamais deve retornar a senha.
@@ -42,8 +42,8 @@ async function save(userData: IUser, ejId: string): Promise<IUser> {
     return userData;
 }
 
-async function findByEj(ejId: ID): Promise<IUser[]> {
-    const users = await User.find({ ej: ejId }).select("-password -__v");
+async function findByOrganization(organizationID: ID): Promise<IUser[]> {
+    const users = await User.find({ organization: organizationID }).select("-password -__v");
     return users;
 }
 
@@ -70,7 +70,8 @@ async function update
 
 export default {
     save,
-    findByEj,
+    findByOrganization,
     remove,
     update,
 }
+export { UpdateUserInterface };

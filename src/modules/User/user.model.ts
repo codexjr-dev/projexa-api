@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import ej from "../Ej/Ej";
+import organization from "../organization/organization.model";
 
 interface IUser {
     _id: Schema.Types.ObjectId;
@@ -11,7 +11,7 @@ interface IUser {
         "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
         "Trainee" | "Ex-Trainee";
     birthDate: Date;
-    ej: Schema.Types.ObjectId;
+    organization: Schema.Types.ObjectId;
     __v: number;
 }
 
@@ -25,7 +25,7 @@ interface UserParameters {
         "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
         "Trainee" | "Ex-Trainee";
     birthDate?: Date;
-    ej?: Schema.Types.ObjectId;
+    organization?: Schema.Types.ObjectId;
     __v?: number;
 }
 
@@ -56,9 +56,9 @@ const userSchema = new Schema<IUser>({
         type: Date,
         required: true,
     },
-    ej: {
+    organization: {
         type: Schema.Types.ObjectId,
-        ref: ej,
+        ref: organization,
         required: true,
     },
 },

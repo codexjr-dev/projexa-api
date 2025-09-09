@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/codexjr-dev/dashboard-codex-api#readme",
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "bcrypt": "6.0.0",
     "body-parser": "2.2.0",
     "cors": "^2.8.5",
