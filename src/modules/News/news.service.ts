@@ -2,7 +2,7 @@ import { DeleteResult, Schema } from "mongoose";
 import News, { INews, NewsParameters } from "./news.model";
 import Project, { IProject, ProjectParameters } from "modules/project/project.model";
 type SearchResult = NewsParameters | null;
-type NewsAndProjectPair = {
+type NewsAndProject = {
     news: NewsParameters;
     project: ProjectParameters;
 };
@@ -25,7 +25,7 @@ async function save(userId: string, projectId: string, parameters: NewsParameter
     return news;
 }
 
-async function findByProject(projectId: string): Promise<NewsAndProjectPair> {
+async function findByProject(projectId: string): Promise<NewsAndProject> {
     const project = (await Project
         .findOne({ _id: projectId })
         .select("_id news name")) as ProjectParameters;
@@ -38,7 +38,7 @@ async function findByProject(projectId: string): Promise<NewsAndProjectPair> {
         .exec() as NewsParameters;
 
     delete project.news;
-    const result: NewsAndProjectPair = {
+    const result: NewsAndProject = {
         news,
         project,
     };

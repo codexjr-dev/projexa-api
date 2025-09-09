@@ -2,34 +2,33 @@ import Organization, { IOrganization, OrganizationParameters } from "./organizat
 import User, { UserParameters } from "../user/user.model";
 import bcrypt from "bcrypt";
 import { Schema } from "mongoose";
-const SALT_ROUNDS = process.env.SALT_ROUNDS!;
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
 type SearchResult = UserParameters | null;
-type ID = Schema.Types.ObjectId;
-type OrganizationAndMemberPair = {
+type ID = string;
+type OrganizationAndMember = {
     organization: OrganizationParameters;
     president: UserParameters;
 }
 
-async function save(parameters: OrganizationParameters, presidentData: UserParameters): Promise<OrganizationAndMemberPair> {
-    const president = await User.findOne({ email: presidentData.email });
-    if (!president) throw new Error(
-        "Já existe uma Organização cadastrada para esse email!");
-    const org =
-        (await Organization.create(parameters)) as OrganizationParameters;
+async function save
+(name: string, president: UserParameters): Promise<OrganizationAndMember> {
+    const alreadyExists = await User.findOne({ email: president.email });
+    if (alreadyExists) throw new
+        Error("Já existe uma Organização cadastrada para esse email!");
+    const organization = (await Organization.create(name)) as IOrganization;
 
-    const password =
-        await bcrypt.hash(presidentData.password!, parseInt(SALT_ROUNDS));
+    const password = await bcrypt.hash(president.password!, SALT_ROUNDS);
     const newMember = (await User.create({
-        name: presidentData.name,
-        email: presidentData.email,
-        birthDate: presidentData.birthDate,
+        name: president.name,
+        email: president.email,
+        birthDate: president.birthDate,
         password,
         role: "Presidente",
-        ej: org._id,
+        ej: organization._id,
     })) as UserParameters;
 
     delete newMember.password;
-    return { organization: org, president: newMember };
+    return { organization, president: newMember };
 }
 
 async function findAll(): Promise<IOrganization[]> {

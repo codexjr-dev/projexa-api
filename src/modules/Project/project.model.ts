@@ -27,7 +27,7 @@ interface IProject {
 }
 
 interface ProjectParameters {
-    _id: ID;
+    _id?: ID;
     name?: string;
     description?: string;
     tags?: Tag[];

@@ -11,11 +11,18 @@ async function save
     return await Project.create(newProject);
 }
 
-async function findByEj(ejId: string): Promise<SearchResult> {
+async function findByOrganization(ejId: string): Promise<SearchResult[]> {
     const projects = await Project
-        .findOne({ ej: new Schema.Types.ObjectId(ejId) })
+        .find({ ej: new Schema.Types.ObjectId(ejId) })
         .populate({ path: "team", select: "name role _id" });
     return projects;
+}
+
+async function findById(_id: string): Promise<SearchResult> {
+    const project = await Project
+        .findOne({ _id })
+        .populate({ path: "team", select: "name role _id" });
+    return project;
 }
 
 async function remove(projectId: string): Promise<DeleteResult> {
@@ -34,7 +41,8 @@ async function update
 }
 
 export default {
-    findByEj,
+    findByOrganization,
+    findById,
     remove,
     save,
     update,
