@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import authRoutes from "./modules/user/auth/auth.routes";
+import authRoutes from "./modules/User/auth/auth.routes";
 import linkRoutes from "./modules/link/link.routes";
 import newsRoutes from "./modules/news/news.routes";
 import organizationRoutes from "./modules/organization/organization.routes";
