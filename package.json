@@ -43,16 +43,5 @@
     "nodemon": "3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
-  },
-  "_moduleAliases": {
-    "@": "src",
-    "@middlewares": "src/middlewares",
-    "@user": "src/modules/User",
-    "@ej": "src/modules/Ej",
-    "@project": "src/modules/Project",
-    "@link": "src/modules/Link",
-    "@member": "src/modules/Member",
-    "@news": "src/modules/News",
-    "@config": "src/config"
   }
 }
