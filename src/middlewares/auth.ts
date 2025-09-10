@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import Users, { IUser } from "../user/user.model";
+import Users, { IUser } from "../modules/user/user.model";
 import Projects, { IProject } from "../modules/project/project.model"
 import News, { INews } from "../modules/news/news.model";
 import { NextFunction, Request, Response } from "express";
