@@ -1,25 +1,6 @@
 import { connectToExternalDB } from "./external.db.cfg";
 import { connectToLocalDB } from "./local.db.cfg";
 
-async function loadEnviron() {
-    const ENVIRON = `${process.env.NODE_ENV}`.trim();
-    switch (ENVIRON) {
-        case "dev":
-            console.log("Carregando .env");
-            process.loadEnvFile(`./.env`);
-            break;
-        case "prod":
-            console.log("Carregando .env");
-            process.loadEnvFile(`./.env`);
-            break;
-        default:
-            console.log("Carregando .env.default");
-            process.loadEnvFile("./.env.default");
-            break;
-    }
-    checkEnvironmentVariables();
-}
-
 async function checkEnvironmentVariables() {
     const REQUIRED_VARIABLES = [
         "BD_URL",
@@ -29,12 +10,17 @@ async function checkEnvironmentVariables() {
     ];
 
     const missing: string[] = [];
+    let found = 0;
     for (const VARIABLE of REQUIRED_VARIABLES) {
-        if (process.env[VARIABLE]) continue;
+        if (process.env[VARIABLE]) {
+            found++;
+            continue;
+        }
         missing.push(VARIABLE);
     }
-
-    if (missing.length === 0) return;
+    console.log(`Variáveis de ambiente encontradas: ` +
+        `${found}/${REQUIRED_VARIABLES.length}`);
+    if (found === REQUIRED_VARIABLES.length) return;
 
     const message =
         `Variáveis de Ambiente não encontradas: ${missing.join(", ")}`;
@@ -43,6 +29,8 @@ async function checkEnvironmentVariables() {
 
 async function startDatabase() {
     const ENVIRON = `${process.env.NODE_ENV}`.trim();
+    if (!ENVIRON)
+        throw new Error("Variável de ambiente NODE_ENV não encontrada!");
     switch(ENVIRON) {
         case "prod":return connectToExternalDB(ENVIRON);
         case "dev": return connectToExternalDB(ENVIRON);
@@ -51,6 +39,6 @@ async function startDatabase() {
 }
 
 export {
-    loadEnviron,
+    checkEnvironmentVariables,
     startDatabase,
 };
