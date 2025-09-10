@@ -8,7 +8,7 @@
     "test": "NODE_ENV=test mocha ./test/integration/*.test.ts --timeout 10000 --exit",
     "start:win32": "set NODE_ENV=dev && npx tsc && node dist/index.js",
     "test:win32": "set NODE_ENV=test && mocha ./test/integration/*.test.ts --timeout 10000 --exit",
-    "deploy": "NODE_ENV=prod && npx tsc --build --clean && node dist/index.js"
+    "deploy": "NODE_ENV=prod && npx tsc --build && node dist/index.js"
   },
   "repository": {
     "type": "git",
