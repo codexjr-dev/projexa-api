@@ -27,4 +27,5 @@ node_modules/
 
 .vscode
 dist/
+.tsbuildinfo
 *.d.ts
