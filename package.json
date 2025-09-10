@@ -4,7 +4,7 @@
   "description": "API do gerenciador de EJs",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=dev npx tsc node dist/index.js",
+    "start": "NODE_ENV=dev && npx tsc && node dist/index.js",
     "test": "NODE_ENV=test mocha ./test/integration/*.test.ts --timeout 10000 --exit",
     "start:win32": "set NODE_ENV=dev && npx tsc && node dist/index.js",
     "test:win32": "set NODE_ENV=test && mocha ./test/integration/*.test.ts --timeout 10000 --exit",
