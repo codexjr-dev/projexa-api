@@ -2,7 +2,7 @@ import { connectToExternalDB } from "./external.db.cfg";
 import { connectToLocalDB } from "./local.db.cfg";
 
 async function loadEnviron() {
-    const ENVIRON = (process.env.NODE_ENV! as string).trim();
+    const ENVIRON = `${process.env.NODE_ENV}`.trim();
     switch (ENVIRON) {
         case "dev":
             console.log("Carregando .env");
@@ -42,7 +42,7 @@ async function checkEnvironmentVariables() {
 }
 
 async function startDatabase() {
-    const ENVIRON = (process.env.NODE_ENV! as string).trim();
+    const ENVIRON = `${process.env.NODE_ENV}`.trim();
     switch(ENVIRON) {
         case "prod":return connectToExternalDB(ENVIRON);
         case "dev": return connectToExternalDB(ENVIRON);
