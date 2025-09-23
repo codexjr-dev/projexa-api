@@ -12,14 +12,7 @@ interface INews {
     updateLink?: string;
 }
 
-interface NewsParameters {
-    _id?: ID;
-    user?: ID;
-    project?: ID;
-    description?: string;
-    image?: Buffer;
-    updateLink?: string;
-}
+interface NewsParameters extends Partial<INews> { };
 
 const newsSchema = new Schema<INews>({
     user: {

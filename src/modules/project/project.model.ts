@@ -30,19 +30,7 @@ interface IProject {
     news: ID[];
 }
 
-interface ProjectParameters {
-    _id?: ID;
-    name?: string;
-    description?: string;
-    tags?: Tag[];
-    organization?: ID;
-    team?: ID[];
-    startDate?: Date;
-    finishDate?: Date;
-    contractLink?: string;
-    customer?: ICustomer;
-    news?: ID[];
-}
+interface ProjectParameters extends Partial<IProject> { };
 
 const customerSchema = new Schema<ICustomer>({
     email: String,

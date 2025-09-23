@@ -19,14 +19,7 @@ interface ILink {
     observations: string;
 }
 
-interface LinkParameters {
-    name?: string;
-    url?: string;
-    tags?: Tag[];
-    organization?: ID;
-    departments?: Department[];
-    observations?: string;
-}
+interface LinkParameters extends Partial<ILink> { };
 
 const linkSchema = new Schema<ILink>({
     name: {

@@ -15,19 +15,7 @@ interface IUser {
     __v: number;
 }
 
-interface UserParameters {
-    _id?: Schema.Types.ObjectId;
-    name?: string;
-    email?: string;
-    password?: string;
-    role?:
-        "Presidente" | "Diretor(a)" | "Assessor(a)" |
-        "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
-        "Trainee" | "Ex-Trainee";
-    birthDate?: Date;
-    organization?: Schema.Types.ObjectId;
-    __v?: number;
-}
+interface UserParameters extends Partial<IUser> { };
 
 const userSchema = new Schema<IUser>({
     name: {

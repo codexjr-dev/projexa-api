@@ -8,12 +8,7 @@ interface IOrganization {
     skills: string[];
 }
 
-interface OrganizationParameters {
-    _id?: ID;
-    name?: string;
-    departments?: string[],
-    skills?: string[],
-}
+interface OrganizationParameters extends Partial<IOrganization> { };
 
 const organizationSchema = new Schema<IOrganization>({
     name: {
