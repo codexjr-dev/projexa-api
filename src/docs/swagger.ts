@@ -9,7 +9,7 @@ export default {
   openapi: "3.0.4",
   info: {
     title: "Projexa - API",
-    version: "1.0.0",
+    version: "1.4.0",
     description:
       "Documentação das rotas de endpoint REST disponíveis no backend da aplicação Projexa.",
   },
