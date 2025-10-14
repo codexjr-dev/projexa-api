@@ -14,12 +14,11 @@ module.exports = {
     async signIn(dados) {
         const { email, password } = dados;
         const user = await User.findOne({ email: email }).populate({ path: 'ej', select: 'name' });
-
+        
         if (!user)
             return { erro: 'Usuário ou senha incorreta' }
 
         const match = await bcrypt.compare(password, user.password);
-
         if (!match)
             return { erro: 'Usuário ou senha incorreta' }
 

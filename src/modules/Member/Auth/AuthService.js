@@ -16,9 +16,8 @@ module.exports = {
 
         // ao recuperar o objeto 'member', ele conterá o campo 'ej' preenchido com o nome da ej
         const member = await Member.findOne({ email: email }).populate({ path: 'ej', select: 'name' });
-
         if (!member)
-            return { erro: 'Usuário ou senha incorreta' }
+            return { erro: 'Usuário ou senha incorreta.' }
 
         if (member.role === "Ex-Trainee")
             return { erro: 'Usuário sem permissão' }

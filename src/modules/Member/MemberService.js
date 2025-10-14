@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const Ej = require("@ej/Ej");
+const User = require("@user/User");
 const Member = require("@member/Member");
 
 module.exports = {
@@ -17,7 +18,6 @@ module.exports = {
       abilities,
       department,
     } = memberData;
-
     verifyEmptyField(name, 'EMPTY_NAME');
     verifyEmptyField(password, 'EMPTY_PASSWORD');
     await verifyEmail(email);
@@ -173,6 +173,8 @@ function hasPermissionToChange(member, data) {
 
 function checkValidGender(gender) {
   const VALID_GENDERS = ["Masculino", "Feminino", "Outro"];
-  if (gender in VALID_GENDERS) return;
+  //console.log(gender)
+  //console.log("gender", (gender in VALID_GENDERS))
+  if (VALID_GENDERS.includes(gender)) return;
   throw new Error("INVALID_GENDER");
 }

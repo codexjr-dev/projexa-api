@@ -13,38 +13,21 @@
         "email": "teste.presidente@codexjr.com.br",
         "role": "Presidente",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberAdvisor": {
         "name": "Fulano Assessor",
         "email": "teste.assessor@codexjr.com.br",
         "role": "Assessor(a)",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "gender": "Masculino",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberDirector": {
         "name": "Fulano Diretor",
         "email": "teste.diretor@codexjr.com.br",
         "role": "Diretor(a)",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "gender": "Masculino",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberCouncilor": {
         "name": "Fulano Conselheiro",
@@ -52,35 +35,21 @@
         "role": "Conselheiro(a)",
         "password": "strongpassword",
         "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "entryDate": "2024-08-01T03:00:00.000Z"
     },
     "memberPostJunior": {
         "name": "Fulano Pós-Junior",
         "email": "teste.pos.junior@codexjr.com.br",
         "role": "Pós-Júnior",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberGuardian": {
         "name": "Fulano Guardião",
         "email": "teste.guardian@codexjr.com.br",
         "role": "Guardiã(o)",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberTrainee": {
         "name": "Fulano Trainee",
@@ -88,24 +57,14 @@
         "role": "Trainee",
         "password": "strongpassword",
         "gender": "Masculino",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "memberExTrainee": {
         "name": "Fulano Ex-Trainee",
         "email": "teste.ex.trainee@codexjr.com.br",
         "role": "Ex-Trainee",
         "password": "strongpassword",
-        "birthDate": "1998-08-01T03:00:00.000Z",
-        "entryDate": "2024-08-01T03:00:00.000Z",
-        "phone": "(83) 9 XXXX-XXXX",
-        "observations": "observations",
-        "habilities": ["Habilidade"],
-        "department": "Projetos"
+        "birthDate": "1998-08-01T03:00:00.000Z"
     },
     "patchDefault": {
         "password": "newPassword",

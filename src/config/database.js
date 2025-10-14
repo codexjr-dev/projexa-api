@@ -8,6 +8,7 @@ module.exports = async () => {
     } else if (process.env.NODE_ENV.replace(/'/g, '').trim() === "dev") {
         console.log('Conectando com o banco de dados de desenvolvimento...');
         BD_URL = process.env.BD_DEV;
+        console.log(BD_URL);
     } else {
         console.log('Gerando banco de dados local...');
         const { MongoMemoryServer } = require('mongodb-memory-server');

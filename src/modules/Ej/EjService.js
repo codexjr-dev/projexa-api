@@ -1,4 +1,5 @@
 const Ej = require('@ej/Ej');
+const User = require('@user/User')
 const Member = require('@member/Member');
 const bcrypt = require('bcrypt');
 
@@ -9,6 +10,11 @@ module.exports = {
 
         const member = await Member.findOne({ email: presidentData.email });
         if (member) {
+            throw new Error('Já existe uma EJ cadastrada para esse email!');
+        }
+
+        const user = await User.findOne({ email: presidentData.email });
+        if (user) {
             throw new Error('Já existe uma EJ cadastrada para esse email!');
         }
 
@@ -26,7 +32,17 @@ module.exports = {
             password: psw,
             role: 'Presidente',
             ej: ej._id
-        })
+        });
+
+        const newUser = await User.create({
+            name: presidentData.name,
+            email: presidentData.email,
+            password: psw,
+            role: 'Presidente',
+            ej: ej._id
+        });
+
+        
 
         newMember.password = undefined
         return { ej: getDTOej(ej), member: getDTOmember(newMember) }

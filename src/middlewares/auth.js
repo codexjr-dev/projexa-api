@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const Member = require("@member/Member");
+const User = require("@user/User");
 const Project = require("@project/Project");
 const News = require("../modules/News/News");
 
@@ -30,19 +31,18 @@ const authorize = (req, res, next, type) => {
 
   if (!authHeader)
     return res.status(401).send({ error: "Requisição sem token." });
-
+  
   const parts = authHeader.split(" ");
 
   const [scheme, token] = parts.length === 2 ? parts : [null, null];
-
   if (scheme === null || !/^Bearer$/i.test(scheme))
     return res.status(401).send({ error: "Token mal formatado." });
 
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) return res.status(401).send({ error: "Token inválido." });
-
-    const member = await Member.findOne({ _id: decoded.sub });
-
+    
+    const member = await User.findOne({ _id: decoded.sub });
+    //const member = await Member.findOne({ _id: decoded.sub }); comment just for test
     switch (type) {
       case "existent":
         if (!member)
@@ -52,8 +52,13 @@ const authorize = (req, res, next, type) => {
         break;
 
       case "authorized":
-        if (!isLeadership(member) && ((member._id.toString() !== req.body._id) || isOnBlacklist(member)))
+        if (!isLeadership(member) && ((member._id.toString() !== req.params.id) || isOnBlacklist(member))){
           return res.status(403).send({ error: "Usuário sem permissão." });
+        }
+        if(!isLeadership(member) && (member._id.toString() === req.params.id) && req.body.hasOwnProperty("role")){
+          return res.status(403).send({ error: "Usuário sem permissão." });
+        }
+
         break;
 
       case "leadership":
@@ -80,9 +85,12 @@ const authorize = (req, res, next, type) => {
   });
 };
 
-const isLeadership = (member) =>
-  member && ["Presidente", "Diretor(a)"].includes(`${member.role}`);
-
+  function isLeadership (member) {
+    return member && ["Presidente", "Diretor(a)"].includes(`${member.role}`);
+  }
+  //const isLeadership = (member) => 
+  //member && ["Presidente", "Diretor(a)"].includes(`${member.role}`);
+//
 const isMemberProject = (project, member) =>
   project && project.team.includes(member._id);
 

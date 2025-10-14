@@ -1,4 +1,5 @@
 /* External Libraries */
+
 const chai = require('chai');
 const server = require('../../src/server');
 const chai_http = require('chai-http');
@@ -7,6 +8,7 @@ const chai_http = require('chai-http');
 const data = require('../datas/members.data.json');
 const Member = require('@member/Member');
 const ejDefault = require('../data.json').ejDefault;
+const USER_DEFAULT = require('../data.json').userDefault;
 
 /* Constants */
 const HTTP_CODE = data.HTTP_CODE;
@@ -18,10 +20,13 @@ const PRESIDENT = data.memberDirector;
 const PATCH_DEFAULT = data.patchDefault;
 const ejMockDefault = data.ejDefault;
 
+
 chai.use(chai_http);
+chai.should();
 
 describe('@Member', () => {
     let EJ_MOCK = {};
+    
 
     before(async () => {
         const response = await chai.request(server)
@@ -31,6 +36,7 @@ describe('@Member', () => {
                 name: "CodeX Jr. 2",
             });
         EJ_MOCK = response.body.ej;
+        console.log("O body: ",response.body);
         DEFAULT.ej = EJ_MOCK._id;
         PRESIDENT.ej = EJ_MOCK._id;
         DIRECTOR.ej = EJ_MOCK._id;
@@ -42,21 +48,22 @@ describe('@Member', () => {
         const login = {};
 
         before( async () => {
-            login.default = await chai.request(server).post('/signIn').send({
-                email: ejDefault.presidentData.email,
-                password: ejDefault.presidentData.password,
+            login.default = await chai.request(server).post('/sign-in').send({
+                email: ejMockDefault.presidentData.email,
+                password: ejMockDefault.presidentData.password,
             });
+            console.log(login.default.body);
             DEFAULT.token = login.default.body.dados.token;
         });
 
-        afterEach( async () => {
-            await Member.deleteOne({
-                $or: [
-                    { 'name': 'Fulano' },
-                    { 'email': 'teste.presidente@codexjr.com.br' }
-                ],
-            });
-        });
+        //afterEach( async () => {
+        //    await Member.deleteOne({
+        //        $or: [
+        //            { 'name': 'Fulano Presidente' },
+        //            { 'email': 'teste.presidente@codexjr.com.br' }
+        //        ],
+        //    });
+        //});
 
         it('01. With all fields empty', async () => {
             const response = await chai.request(server)
@@ -74,10 +81,10 @@ describe('@Member', () => {
                     habilities: '',
                     department: '',
                 }).catch((err) => done(err));
-
+            
             response.should.have.status(500);
             response.body.should.have.property('error');
-            response.body.error.should.be.equals('EMPTY_EMAIL');
+            response.body.error.should.be.equals('EMPTY_NAME');
         });
 
 
@@ -282,6 +289,7 @@ describe('@Member', () => {
         it('12. No \'Authorization\' field on header', async () => {
             const response = await chai.request(server)
                 .get('/member');
+                
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
         });
@@ -611,7 +619,7 @@ describe('@Member', () => {
         const INVALID_ID = "5630c99bbeee65b2ca1e40c8";
         const EMPTY_ID = "";
 
-        beforeEach(async () => {
+        before(async () => {
             login.default = await chai.request(server).post('/signIn').send({
                 email: ejDefault.presidentData.email,
                 password: ejDefault.presidentData.password,
@@ -647,14 +655,14 @@ describe('@Member', () => {
             TRAINEE.valid_id = login.trainee.body.dados.member._id;
         });
 
-        afterEach(async () => {
-            await Member.deleteOne({ name: "Fulano Assessor"});
-            await Member.deleteOne({ name: "Fulano Trainee"});
-        });
-
+        //afterEach(async () => {
+        //    await Member.deleteOne({ name: "Fulano Assessor"});
+        //    await Member.deleteOne({ name: "Fulano Trainee"});
+        //});
+//
         it('33. With an invalid :id, should fail', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${INVALID_ID}`)
+                .delete(`/user/${INVALID_ID}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
 
             response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
@@ -665,7 +673,7 @@ describe('@Member', () => {
         // TODO There isn't any DELETE /member/ route without an ID.
         it.skip('34. Without any :id, should fail', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${EMPTY_ID}`)
+                .delete(`/user/${EMPTY_ID}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
 
             response.should.have.status(HTTP_CODE.INTERNAL_ERROR);
@@ -675,7 +683,7 @@ describe('@Member', () => {
 
         it('35. Valid :id parameter, but no\'Authorization\' on the header, should fail', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${TRAINEE.valid_id}`);
+                .delete(`/user/${TRAINEE.valid_id}`);
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
             response.body.should.have.property("error");
@@ -684,7 +692,7 @@ describe('@Member', () => {
 
         it('36. Valid :id parameter, but badly formatted \'Authorization\' on header, should fail', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${TRAINEE.valid_id}`)
+                .delete(`/user/${TRAINEE.valid_id}`)
                 .set({ 'Authorization': `Bear ${DEFAULT.token}` });
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
@@ -695,7 +703,7 @@ describe('@Member', () => {
 
         it('37. Valid :id parameter, with a valid Advisor token on \'Authorization\' on header, should fail', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${TRAINEE.valid_id}`)
+                .delete(`/user/${TRAINEE.valid_id}`)
                 .set({ 'Authorization': `Bear ${ADVISOR.token}` });
 
             response.should.have.status(HTTP_CODE.UNAUTHORIZED);
@@ -705,7 +713,7 @@ describe('@Member', () => {
 
         it('38. Valid :id parameter, valid leadership token on \'Authorization\' on header, should succeed', async () => {
             const response = await chai.request(server)
-                .delete(`/member/${TRAINEE.valid_id}`)
+                .delete(`/user/${TRAINEE.valid_id}`)
                 .set({ 'Authorization': `Bearer ${DEFAULT.token}` });
 
             response.should.have.status(HTTP_CODE.OK);
