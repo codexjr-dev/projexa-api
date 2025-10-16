@@ -1,0 +1,393 @@
+openapi: 3.0.3
+info:
+  title: Project API
+  version: 1.0.0
+  description: Documentação do módulo Porject.
+
+tags:
+  - name: Project
+    description: Endpoints relacionados a projetos.
+
+paths:
+  /project:
+    post:
+      tags:
+        - Projects
+      summary: Criar um novo projeto
+      description: Cria um novo projeto para a organização autenticada (requer permissão de liderança)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectCreate"
+      responses:
+        "201":
+          description: Projeto criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+        "500":
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      tags:
+        - Projects
+      summary: Listar projetos da organização
+      description: Retorna todos os projetos da organização do usuário autenticado
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Lista de projetos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Project"
+        "500":
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /project/{id}:
+    get:
+      tags:
+        - Projects
+      summary: Buscar projeto por ID
+      description: Retorna um projeto específico pelo seu ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do projeto
+          schema:
+            type: string
+            format: objectid
+      responses:
+        "200":
+          description: Projeto encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+        "500":
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    patch:
+      tags:
+        - Projects
+      summary: Atualizar projeto
+      description: Atualiza um projeto existente (requer permissão de liderança)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do projeto
+          schema:
+            type: string
+            format: objectid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectUpdate"
+      responses:
+        "200":
+          description: Projeto atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+                  message:
+                    type: string
+                    example: "Projeto atualizado com sucesso!"
+        "500":
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      tags:
+        - Projects
+      summary: Excluir projeto
+      description: Exclui um projeto (requer permissão de liderança)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do projeto
+          schema:
+            type: string
+            format: objectid
+      responses:
+        "200":
+          description: Projeto excluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: object
+                  message:
+                    type: string
+                    example: "Projeto removido com sucesso!"
+        "500":
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    ProjectCreate:
+      type: object
+      required:
+        - name
+        - description
+        - organization
+      properties:
+        name:
+          type: string
+          description: Nome do projeto
+          example: "Sistema de Gestão"
+        description:
+          type: string
+          description: Descrição do projeto
+          example: "Sistema completo de gestão empresarial"
+        tags:
+          type: array
+          items:
+            type: string
+            enum:
+              - "Backend"
+              - "Frontend"
+              - "Mobile"
+              - "Wordpress"
+              - "Assessoria"
+              - "Treinamento"
+              - "Outro"
+          description: Tags do projeto
+          example: ["Backend", "Frontend"]
+        team:
+          type: array
+          items:
+            type: string
+            format: objectid
+          description: IDs dos membros da equipe
+          example: ["507f1f77bcf86cd799439011", "507f1f77bcf86cd799439012"]
+        organization:
+          type: string
+          format: objectid
+          description: ID da organização
+          example: "507f1f77bcf86cd799439013"
+
+    ProjectUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nome do projeto
+          example: "Sistema de Gestão Atualizado"
+        description:
+          type: string
+          description: Descrição do projeto
+          example: "Sistema completo de gestão empresarial - versão 2.0"
+        tags:
+          type: array
+          items:
+            type: string
+            enum:
+              - "Backend"
+              - "Frontend"
+              - "Mobile"
+              - "Wordpress"
+              - "Assessoria"
+              - "Treinamento"
+              - "Outro"
+          description: Tags do projeto
+          example: ["Backend", "Frontend", "Mobile"]
+        team:
+          type: array
+          items:
+            type: string
+            format: objectid
+          description: IDs dos membros da equipe
+          example: ["507f1f77bcf86cd799439011", "507f1f77bcf86cd799439012"]
+        startDate:
+          type: string
+          format: date-time
+          description: Data de início do projeto
+          example: "2024-01-15T00:00:00.000Z"
+        finishDate:
+          type: string
+          format: date-time
+          description: Data de conclusão do projeto
+          example: "2024-06-15T00:00:00.000Z"
+        contractLink:
+          type: string
+          description: Link do contrato do projeto
+          example: "https://drive.google.com/contract123"
+        customer:
+          $ref: "#/components/schemas/Customer"
+
+    Project:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: objectid
+          description: ID do projeto
+          example: "507f1f77bcf86cd799439011"
+        name:
+          type: string
+          description: Nome do projeto
+          example: "Sistema de Gestão"
+        description:
+          type: string
+          description: Descrição do projeto
+          example: "Sistema completo de gestão empresarial"
+        tags:
+          type: array
+          items:
+            type: string
+            enum:
+              - "Backend"
+              - "Frontend"
+              - "Mobile"
+              - "Wordpress"
+              - "Assessoria"
+              - "Treinamento"
+              - "Outro"
+          description: Tags do projeto
+          example: ["Backend", "Frontend"]
+        organization:
+          type: string
+          format: objectid
+          description: ID da organização
+          example: "507f1f77bcf86cd799439013"
+        team:
+          type: array
+          items:
+            $ref: "#/components/schemas/TeamMember"
+          description: Membros da equipe do projeto
+        startDate:
+          type: string
+          format: date-time
+          description: Data de início do projeto
+          example: "2024-01-15T00:00:00.000Z"
+        finishDate:
+          type: string
+          format: date-time
+          description: Data de conclusão do projeto
+          example: "2024-06-15T00:00:00.000Z"
+        contractLink:
+          type: string
+          description: Link do contrato do projeto
+          example: "https://drive.google.com/contract123"
+        customer:
+          $ref: "#/components/schemas/Customer"
+        news:
+          type: array
+          items:
+            type: string
+            format: objectid
+          description: IDs das notícias relacionadas ao projeto
+          example: ["507f1f77bcf86cd799439021", "507f1f77bcf86cd799439022"]
+        createdAt:
+          type: string
+          format: date-time
+          description: Data de criação do projeto
+        updatedAt:
+          type: string
+          format: date-time
+          description: Data da última atualização do projeto
+
+    Customer:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email do cliente
+          example: "cliente@empresa.com"
+        contact:
+          type: string
+          description: Contato do cliente
+          example: "(11) 99999-9999"
+        name:
+          type: string
+          description: Nome do cliente
+          example: "João Silva"
+
+    TeamMember:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: objectid
+          description: ID do usuário
+          example: "507f1f77bcf86cd799439011"
+        name:
+          type: string
+          description: Nome do usuário
+          example: "Maria Santos"
+        role:
+          type: string
+          description: Cargo do usuário
+          example: "Desenvolvedor"
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Mensagem de erro
+          example: "Erro desconhecido"
+        trace:
+          type: string
+          description: Stack trace do erro (apenas em desenvolvimento)
+          example: "Error: Something went wrong\n    at ..."
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
