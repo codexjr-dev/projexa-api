@@ -2,7 +2,7 @@ export const project = {
     endpoints: {
         '/project': {
             post: {
-                tags: ['Projects'],
+                tags: ['Projetos'],
                 summary: 'Criar um novo projeto',
                 description:
                     'Cria um novo projeto para a organização autenticada (requer permissão de liderança)',
@@ -46,7 +46,7 @@ export const project = {
                 },
             },
             get: {
-                tags: ['Projects'],
+                tags: ['Projetos'],
                 summary: 'Listar todos os projetos da organização',
                 description:
                     'Retorna uma lista de projetos vinculados à organização do usuário autenticado',
@@ -70,7 +70,7 @@ export const project = {
 
         '/project/{id}': {
             get: {
-                tags: ['Projects'],
+                tags: ['Projetos'],
                 summary: 'Buscar um projeto pelo ID',
                 description: 'Retorna um projeto específico pelo seu identificador único',
                 security: [{ bearerAuth: [] }],
@@ -96,7 +96,7 @@ export const project = {
                 },
             },
             patch: {
-                tags: ['Projects'],
+                tags: ['Projetos'],
                 summary: 'Atualizar um projeto existente',
                 description:
                     'Atualiza os dados de um projeto, disponível apenas para líderes da organização',
@@ -131,7 +131,7 @@ export const project = {
                 },
             },
             delete: {
-                tags: ['Projects'],
+                tags: ['Projetos'],
                 summary: 'Excluir um projeto existente',
                 description:
                     'Remove um projeto específico da organização (somente liderança pode excluir)',
