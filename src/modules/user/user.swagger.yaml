@@ -1,0 +1,240 @@
+openapi: 3.0.3
+info:
+  title: User API
+  version: 1.0.0
+  description: Documentação do módulo User.
+
+tags:
+  - name: User
+    description: Endpoints relacionados a usuários da organização.
+
+paths:
+  /user:
+    post:
+      tags:
+        - User
+      summary: Criar um novo usuário
+      description: Cria um novo usuário associado a uma organização.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserInput"
+      responses:
+        "201":
+          description: Usuário criado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+        "400":
+          description: Dados inválidos.
+        "401":
+          description: Não autorizado.
+        "500":
+          description: Erro interno do servidor.
+
+    get:
+      tags:
+        - User
+      summary: Listar usuários da organização
+      description: Retorna todos os usuários vinculados à organização do token.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Lista de usuários retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+        "401":
+          description: Não autorizado.
+        "500":
+          description: Erro interno do servidor.
+
+  /user/{id}:
+    patch:
+      tags:
+        - User
+      summary: Atualizar dados de um usuário
+      description: Atualiza as informações de um usuário específico.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário a ser atualizado.
+          required: true
+          schema:
+            type: string
+            example: 64a456
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+      responses:
+        "200":
+          description: Usuário atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                  message:
+                    type: string
+                    example: Usuário atualizado com sucesso!
+        "404":
+          description: Usuário não encontrado.
+        "401":
+          description: Não autorizado.
+        "500":
+          description: Erro interno do servidor.
+
+    delete:
+      tags:
+        - User
+      summary: Remover um usuário
+      description: Remove um usuário do sistema com base no ID informado.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário a ser removido.
+          required: true
+          schema:
+            type: string
+            example: 64a456
+      responses:
+        "200":
+          description: Usuário removido com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+        "404":
+          description: Usuário não encontrado.
+        "401":
+          description: Não autorizado.
+        "500":
+          description: Erro interno do servidor.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 64a456
+        name:
+          type: string
+          example: Maria Silva
+        email:
+          type: string
+          example: maria@ej.com
+        role:
+          type: string
+          enum:
+            - Presidente
+            - Diretor(a)
+            - Assessor(a)
+            - Conselheiro(a)
+            - Pós-Júnior
+            - Guardião
+            - Trainee
+            - Ex-Trainee
+          example: Diretor(a)
+        birthDate:
+          type: string
+          format: date
+          example: 1998-05-12
+        organization:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 64a123
+            name:
+              type: string
+              example: Empresa Júnior X
+
+    UserInput:
+      type: object
+      required:
+        - name
+        - email
+        - password
+        - role
+        - birthDate
+      properties:
+        name:
+          type: string
+          example: João Pereira
+        email:
+          type: string
+          example: joao@empresa.com
+        password:
+          type: string
+          example: senhaSegura123
+        role:
+          type: string
+          enum:
+            - Presidente
+            - Diretor(a)
+            - Assessor(a)
+            - Conselheiro(a)
+            - Pós-Júnior
+            - Guardião
+            - Trainee
+            - Ex-Trainee
+          example: Trainee
+        birthDate:
+          type: string
+          format: date
+          example: 2000-09-15
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: João Silva
+        email:
+          type: string
+          example: joao@empresa.com
+        password:
+          type: string
+          example: novaSenha123
+        role:
+          type: string
+          example: Diretor(a)
+        birthDate:
+          type: string
+          format: date
+          example: 2000-09-15
