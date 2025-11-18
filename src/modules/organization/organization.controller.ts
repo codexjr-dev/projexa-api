@@ -63,9 +63,45 @@ async function findPresident(request: Request, response: Response) {
     }
 }
 
+async function getBalance(request: Request, response: Response) {
+    try {
+        const { id } = request.params;
+
+        const balance = await service.getBalance(id);
+        return response.status(200).send({ balance });
+    } catch (error: unknown) {
+        if (error instanceof Error) return response.status(500).send({
+            error: "Erro inesperado",
+            trace: error.stack,
+        }); else return response.status(500).send({ error });
+    }
+}
+
+async function addFinancialEvent(request: Request, response: Response) {
+    try {
+        const { id } = request.params;
+        const { description, date, value, author } = request.body;
+        const financialEvent = {
+            description,
+            date,
+            value,
+            author,
+        };
+        const result = await service.addFinancialEvent(id, financialEvent);
+        return response.status(201).send({ financialEvent: result });
+    } catch (error: unknown) {
+        if (error instanceof Error) return response.status(500).send({
+            error: "Erro inesperado",
+            trace: error.stack,
+        }); else return response.status(500).send({ error });
+    }
+}
+
 export {
     findAll,
     findById,
     findPresident,
     save,
+    getBalance,
+    addFinancialEvent
 };

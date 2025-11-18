@@ -3,6 +3,8 @@ import {
     save,
     findAll,
     findById,
+    getBalance,
+    addFinancialEvent
 } from "./organization.controller";
 const router = express.Router();
 

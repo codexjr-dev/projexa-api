@@ -45,9 +45,29 @@ async function findById(organizationID: ID): Promise<SearchResult> {
     return organization;
 }
 
+async function getBalance(organizationID: ID): Promise<number> {
+    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
+    if(!organization){
+        throw new Error("Organização não encontrada");
+    }
+    return organization.balance;
+}
+
+async function addFinancialEvent(organizationID: ID, event: any): Promise<number> {
+    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
+    if(!organization){
+        throw new Error("Organização não encontrada");
+    }
+    organization.financialEvents.push(event);
+    organization.balance += event.value;
+    return organization.balance;
+}
+
 export default {
     findAll,
     findById,
     findPresident,
     save,
+    getBalance,
+    addFinancialEvent,
 }
