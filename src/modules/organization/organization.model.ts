@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 type ID = Schema.Types.ObjectId;
 
 interface IOrganization {
@@ -25,5 +25,5 @@ const organizationSchema = new Schema<IOrganization>({
     }],
 }, { timestamps: true });
 
-export default model("Organization", organizationSchema);
+export default model('Organization', organizationSchema, 'organizations');
 export { IOrganization, OrganizationParameters };

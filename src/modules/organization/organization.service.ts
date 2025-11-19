@@ -1,7 +1,7 @@
 import Organization, { IOrganization, OrganizationParameters } from "./organization.model";
 import User, { UserParameters } from "../user/user.model";
 import bcrypt from "bcrypt";
-import { Schema } from "mongoose";
+
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
 type SearchResult = UserParameters | null;
 type ID = string;
