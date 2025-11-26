@@ -126,5 +126,6 @@ export {
     findPresident,
     save,
     getBalance,
-    addFinancialEvent
+    addFinancialEvent,
+    addRecurrentEvent,
 };

@@ -81,4 +81,5 @@ export default {
     save,
     getBalance,
     addFinancialEvent,
+    addRecurrentEvent,
 }
