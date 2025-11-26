@@ -97,6 +97,29 @@ async function addFinancialEvent(request: Request, response: Response) {
     }
 }
 
+async function addRecurrentEvent(request: Request, response: Response){
+    try {
+        const { id } = request.params;
+        const { description, startDate, endDate, frequency, value, author, exceptions } = request.body;
+        const recurrentEvent = {
+            description,
+            startDate,
+            endDate,
+            frequency,
+            value,
+            author,
+            exceptions,
+        };
+        const result = await service.addRecurrentEvent(id, recurrentEvent);
+        return response.status(201).send({ recurrentEvent: result });     
+    } catch (error: unknown) {
+        if (error instanceof Error) return response.status(500).send({
+            error: "Erro inesperado",
+            trace: error.stack,
+        }); else return response.status(500).send({ error });
+    }
+}
+
 export {
     findAll,
     findById,

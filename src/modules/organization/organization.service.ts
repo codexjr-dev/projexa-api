@@ -63,6 +63,17 @@ async function addFinancialEvent(organizationID: ID, event: any): Promise<number
     return organization.balance;
 }
 
+async function addRecurrentEvent(organizationID: ID, event: any): Promise<number> {
+    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
+    if(!organization){
+        throw new Error("Organização não encontrada");
+    }
+    organization.recurrentEvents.push(event);
+    organization.balance += event.value;
+    return organization.balance;
+}
+
+
 export default {
     findAll,
     findById,
