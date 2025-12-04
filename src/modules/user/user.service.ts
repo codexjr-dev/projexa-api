@@ -29,7 +29,7 @@ type UserUpdateParameters =
     >;
 
 /* Constants */
-const SALT_ROUNDS = `${process.env.SALT_ROUNDS}`;
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
 const msgEmailExists = "Já existe um usuário cadastrado para esse email!";
 const msgUserNotFound = "Usuário não encontrado!";
 const msgCEONotFound = "O Presidente desta organização não foi encontrado!";
@@ -110,7 +110,7 @@ async function update(
     userId: ID,
     data: UserUpdateParameters
 ): Promise<CleanUser> {
-    if (data.hasOwnProperty("password")) {
+    if (data.password) {
         data.password = await bcrypt.hash(data.password, SALT_ROUNDS);
     }
 

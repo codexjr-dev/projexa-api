@@ -31,7 +31,7 @@ type UserUpdateParameters =
 async function save(
     request: Request, response: Response
 ): Promise<any> {
-    const { organizationID } = response.locals;
+    const organizationID = response.locals.organization;
     const { name, email, role, birthDate, password } = request.body;
 
     const userData: UserCreationParameters = {
@@ -47,6 +47,7 @@ async function save(
 
     switch (result.error.name) {
         default:
+            console.error(result.error);
             return response.status(500).send(result.error);
     }
 }
@@ -86,9 +87,8 @@ async function remove(
     request: Request, response: Response
 ): Promise<any> {
     const { id } = request.params;
-    const userID = new Schema.Types.ObjectId(id);
 
-    const result = await catchErrors(service.remove(userID));
+    const result = await catchErrors(service.remove(id));
     if (result.data) return response.status(200).send({ user: result.data });
 
     switch (result.error.name) {
@@ -114,13 +114,13 @@ async function update(
         birthDate,
         organization
     };
-    const userID = new Schema.Types.ObjectId(id);
 
-    const result = await catchErrors(service.update(userID, parameters));
+    const result = await catchErrors(service.update(id, parameters));
     if (result.data) return response.status(200).send({ user: result.data });
 
     switch (result.error.name) {
         default:
+            console.error(result.error);
             return response.status(500).send(result.error);
     }
 }
