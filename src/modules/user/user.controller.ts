@@ -3,6 +3,7 @@ import { IUser } from "./user.model";
 import { Request, Response } from "express";
 import { Schema } from "mongoose";
 import { catchErrors } from "../../utils/error.handling";
+import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
 
 /* Relevant Types */
 type UserCreationParameters =
@@ -66,6 +67,20 @@ async function findByOrganization(
     }
 }
 
+async function findByToken(
+    request: Request, response: Response
+): Promise<any> {
+    const userID = response.locals.user._id;
+    const result = await catchErrors(service.findOne(userID));
+    if (result.data) return response.status(200).send({ user: result.data});
+
+    switch (result.error.name) {
+        default:
+            console.error(result.error);
+            return response.status(500).send(result.error);
+    }
+}
+
 
 async function remove(
     request: Request, response: Response
@@ -113,6 +128,7 @@ async function update(
 export {
     save,
     findByOrganization,
+    findByToken,
     remove,
     update,
 }

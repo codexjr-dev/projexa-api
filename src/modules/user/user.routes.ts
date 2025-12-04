@@ -3,14 +3,16 @@ import {
     save,
     findByOrganization,
     remove,
-    update
+    update,
+    findByToken
 } from "./user.controller";
 import { authorize, Existent, Leadership, Restricted } from "../../middlewares/auth";
 const router = express.Router();
 
-router.post("/user", authorize(Leadership), save);
-router.get("/user", authorize(Existent), findByOrganization);
-router.patch("/user/:id", authorize(Restricted), update);
-router.delete("/user/:id", authorize(Leadership), remove);
+router.post("/users", authorize(Leadership), save);
+router.get("/users", authorize(Existent), findByOrganization);
+router.get('/users', authorize(Existent), findByToken);
+router.patch("/users/:id", authorize(Restricted), update);
+router.delete("/users/:id", authorize(Leadership), remove);
 
 export default router;

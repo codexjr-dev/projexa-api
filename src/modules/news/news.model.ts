@@ -24,6 +24,10 @@ const newsSchema = new Schema<INews>({
         ref: "Project",
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     image: {
         type: Schema.Types.Buffer,
         required: false,

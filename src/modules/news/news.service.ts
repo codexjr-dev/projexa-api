@@ -31,7 +31,7 @@ async function findByProject(projectId: string): Promise<NewsAndProject> {
 
     if (!project) throw new Error("Projeto não encontrado!");
     const news = await News.find({ _id: { $in: project.news }})
-        .select("_id member project description images updateLink createdAt updatedAt")
+        .select("-__v")
         .populate("user", "_id name")
         .sort({ _id: -1 })
         .exec() as NewsParameters;
@@ -53,7 +53,7 @@ async function update(newsId: string, parameters: NewsParameters): Promise<Searc
     );
     if (!updatedNews) throw new Error("Erro ao atualizar notícia!");
     return await News.findOne({ project: updatedNews!.project })
-        .select("_id user project description images updateLink createdAt updatedAt")
+        .select("-__v")
         .populate("user", "_id name")
         .sort({ _id: -1 })
         .exec();
@@ -72,7 +72,7 @@ async function remove(projectId: string, parameters: NewsParameters): Promise<Se
         throw new Error("Atualização não encontrada.");
     return await News
         .find({ _id: { $in: project!.news }})
-        .select("_id user project description images updateLink createdAt updatedAt")
+        .select("-__v")
         .populate("user", "_id name")
         .sort({ _id: -1 })
         .exec() as NewsParameters;
@@ -85,7 +85,7 @@ async function getAllNewsByOrganization(organizationID: string) {
     );
     return await News
         .find({ project: { $in: projectsIds }})
-        .select("_id user project description images updateLink createdAt updatedAt")
+        .select("-__v")
         .populate("user", "_id name")
         .populate("project", "_id name")
         .sort({ _id: -1 })
