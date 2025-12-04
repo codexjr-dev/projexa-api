@@ -63,7 +63,10 @@ async function save(
 }
 
 async function findOne(userID: ID): Promise<CleanUser> {
-    const user: IUser | null = await Users.findOne({ _id: userID });
+    const user: IUser | null = await Users
+        .findOne({ _id: userID })
+        .populate('organization', '_id name')
+        .lean();
     if (!user) throw new ObjectNotFoundError(msgUserNotFound);
     return sanitize(user);
 }
