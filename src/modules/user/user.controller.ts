@@ -1,70 +1,112 @@
-import service, { UpdateUserInterface } from "./user.service";
+import service from "./user.service";
+import { IUser } from "./user.model";
 import { Request, Response } from "express";
 import { Schema } from "mongoose";
+import { catchErrors } from "../../utils/error.handling";
 
-async function save(request: Request, response: Response): Promise<any> {
-    try {
-        const { organizationID } = response.locals;
-        const user = await save(request.body, organizationID);
-        return response.status(201).send({ user });
-    } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
-            error: error.message
-        }); return response.status(500).send(error);
+/* Relevant Types */
+type UserCreationParameters =
+    Pick<
+        IUser,
+        'name'
+        | 'email'
+        | 'role'
+        | 'birthDate'
+        | 'password'
+    >;
+type UserUpdateParameters =
+    Partial<
+        Pick<
+            IUser,
+            'name'
+            | 'email'
+            | 'password'
+            | 'role'
+            | 'birthDate'
+            | 'organization'
+        >
+    >;
+
+async function save(
+    request: Request, response: Response
+): Promise<any> {
+    const { organizationID } = response.locals;
+    const { name, email, role, birthDate, password } = request.body;
+
+    const userData: UserCreationParameters = {
+        name,
+        email,
+        role,
+        birthDate,
+        password,
+    };
+
+    const result = await catchErrors(service.save(userData, organizationID));
+    if (result.data) return response.status(201).send({ user: result.data });
+
+    switch (result.error.name) {
+        default:
+            return response.status(500).send(result.error);
     }
 }
 
-async function findByOrganization(request: Request, response: Response): Promise<any> {
-    try {
-        const { organizationID } = response.locals;
-        const users = await service.findByOrganization(organizationID);
-        return response.status(200).send({ users });
-    } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
-            error: error.message
-        }); return response.status(500).send(error);
+async function findByOrganization(
+    request: Request, response: Response
+): Promise<any> {
+    const organizationID = response.locals.organization;
+    const result = await catchErrors(
+        service.findByOrganization(organizationID)
+    );
+    if (result.data) return response.status(200).send({ users: result.data });
+
+    switch (result.error.name) {
+        default:
+            console.error(result.error);
+            return response.status(500).send(result.error);
     }
 }
 
 
-async function remove(request: Request, response: Response): Promise<any> {
-    try {
-        const { id } = request.params;
-        const objID = new Schema.Types.ObjectId(id);
+async function remove(
+    request: Request, response: Response
+): Promise<any> {
+    const { id } = request.params;
+    const userID = new Schema.Types.ObjectId(id);
 
-        const removedUser = await service.remove(objID);
-        return response.status(200).send({ user: removedUser, })
-    } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
-            error: error.message
-        }); return response.status(500).send(error);
+    const result = await catchErrors(service.remove(userID));
+    if (result.data) return response.status(200).send({ user: result.data });
+
+    switch (result.error.name) {
+        default:
+            return response.status(500).send(result.error);
     }
 }
 
-async function update(request: Request, response: Response): Promise<any> {
-    try {
-        const { id } = request.params;
-        const { name, email, password,
-            role, birthDate, organization } = request.body;
-        const parameters = {
-            name,
-            email,
-            password,
-            role,
-            birthDate,
-            organization
-        } as UpdateUserInterface;
-        const objID = new Schema.Types.ObjectId(id);
+async function update(
+    request: Request, response: Response
+): Promise<any> {
+    const { id } = request.params;
+    const {
+        name, email, password,
+        role, birthDate, organization
+    } = request.body;
 
-        const updatedUser = await service.update(objID, parameters);
-        return response.status(200).send({
-            user: updatedUser,
-            message: 'Usuário atualizado com sucesso!'
-        });
-    } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
-            error: error.message
-        }); return response.status(500).send(error);
+    const parameters: UserUpdateParameters = {
+        name,
+        email,
+        password,
+        role,
+        birthDate,
+        organization
+    };
+    const userID = new Schema.Types.ObjectId(id);
+
+    const result = await catchErrors(service.update(userID, parameters));
+    if (result.data) return response.status(200).send({ user: result.data });
+
+    switch (result.error.name) {
+        default:
+            return response.status(500).send(result.error);
     }
 }
 

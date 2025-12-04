@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 import organization from "../organization/organization.model";
+import { MongooseObject, TimeStamps } from '../../utils/common.types';
 
-interface IUser {
-    _id: Schema.Types.ObjectId;
+interface IUser extends MongooseObject, TimeStamps {
     name: string;
     email: string;
     password: string;
@@ -12,10 +12,9 @@ interface IUser {
         "Trainee" | "Ex-Trainee";
     birthDate: Date;
     organization: Schema.Types.ObjectId;
-    __v: number;
 }
 
-interface UserParameters extends Partial<IUser> { };
+type CleanUser = Omit<IUser, 'password' | '__v'>;
 
 const userSchema = new Schema<IUser>({
     name: {
@@ -53,4 +52,4 @@ const userSchema = new Schema<IUser>({
 { timestamps: true, });
 
 export default model("User", userSchema);
-export { IUser, UserParameters };
+export { IUser, CleanUser };

@@ -1,14 +1,11 @@
 import { Schema, model } from 'mongoose';
-type ID = Schema.Types.ObjectId;
+import { MongooseObject, TimeStamps } from '../../utils/common.types';
 
-interface IOrganization {
-    _id: ID;
+interface IOrganization extends MongooseObject, TimeStamps {
     name: string;
-    departments: string[];
-    skills: string[];
+    departments?: string[];
+    skills?: string[];
 }
-
-interface OrganizationParameters extends Partial<IOrganization> { };
 
 const organizationSchema = new Schema<IOrganization>({
     name: {
@@ -26,4 +23,4 @@ const organizationSchema = new Schema<IOrganization>({
 }, { timestamps: true });
 
 export default model('Organization', organizationSchema, 'organizations');
-export { IOrganization, OrganizationParameters };
+export { IOrganization };

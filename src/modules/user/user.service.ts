@@ -1,77 +1,135 @@
 import bcrypt from "bcrypt";
-import User, { IUser } from "./user.model";
+import Users, { IUser } from "./user.model";
 import { DeleteResult, Schema } from "mongoose";
+import { ID } from "../../utils/common.types";
+import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
+
+/* Relevant Types */
+type CleanUser = Omit<IUser, 'password' | '__v'>;
+type UserCreationParameters =
+    Pick<
+        IUser,
+        'name'
+        | 'email'
+        | 'role'
+        | 'birthDate'
+        | 'password'
+    >;
+type UserUpdateParameters =
+    Partial<
+        Pick<
+            IUser,
+            'name'
+            | 'email'
+            | 'password'
+            | 'role'
+            | 'birthDate'
+            | 'organization'
+        >
+    >;
+
+/* Constants */
 const SALT_ROUNDS = `${process.env.SALT_ROUNDS}`;
-type ID = Schema.Types.ObjectId;
+const msgEmailExists = "Já existe um usuário cadastrado para esse email!";
+const msgUserNotFound = "Usuário não encontrado!";
+const msgCEONotFound = "O Presidente desta organização não foi encontrado!";
+const msgUsersNotFound = "Nenhum usuário foi encontrado para esta organização!";
 
-interface UpdateUserInterface {
-    _id: ID;
-    name?: string;
-    email?: string;
-    password?: string;
-    role?:
-        "Presidente" | "Diretor(a)" | "Assessor(a)" |
-        "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
-        "Trainee" | "Ex-Trainee";
-    birthDate?: Date,
-    organization?: ID
-}
-
-async function save(userData: IUser, organizationID: string): Promise<IUser> {
+async function save(
+    userData: UserCreationParameters,
+    organizationID: ID
+): Promise<CleanUser> {
     const { name, email, role, birthDate, password } = userData;
-    const organization = new Schema.Types.ObjectId(organizationID);
 
-    const user = await User.findOne({ email });
-    if (user) throw new Error("Já existe um usuário cadastrado para esse email!");
+    if (typeof organizationID === 'string') {
+        organizationID = new Schema.Types.ObjectId(organizationID);
+    }
 
-    const psw = await bcrypt.hash(password, SALT_ROUNDS);
-    const newUser = (await User.create({
+    const user: IUser | null = await Users.findOne({ email });
+    if (user) throw new Error(msgEmailExists);
+
+    const encryptedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const createdUser = await Users.create({
         name,
         email,
         birthDate,
-        password: psw,
+        password: encryptedPassword,
         role,
-        organization: organization,
-    })) as IUser;
+        organization: organizationID,
+    });
 
-    /**
-     * TODO Atentar para esse trecho. O backend jamais deve retornar a senha.
-     */
-    userData.password = "";
-    userData._id = newUser._id;
-    return userData;
+    const newUser: IUser = createdUser.toObject();
+    return sanitize(newUser);
 }
 
-async function findByOrganization(organizationID: ID): Promise<IUser[]> {
-    const users = await User.find({ organization: organizationID }).select("-password -__v");
+async function findOne(userID: ID): Promise<CleanUser> {
+    const user: IUser | null = await Users.findOne({ id: userID });
+    if (!user) throw new ObjectNotFoundError(msgUserNotFound);
+    return sanitize(user);
+}
+
+async function findByOrganization(organizationID: ID): Promise<CleanUser[]> {
+    const users: CleanUser[] = await Users
+        .find({ organization: organizationID })
+        .select("-password -__v")
+        .lean();
+
+    if (!users || users.length === 0) throw new Error(msgUsersNotFound);
     return users;
 }
 
+async function findPresident(organizationId: ID): Promise<CleanUser> {
+    const president: CleanUser | null = await Users
+        .findOne({ organization: organizationId, role: 'Presidente' })
+        .select("-password -__v")
+        .lean();
+
+    if (!president) throw new ObjectNotFoundError(msgCEONotFound);
+    return president;
+}
 async function remove(userId: ID): Promise<DeleteResult> {
-    const removedUser = await User.deleteOne({ _id: userId });
-    return removedUser;
+    const result: DeleteResult = await Users
+        .deleteOne({ id: userId });
+    return result;
 }
 
-    /**
-     * Atualiza um usuário existente no sistema
-     * @param {ID} userId - Id do usuário a ser atualizado.
-     * @param {IUser} data - Novos valores a serem atualizados.
-     * @returns {Promise<IUser | null>} Retorna o usuário com os dados
-     * atualizados.
-     */
-async function update
-(userId: ID, data: UpdateUserInterface): Promise<IUser | null> {
-    if (data.hasOwnProperty("password"))
+/**
+ * Atualiza um usuário existente no sistema.
+ * @param {string | ObjectId} userId - ID do usuário a ser atualizado.
+ * @param {UserUpdateParameters} data - Novos valores a serem atualizados.
+ * Os campos são opcionais.
+ * @returns {Promise<CleanUser>} Retorna um objeto com os dados atualizados
+ * do usuário, caso a operação tenha sido um sucesso.
+ * @throws {ObjectNotFoundError} Caso o ID do usuário não seja encontrado
+ * no banco de dados.
+ */
+async function update(
+    userId: ID,
+    data: UserUpdateParameters
+): Promise<CleanUser> {
+    if (data.hasOwnProperty("password")) {
         data.password = await bcrypt.hash(data.password, SALT_ROUNDS);
-    return await User
-        .findOneAndUpdate({ _id: userId }, data )
-        .select("-password -_id -__v");
+    }
+
+    const result: IUser | null = await Users
+        .findByIdAndUpdate({ id: userId }, data)
+        .select("-password")
+        .lean();
+
+    if (!result) throw new ObjectNotFoundError(msgUserNotFound);
+    return sanitize(result);
+}
+
+function sanitize(user: IUser): CleanUser {
+    const { password, __v, ...otherFields } = user;
+    return otherFields;
 }
 
 export default {
     save,
+    findOne,
     findByOrganization,
+    findPresident,
     remove,
     update,
 }
-export { UpdateUserInterface };

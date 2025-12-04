@@ -1,19 +1,24 @@
 import { Request, Response } from "express";
 import service from "./auth.service";
+import { catchErrors } from "../../../utils/error.handling";
+
+type Credentials = {
+    email: string;
+    password: string;
+}
 
 async function signIn(request: Request, response: Response) {
-    try {
-        const dados = await service.signIn(request.body);
+    const { email, password } = request.body;
 
-        if (dados.error) return response.status(401).send({
-            error: dados.erro
-        });
-        return response.status(200).send({ dados });
-    } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
-            error: error.message,
-            trace: error.stack
-        }); return response.status(500).send({ error });
+    const credentials: Credentials = { email, password };
+    const result = await catchErrors(service.signIn(credentials));
+
+    if (result.data) return response.status(200).send({ dados: result.data });
+    switch (result.error.name) {
+        case 'InvalidCredentialsError':
+            return response.status(401).send(result.error);
+        default:
+            return response.status(500).send(result.error);
     }
 }
 

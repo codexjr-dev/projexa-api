@@ -1,33 +1,56 @@
-import bcrypt from "bcrypt";
-import User, { IUser, UserParameters } from "../user.model";
-import JWT from "jsonwebtoken";
-import { Request } from "express";
-const JWT_SECRET = `${process.env.JWT_SECRET}`;
+import bcrypt from 'bcrypt';
+import User, { IUser } from '../user.model';
+import JWT from 'jsonwebtoken';
+import InvalidCredentialsError from '../../../utils/errors/invalidCredentials.error';
 
-function signToken(user: UserParameters) {
+
+type CleanUser = Omit<IUser, 'password' | '__v'>;
+type Credentials = {
+    email: string;
+    password: string;
+}
+type SignInResponse = {
+    user: CleanUser;
+    token: string;
+}
+
+const msgUserNotFound = 'Usuário ou senha incorretos!';
+const msgWrongPassword = msgUserNotFound;
+
+function signToken(user: IUser) {
+    const JWT_SECRET: string = process.env.JWT_SECRET!;
     return JWT.sign({
-        iss: "TCC",
-        sub: user,
+        iss: 'TCC',
+        sub: user._id,
         iat: new Date().getTime(),
     }, JWT_SECRET);
 }
 
-async function signIn(request: Request) {
-    const { email, password } = request.params;
+async function signIn(credentials: Credentials) {
+    const { email, password } = credentials;
     const user: IUser | null = await User
         .findOne({ email })
-        .populate({ path: "organization", select: "name" });
+        .populate({ path: 'organization', select: 'name' })
+        .lean();
 
-    if (!user) return { erro: "Usuário ou senha incorretos" };
+    if (!user) throw new InvalidCredentialsError(msgUserNotFound);
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return { error: "Usuário ou senha incorretos" };
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+    if (!passwordsMatch) throw new InvalidCredentialsError(msgWrongPassword);
 
-    const result = user as UserParameters;
-    delete result.password;
+    const loggedUser: CleanUser = sanitize(user);
 
     const token = signToken(user);
-    return { user: result, token };
+    const result: SignInResponse = {
+        user: loggedUser,
+        token,
+    };
+    return result;
+}
+
+function sanitize(user: IUser): CleanUser {
+    const { password, __v, ...otherFields } = user;
+    return otherFields;
 }
 
 export default { signIn };
