@@ -1,7 +1,8 @@
 import express from "express";
 import {
-    existentUser,
-    isLeadership
+    authorize,
+    Existent,
+    Leadership
 } from "../../middlewares/auth";
 import {
     save,
@@ -11,9 +12,9 @@ import {
 } from "./link.controller";
 const router = express.Router();
 
-router.post("/link", isLeadership, save);
-router.get("/link", existentUser, findByOrganization);
-router.patch("/link/:id", isLeadership, update);
-router.delete("/link/:id", isLeadership, remove);
+router.post("/link", authorize(Leadership), save);
+router.get("/link", authorize(Existent), findByOrganization);
+router.patch("/link/:id", authorize(Leadership), update);
+router.delete("/link/:id", authorize(Leadership), remove);
 
 export default router;
