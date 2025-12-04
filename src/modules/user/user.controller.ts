@@ -1,9 +1,7 @@
 import service from "./user.service";
 import { IUser } from "./user.model";
 import { Request, Response } from "express";
-import { Schema } from "mongoose";
 import { catchErrors } from "../../utils/error.handling";
-import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
 
 /* Relevant Types */
 type UserCreationParameters =
@@ -93,6 +91,7 @@ async function remove(
 
     switch (result.error.name) {
         default:
+            console.error(result.error);
             return response.status(500).send(result.error);
     }
 }
