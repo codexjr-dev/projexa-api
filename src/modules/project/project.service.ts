@@ -1,42 +1,64 @@
-import { DeleteResult, Schema } from "mongoose";
-import Project, { ProjectParameters } from "./project.model";
-type SearchResult = ProjectParameters | null;
+import { DeleteResult, Schema } from 'mongoose';
+import Project, { IProject } from './project.model';
 
-async function save
-(parameters: ProjectParameters, organizationID: string): Promise<ProjectParameters> {
-    const newProject = {
-        ...parameters!,
-        organization: new Schema.Types.ObjectId(organizationID),
-    };
-    return await Project.create(newProject);
+/* Relevant Types */
+type ProjectCreationParameters =
+    Required<Pick<IProject, 'name' | 'description' | 'tags' | 'team' >>
+    & Partial <Pick<IProject, 'contractLink' | 'startDate' | 'finishDate'>>;
+
+type ProjectUpdateParameters =
+    Partial<
+        Pick<
+            IProject,
+            'name'
+            | 'description'
+            | 'tags'
+            | 'team'
+            | 'startDate'
+            | 'finishDate'
+            | 'contractLink'
+            | 'customer'
+            | 'news'
+        >
+    >;
+
+async function save(
+    parameters: ProjectCreationParameters,
+    organizationID: string
+): Promise<IProject> {
+    const newProject: IProject = await Project.create({ organization: organizationID, ...parameters });
+    return newProject;
 }
 
-async function findByOrganization(organizationID: string): Promise<SearchResult[]> {
-    const projects = await Project
-        .find({ organization: new Schema.Types.ObjectId(organizationID) })
-        .populate({ path: "team", select: "name role _id" });
+async function findByOrganization(organizationID: string): Promise<IProject[]> {
+    const projects: IProject[] = await Project
+        .find({ organization: organizationID })
+        .populate({ path: 'team', select: 'name role _id' })
+        .lean();
     return projects;
 }
 
-async function findById(_id: string): Promise<SearchResult> {
-    const project = await Project
-        .findOne({ _id })
-        .populate({ path: "team", select: "name role _id" });
+async function findById(projectID: string): Promise<IProject | null> {
+    const project: IProject | null = await Project
+        .findOne({ projectID })
+        .populate({ path: 'team', select: 'name role _id' })
+        .lean();
     return project;
 }
 
-async function remove(projectId: string): Promise<DeleteResult> {
-    const id = new Schema.Types.ObjectId(projectId);
+async function remove(projectID: string): Promise<DeleteResult> {
     const removedProject = Project.deleteOne({
-        _id: id,
+        _id: projectID,
     });
     return removedProject;
 }
 
-async function update
-(projectId: string, data: ProjectParameters): Promise<SearchResult> {
-    const updatedProject = Project
-        .findOneAndUpdate({ _id: projectId }, data);
+async function update(
+    projectID: string,
+    data: ProjectUpdateParameters
+): Promise<IProject | null> {
+    const updatedProject: IProject | null = await Project
+        .findOneAndUpdate({ _id: projectID }, data);
     return updatedProject;
 }
 

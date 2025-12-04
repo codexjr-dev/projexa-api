@@ -1,12 +1,12 @@
-import { connectToExternalDB } from "./external.db.cfg";
-import { connectToLocalDB } from "./local.db.cfg";
+import { connectToExternalDB } from './external.db.cfg';
+import { connectToLocalDB } from './local.db.cfg';
 
 async function checkEnvironmentVariables() {
     const REQUIRED_VARIABLES = [
-        "BD_URL",
-        "PORT",
-        "SALT_ROUNDS",
-        "JWT_SECRET",
+        'BD_URL',
+        'PORT',
+        'SALT_ROUNDS',
+        'JWT_SECRET',
     ];
 
     const missing: string[] = [];
@@ -23,17 +23,17 @@ async function checkEnvironmentVariables() {
     if (found === REQUIRED_VARIABLES.length) return;
 
     const message =
-        `Variáveis de Ambiente não encontradas: ${missing.join(", ")}`;
+        `Variáveis de Ambiente não encontradas: ${missing.join(', ')}`;
     throw new Error(message);
 }
 
 async function startDatabase() {
     const ENVIRON = `${process.env.NODE_ENV}`.trim();
     if (!ENVIRON)
-        throw new Error("Variável de ambiente NODE_ENV não encontrada!");
+        throw new Error('Variável de ambiente NODE_ENV não encontrada!');
     switch(ENVIRON) {
-        case "prod":return connectToExternalDB(ENVIRON);
-        case "dev": return connectToExternalDB(ENVIRON);
+        case 'prod':return connectToExternalDB(ENVIRON);
+        case 'dev': return connectToExternalDB(ENVIRON);
         default:    return connectToLocalDB();
     }
 }

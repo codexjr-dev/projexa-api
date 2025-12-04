@@ -1,7 +1,7 @@
-import { CleanUser } from "../../modules/user/user.model";
+import { CleanUser } from '../../modules/user/user.model';
 import { fail, succeed, Result } from '../../utils/error.handling';
-import Authorization from "./auth.abstract";
-import { ObjectNotFoundError } from "../../utils/errors/errors";
+import Authorization from './auth.abstract';
+import { ObjectNotFoundError } from '../../utils/errors/errors';
 
 class Existent extends Authorization {
     override async tryAuthorize(): Promise<Result<boolean, Error>> {

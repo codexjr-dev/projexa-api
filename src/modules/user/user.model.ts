@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import organization from "../organization/organization.model";
+import { Schema, model } from 'mongoose';
+import organization from '../organization/organization.model';
 import { MongooseObject, TimeStamps } from '../../utils/common.types';
 
 interface IUser extends MongooseObject, TimeStamps {
@@ -7,9 +7,9 @@ interface IUser extends MongooseObject, TimeStamps {
     email: string;
     password: string;
     role:
-        "Presidente" | "Diretor(a)" | "Assessor(a)" |
-        "Conselheiro(a)" | "Pós-Júnior" | "Guardião" |
-        "Trainee" | "Ex-Trainee";
+        'Presidente' | 'Diretor(a)' | 'Assessor(a)' |
+        'Conselheiro(a)' | 'Pós-Júnior' | 'Guardião' |
+        'Trainee' | 'Ex-Trainee';
     birthDate: Date;
     organization: Schema.Types.ObjectId;
 }
@@ -32,12 +32,12 @@ const userSchema = new Schema<IUser>({
     role: {
         type: String,
         enum: [
-            "Presidente", "Diretor(a)", "Assessor(a)",
-            "Conselheiro(a)","Pós-Júnior", "Guardiã(o)",
-            "Trainee", "Ex-Trainee"
+            'Presidente', 'Diretor(a)', 'Assessor(a)',
+            'Conselheiro(a)','Pós-Júnior', 'Guardiã(o)',
+            'Trainee', 'Ex-Trainee'
         ],
         required: true,
-        default: "Assessor(a)",
+        default: 'Assessor(a)',
     },
     birthDate: {
         type: Date,
@@ -51,5 +51,5 @@ const userSchema = new Schema<IUser>({
 },
 { timestamps: true, });
 
-export default model("User", userSchema);
+export default model('User', userSchema);
 export { IUser, CleanUser };

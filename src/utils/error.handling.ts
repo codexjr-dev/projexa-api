@@ -1,4 +1,4 @@
-import UnexpectedError from "./errors/unexpected.error";
+import UnexpectedError from './errors/unexpected.error';
 
 type Success<T> = {
     data: T;

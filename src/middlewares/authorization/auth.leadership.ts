@@ -1,10 +1,10 @@
-import { CleanUser } from "../../modules/user/user.model";
+import { CleanUser } from '../../modules/user/user.model';
 import { fail, succeed, Result } from '../../utils/error.handling';
-import Authorization from "./auth.abstract";
+import Authorization from './auth.abstract';
 import {
     ObjectNotFoundError,
     UnauthorizedError
-} from "../../utils/errors/errors";
+} from '../../utils/errors/errors';
 
 class Leadership extends Authorization {
     override async tryAuthorize(): Promise<Result<boolean, Error>> {

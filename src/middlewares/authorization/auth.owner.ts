@@ -1,7 +1,7 @@
-import { CleanUser } from "../../modules/user/user.model";
+import { CleanUser } from '../../modules/user/user.model';
 import News, { INews } from '../../modules/news/news.model';
 import { fail, succeed, catchErrors, Result } from '../../utils/error.handling';
-import Authorization from "./auth.abstract";
+import Authorization from './auth.abstract';
 import {
     ObjectNotFoundError,
     UnauthorizedError,

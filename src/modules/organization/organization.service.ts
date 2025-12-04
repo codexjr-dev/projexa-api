@@ -1,8 +1,8 @@
-import Organization, { IOrganization } from "./organization.model";
-import User, { IUser } from "../user/user.model";
-import bcrypt from "bcrypt";
-import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
-import { ID } from "../../utils/common.types";
+import Organization, { IOrganization } from './organization.model';
+import User, { IUser } from '../user/user.model';
+import bcrypt from 'bcrypt';
+import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
+import { ID } from '../../utils/common.types';
 
 /* Relevant Types */
 type CleanUser = Omit<IUser, 'password' | '__v'>;
@@ -13,8 +13,8 @@ type CreationResult = {
 
 /* Constants */
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
-const msgEmailExists = "Já existe uma Organização cadastrada para esse email!";
-const msgCEONotFound = "O Presidente desta organização não foi encontrado!";
+const msgEmailExists = 'Já existe uma Organização cadastrada para esse email!';
+const msgCEONotFound = 'O Presidente desta organização não foi encontrado!';
 const msgOrganizationNotFound =
     'Nenhuma organização foi encontrada com esse ID!';
 const msgFoundNone =
@@ -35,7 +35,7 @@ async function save(
         email: president.email,
         birthDate: president.birthDate,
         password,
-        role: "Presidente",
+        role: 'Presidente',
         organization: organization._id,
     });
 
@@ -52,7 +52,7 @@ async function findAll(): Promise<IOrganization[]> {
 
 async function findPresident(organizationID: ID): Promise<CleanUser> {
     const president: CleanUser | null = await User
-        .findOne({ role: "Presidente", organization: organizationID })
+        .findOne({ role: 'Presidente', organization: organizationID })
         .select('-password -__v');
 
     if (!president) throw new ObjectNotFoundError(msgCEONotFound);

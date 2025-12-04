@@ -1,7 +1,7 @@
-import service from "./user.service";
-import { IUser } from "./user.model";
-import { Request, Response } from "express";
-import { catchErrors } from "../../utils/error.handling";
+import service from './user.service';
+import { IUser } from './user.model';
+import { Request, Response } from 'express';
+import { catchErrors } from '../../utils/error.handling';
 
 /* Relevant Types */
 type UserCreationParameters =

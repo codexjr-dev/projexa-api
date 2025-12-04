@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Authorization from "./authorization/auth.abstract";
+import Authorization from './authorization/auth.abstract';
 import { Result } from '../utils/error.handling';
 import Existent from './authorization/auth.existent';
 import Leadership from './authorization/auth.leadership';

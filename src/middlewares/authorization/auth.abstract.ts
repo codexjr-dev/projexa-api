@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import JWT, { JwtPayload, VerifyErrors } from "jsonwebtoken";
-import Users, { CleanUser, IUser } from "../../modules/user/user.model";
+import { Request, Response, NextFunction } from 'express';
+import JWT, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
+import Users, { CleanUser, IUser } from '../../modules/user/user.model';
 import { fail, succeed, catchErrors, Result } from '../../utils/error.handling';
 import {
     InvalidTokenError,
@@ -9,7 +9,7 @@ import {
     ObjectNotFoundError,
     UnauthorizedError,
     UnexpectedError,
-} from "../../utils/errors/errors";
+} from '../../utils/errors/errors';
 
 abstract class Authorization {
     request: Request;

@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import service from "./link.service";
-import { ILink, LinkParameters } from "./link.model";
+import { Request, Response } from 'express';
+import service from './link.service';
+import { ILink, LinkParameters } from './link.model';
 
 async function save(request: Request, response: Response) {
     try {
@@ -19,7 +19,7 @@ async function save(request: Request, response: Response) {
         return response.status(201).send({ link: newLink });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -33,7 +33,7 @@ async function findByOrganization(request: Request, response: Response) {
         return response.status(200).send({ links });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -46,11 +46,11 @@ async function remove(request: Request, response: Response) {
         const removedLink = await service.remove(id);
         return response.status(200).send({
             link: removedLink,
-            message: "Link removido com sucesso!"
+            message: 'Link removido com sucesso!'
         })
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -64,11 +64,11 @@ async function update(request: Request, response: Response) {
         const updatedLink = await service.update(id, optionalParameters);
         return response.status(200).send({
             link: updatedLink,
-            message: "Link atualizado com sucesso!",
+            message: 'Link atualizado com sucesso!',
         });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }

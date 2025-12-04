@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 import Organizations from "../organization/organization.model";
 import Users from "../user/user.model";
-type ID = Schema.Types.ObjectId;
+import { ID } from "../../utils/common.types";
+
 type Tag = "Backend"
         | "Frontend"
         | "Mobile"
@@ -29,8 +30,6 @@ interface IProject {
     customer: ICustomer;
     news: ID[];
 }
-
-interface ProjectParameters extends Partial<IProject> { };
 
 const customerSchema = new Schema<ICustomer>({
     email: String,
@@ -94,4 +93,4 @@ const projectSchema = new Schema<IProject>({
 }, { timestamps: true });
 
 export default model("Project", projectSchema);
-export { IProject, ProjectParameters, ICustomer };
+export { IProject, ICustomer };

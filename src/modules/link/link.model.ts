@@ -1,14 +1,15 @@
-import { Schema, model } from "mongoose";
-import Organization from "../organization/organization.model";
-type ID = Schema.Types.ObjectId;
-type Tag = "Importante" | "Treinamento" | "Documentação";
+import { Schema, model } from 'mongoose';
+import Organization from '../organization/organization.model';
+import { ID } from '../../utils/common.types';
+
+type Tag = 'Importante' | 'Treinamento' | 'Documentação';
 type Department =
-    "Presidência" |
-    "Gente & Gestão" |
-    "Projetos" |
-    "Qualidade" |
-    "Marketing" |
-    "Negócios";
+    'Presidência' |
+    'Gente & Gestão' |
+    'Projetos' |
+    'Qualidade' |
+    'Marketing' |
+    'Negócios';
 
 interface ILink {
     name: string;
@@ -32,7 +33,7 @@ const linkSchema = new Schema<ILink>({
     },
     tags: [{
         type: String,
-        enum: ["Importante", "Treinamento", "Documentação"],
+        enum: ['Importante', 'Treinamento', 'Documentação'],
         required: false,
     },],
     organization: {
@@ -43,12 +44,12 @@ const linkSchema = new Schema<ILink>({
     departments: [{
         type: String,
         enum: [
-            "Presidência",
-            "Gente & Gestão",
-            "Projetos",
-            "Qualidade",
-            "Marketing",
-            "Negócios",
+            'Presidência',
+            'Gente & Gestão',
+            'Projetos',
+            'Qualidade',
+            'Marketing',
+            'Negócios',
         ],
         required: false,
     },],
@@ -58,5 +59,5 @@ const linkSchema = new Schema<ILink>({
     }
 }, { timestamps: true });
 
-export default model("Link", linkSchema);
+export default model('Link', linkSchema);
 export { ILink, LinkParameters };

@@ -1,5 +1,5 @@
-import { DeleteResult } from "mongoose";
-import Link, { ILink, LinkParameters } from "./link.model";
+import { DeleteResult } from 'mongoose';
+import Link, { ILink, LinkParameters } from './link.model';
 type SearchResult = ILink | null;
 
 async function save(parameters: LinkParameters, organizationID: string): Promise<ILink> {

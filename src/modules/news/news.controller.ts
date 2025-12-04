@@ -1,6 +1,10 @@
-import { NewsParameters } from "./news.model";
-import service from "./news.service";
-import { Request, Response } from "express";
+import { INews, NewsParameters } from './news.model';
+import service from './news.service';
+import { Request, Response } from 'express';
+
+type NewsCreationParameters =
+    Required< Pick<INews, 'description'> >
+    & Partial< Pick<INews, 'image' | 'updateLink'> >;
 
 async function save(request: Request, response: Response) {
     try {
@@ -8,7 +12,7 @@ async function save(request: Request, response: Response) {
         const { projectId } = request.params;
         const { description, image, updateLink } = request.body;
 
-        const optionalParameters: NewsParameters = {
+        const optionalParameters: NewsCreationParameters = {
             description,
             image,
             updateLink,
@@ -17,7 +21,7 @@ async function save(request: Request, response: Response) {
         return response.status(201).send({ news });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -31,7 +35,7 @@ async function findByProject(request: Request, response: Response) {
         return response.status(200).send(newsAndProject);
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -50,11 +54,11 @@ async function update(request: Request, response: Response) {
 
         return response.status(200).send({
             news: updatedNews,
-            message: "Atualização do projeto realizada com sucesso!"
+            message: 'Atualização do projeto realizada com sucesso!'
         });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -68,11 +72,11 @@ async function remove(request: Request, response: Response) {
         const result = await service.remove(projectId, news);
         return response.status(200).send({
             news: result,
-            message: "Atualização do projeto removida com sucesso!"
+            message: 'Atualização do projeto removida com sucesso!'
         });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }
@@ -86,7 +90,7 @@ async function getAllNewsByOrg(request: Request, response: Response) {
         return response.status(200).send({ news: allNews });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
-            error: "Erro inesperado",
+            error: 'Erro inesperado',
             trace: error.stack,
         }); else return response.status(500).send({ error });
     }

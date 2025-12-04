@@ -1,9 +1,9 @@
 import { fail, succeed, catchErrors, Result } from '../../utils/error.handling';
-import Projects, { IProject } from "../../modules/project/project.model";
-import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
-import UnauthorizedError from "../../utils/errors/unauthorized.error";
-import { CleanUser } from "../../modules/user/user.model";
-import Authorization from "./auth.abstract";
+import Projects, { IProject } from '../../modules/project/project.model';
+import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
+import UnauthorizedError from '../../utils/errors/unauthorized.error';
+import { CleanUser } from '../../modules/user/user.model';
+import Authorization from './auth.abstract';
 
 class Team extends Authorization {
     override async tryAuthorize(): Promise<Result<boolean, Error>> {

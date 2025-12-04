@@ -1,6 +1,6 @@
-import { checkEnvironmentVariables, startDatabase } from "./config/config";
-import server from "./server";
-import dotenv from "dotenv";
+import { checkEnvironmentVariables, startDatabase } from './config/config';
+import server from './server';
+import dotenv from 'dotenv';
 
 /* Checando variáveis de ambiente e abrindo Banco de Dados! */
 dotenv.config({ quiet: true });

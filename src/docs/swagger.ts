@@ -1,22 +1,22 @@
-import { link } from "../modules/link/link.swagger";
-import { news } from "../modules/news/news.swagger";
-import { organization } from "../modules/organization/organization.swagger";
-import { project } from "../modules/project/project.swagger";
-import { user } from "../modules/user/user.swagger";
-import { auth } from "../modules/user/auth/auth.swagger";
+import { link } from '../modules/link/link.swagger';
+import { news } from '../modules/news/news.swagger';
+import { organization } from '../modules/organization/organization.swagger';
+import { project } from '../modules/project/project.swagger';
+import { user } from '../modules/user/user.swagger';
+import { auth } from '../modules/user/auth/auth.swagger';
 
 export default {
-  openapi: "3.0.4",
+  openapi: '3.0.4',
   info: {
-    title: "Projexa - API",
-    version: "1.4.0",
+    title: 'Projexa - API',
+    version: '1.4.0',
     description:
-      "Documentação das rotas de endpoint REST disponíveis no backend da aplicação Projexa.",
+      'Documentação das rotas de endpoint REST disponíveis no backend da aplicação Projexa.',
   },
   servers: [
     {
-      url: "https://projexa-api.onrender.com",
-      description: "Backend no Render",
+      url: 'https://projexa-api.onrender.com',
+      description: 'Backend no Render',
     },
   ],
   paths: {

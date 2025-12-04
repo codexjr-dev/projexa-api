@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
-import User from "../user/user.model";
-import { ID, MongooseObject, TimeStamps } from "../../utils/common.types";
+import { Schema, model } from 'mongoose';
+import User from '../user/user.model';
+import { ID, MongooseObject, TimeStamps } from '../../utils/common.types';
 type Buffer = Schema.Types.Buffer;
 
 interface INews extends MongooseObject, TimeStamps {
@@ -21,7 +21,7 @@ const newsSchema = new Schema<INews>({
     },
     project: {
         type: Schema.Types.ObjectId,
-        ref: "Project",
+        ref: 'Project',
         required: true,
     },
     description: {
@@ -38,5 +38,5 @@ const newsSchema = new Schema<INews>({
     },
 }, { timestamps: true });
 
-export default model("News", newsSchema);
+export default model('News', newsSchema);
 export { INews, NewsParameters };

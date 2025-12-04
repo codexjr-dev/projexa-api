@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import service from "./auth.service";
-import { catchErrors } from "../../../utils/error.handling";
+import { Request, Response } from 'express';
+import service from './auth.service';
+import { catchErrors } from '../../../utils/error.handling';
 
 type Credentials = {
     email: string;

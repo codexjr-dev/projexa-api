@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt";
-import Users, { IUser } from "./user.model";
-import { DeleteResult, Schema } from "mongoose";
-import { ID } from "../../utils/common.types";
-import ObjectNotFoundError from "../../utils/errors/objectNotFound.error";
+import bcrypt from 'bcrypt';
+import Users, { IUser } from './user.model';
+import { DeleteResult, Schema } from 'mongoose';
+import { ID } from '../../utils/common.types';
+import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
 
 /* Relevant Types */
 type CleanUser = Omit<IUser, 'password' | '__v'>;
@@ -30,10 +30,10 @@ type UserUpdateParameters =
 
 /* Constants */
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
-const msgEmailExists = "Já existe um usuário cadastrado para esse email!";
-const msgUserNotFound = "Usuário não encontrado!";
-const msgCEONotFound = "O Presidente desta organização não foi encontrado!";
-const msgUsersNotFound = "Nenhum usuário foi encontrado para esta organização!";
+const msgEmailExists = 'Já existe um usuário cadastrado para esse email!';
+const msgUserNotFound = 'Usuário não encontrado!';
+const msgCEONotFound = 'O Presidente desta organização não foi encontrado!';
+const msgUsersNotFound = 'Nenhum usuário foi encontrado para esta organização!';
 
 async function save(
     userData: UserCreationParameters,
@@ -74,7 +74,7 @@ async function findOne(userID: ID): Promise<CleanUser> {
 async function findByOrganization(organizationID: ID): Promise<CleanUser[]> {
     const users: CleanUser[] = await Users
         .find({ organization: organizationID })
-        .select("-password -__v")
+        .select('-password -__v')
         .lean();
 
     if (!users || users.length === 0) throw new Error(msgUsersNotFound);
@@ -84,7 +84,7 @@ async function findByOrganization(organizationID: ID): Promise<CleanUser[]> {
 async function findPresident(organizationId: ID): Promise<CleanUser> {
     const president: CleanUser | null = await Users
         .findOne({ organization: organizationId, role: 'Presidente' })
-        .select("-password -__v")
+        .select('-password -__v')
         .lean();
 
     if (!president) throw new ObjectNotFoundError(msgCEONotFound);
@@ -116,7 +116,7 @@ async function update(
 
     const result: IUser | null = await Users
         .findByIdAndUpdate({ _id: userId }, data)
-        .select("-password")
+        .select('-password')
         .lean();
 
     if (!result) throw new ObjectNotFoundError(msgUserNotFound);

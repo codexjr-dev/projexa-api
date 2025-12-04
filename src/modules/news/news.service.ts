@@ -1,60 +1,92 @@
-import { Schema } from "mongoose";
-import News, { INews, NewsParameters } from "./news.model";
-import Project, { IProject, ProjectParameters } from "../project/project.model";
+import News, { INews, NewsParameters } from './news.model';
+import Project, { IProject } from '../project/project.model';
+import { catchErrors, fail,  succeed, Result } from '../../utils/error.handling';
+import {
+    FailedToCreateResourceError,
+    FailedToUpdateResourceError,
+    ObjectNotFoundError
+} from '../../utils/errors/errors';
+
+
+/* Relevant Types */
 type SearchResult = NewsParameters | null;
 type NewsAndProject = {
-    news: NewsParameters;
-    project: ProjectParameters;
+    news: INews[];
+    project: Pick<IProject, '_id' | 'name'>;
 };
 
-async function save(userId: string, projectId: string, parameters: NewsParameters): Promise<INews> {
-    const userObjectID = new Schema.Types.ObjectId(userId);
-    const projectObjectID = new Schema.Types.ObjectId(projectId);
-    const news: INews = await News.create({
-        user: userObjectID,
-        project: projectObjectID,
-        description: parameters.description,
-        image: parameters.image,
-        updateLink: parameters.updateLink,
-    });
-    await Project.findOneAndUpdate(
-        { _id: projectObjectID },
-        { $push: { news: news._id } }
+type NewsCreationParameters =
+    Required< Pick<INews, 'description'> >
+    & Partial< Pick<INews, 'image' | 'updateLink'> >;
+
+async function save(
+    userID: string,
+    projectID: string,
+    data: NewsCreationParameters
+): Promise<Result<INews, Error>> {
+    const newsResult = await catchErrors(
+        News.create({
+            user: userID,
+            project: projectID,
+            description: data.description,
+            image: data.image,
+            updateLink: data.updateLink,
+        })
     );
-    return news;
+
+    if (newsResult.error) return newsResult;
+    if (!newsResult.data) return fail(
+        FailedToCreateResourceError, 'Não foi possível criar esta notícia!'
+    );
+
+    const projectResult = await catchErrors(
+        Project.findOneAndUpdate(
+            { _id: projectID },
+            { $push: { news: newsResult.data._id } }
+        )
+    );
+
+    if (projectResult.error) return projectResult;
+    if (!projectResult.data) return fail(
+        FailedToUpdateResourceError, 'Não foi possível atualizar este projeto!'
+    );
+
+    return succeed(newsResult.data);
 }
 
-async function findByProject(projectId: string): Promise<NewsAndProject> {
-    const project = (await Project
-        .findOne({ _id: projectId })
-        .select("_id news name")) as ProjectParameters;
+async function findByProject(
+    projectId: string
+): Promise<Result<NewsAndProject, Error>> {
+    const projectResult = await catchErrors(
+        Project
+            .findOne({ _id: projectId })
+            .select('_id news name')
+            .populate({ path: 'news', options: { sort: [['_id', 'desc']] } })
+            .lean()
+    );
 
-    if (!project) throw new Error("Projeto não encontrado!");
-    const news = await News.find({ _id: { $in: project.news }})
-        .select("-__v")
-        .populate("user", "_id name")
-        .sort({ _id: -1 })
-        .exec() as NewsParameters;
+    if (projectResult.error) return projectResult;
+    if (!projectResult.data) return fail(
+        ObjectNotFoundError, 'Projeto não encontrado!'
+    );
 
-    delete project.news;
-    const result: NewsAndProject = {
-        news,
-        project,
-    };
+    const { news, ...rest } = projectResult.data;
+    const project: Pick<IProject, '_id' | 'name'> = rest;
+    const result: NewsAndProject = { news: news as any as INews[], project };
 
-    return result;
+    return succeed(result);
 }
 
-async function update(newsId: string, parameters: NewsParameters): Promise<SearchResult> {
+async function update(newsID: string, parameters: NewsParameters): Promise<SearchResult> {
     const updatedNews = await News.findOneAndUpdate(
-        { _id: newsId },
+        { _id: newsID },
         parameters,
         { new: true }
     );
-    if (!updatedNews) throw new Error("Erro ao atualizar notícia!");
+    if (!updatedNews) throw new Error('Erro ao atualizar notícia!');
     return await News.findOne({ project: updatedNews!.project })
-        .select("-__v")
-        .populate("user", "_id name")
+        .select('-__v')
+        .populate('user', '_id name')
         .sort({ _id: -1 })
         .exec();
 }
@@ -69,25 +101,25 @@ async function remove(projectId: string, parameters: NewsParameters): Promise<Se
     const deletedNews = await News.deleteOne({ _id: parameters._id });
 
     if (deletedNews.deletedCount < 1)
-        throw new Error("Atualização não encontrada.");
+        throw new Error('Atualização não encontrada.');
     return await News
         .find({ _id: { $in: project!.news }})
-        .select("-__v")
-        .populate("user", "_id name")
+        .select('-__v')
+        .populate('user', '_id name')
         .sort({ _id: -1 })
         .exec() as NewsParameters;
 }
 
 async function getAllNewsByOrganization(organizationID: string) {
-    const projects = await Project.find({ organization: organizationID }).select("_id");
+    const projects = await Project.find({ organization: organizationID }).select('_id');
     let projectsIds = projects.map(
         (project: IProject) => project._id.toString()
     );
     return await News
         .find({ project: { $in: projectsIds }})
-        .select("-__v")
-        .populate("user", "_id name")
-        .populate("project", "_id name")
+        .select('-__v')
+        .populate('user', '_id name')
+        .populate('project', '_id name')
         .sort({ _id: -1 })
         .exec();
 }

@@ -4,16 +4,16 @@ export const user = {
     },
     components: {
         User: {
-            type: "object",
+            type: 'object',
             properties: {
-                id: { type: "string", example: "64a456" },
-                name: { type: "string", example: "Maria Silva" },
-                email: { type: "string", example: "maria@ej.com" },
+                id: { type: 'string', example: '64a456' },
+                name: { type: 'string', example: 'Maria Silva' },
+                email: { type: 'string', example: 'maria@ej.com' },
                 organization: {
-                    type: "object",
+                    type: 'object',
                     properties: {
-                        id: { type: "string", example: "64a123" },
-                        name: { type: "string", example: "Empresa Júnior X" },
+                        id: { type: 'string', example: '64a123' },
+                        name: { type: 'string', example: 'Empresa Júnior X' },
                     },
                 },
             },

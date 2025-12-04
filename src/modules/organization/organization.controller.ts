@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import service from "./organization.service";
-import { IUser } from "../user/user.model";
-import { catchErrors } from "../../utils/error.handling";
+import { Request, Response } from 'express';
+import service from './organization.service';
+import { IUser } from '../user/user.model';
+import { catchErrors } from '../../utils/error.handling';
 
 type UserCreationParameters =
     Pick<
@@ -20,7 +20,7 @@ async function save(request: Request, response: Response) {
         email: presidentData.email,
         birthDate: presidentData.birthDate,
         password: presidentData.password,
-        role: "Presidente",
+        role: 'Presidente',
     };
 
     const result = await catchErrors(service.save(name, president));
