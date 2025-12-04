@@ -1,8 +1,7 @@
-import { Request, Response } from 'express';
 import service from './link.service';
 import { ILink, LinkParameters } from './link.model';
 
-async function save(request: Request, response: Response) {
+async function save(request: ERequest, response: EResponse) {
     try {
         const { organizationID } = response.locals;
         const { name, url, tags, departments, observations } = request.body;
@@ -25,7 +24,7 @@ async function save(request: Request, response: Response) {
     }
 }
 
-async function findByOrganization(request: Request, response: Response) {
+async function findByOrganization(request: ERequest, response: EResponse) {
     try {
         const { organizationID } = response.locals;
 
@@ -39,7 +38,7 @@ async function findByOrganization(request: Request, response: Response) {
     }
 }
 
-async function remove(request: Request, response: Response) {
+async function remove(request: ERequest, response: EResponse) {
     try {
         const { id } = request.params;
 
@@ -56,7 +55,7 @@ async function remove(request: Request, response: Response) {
     }
 }
 
-async function update(request: Request, response: Response) {
+async function update(request: ERequest, response: EResponse) {
     try {
         const { id } = request.params;
         const optionalParameters = request.body;

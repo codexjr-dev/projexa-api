@@ -2,7 +2,6 @@ import Organization, { IOrganization } from './organization.model';
 import User, { IUser } from '../user/user.model';
 import bcrypt from 'bcrypt';
 import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
-import { ID } from '../../utils/common.types';
 
 /* Relevant Types */
 type CleanUser = Omit<IUser, 'password' | '__v'>;

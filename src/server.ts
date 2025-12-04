@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
@@ -14,7 +14,7 @@ import swaggerDocument from './docs/swagger';
 /* Configurando o servidor Express */
 const server = express();
 server.use(cors());
-server.get('/api', function (request: Request, response: Response) {
+server.get('/api', function (request: ERequest, response: EResponse) {
     return response.json({ message: 'API conectada!' });
 });
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

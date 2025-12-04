@@ -1,7 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
 import JWT, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import Users, { CleanUser, IUser } from '../../modules/user/user.model';
-import { fail, succeed, catchErrors, Result } from '../../utils/error.handling';
+import { fail, succeed, catchErrors } from '../../utils/error.handling';
 import {
     InvalidTokenError,
     MalformattedTokenError,
@@ -12,15 +11,15 @@ import {
 } from '../../utils/errors/errors';
 
 abstract class Authorization {
-    request: Request;
-    response: Response;
-    next: NextFunction;
+    request: ERequest;
+    response: EResponse;
+    next: Next;
 
     readonly bearerRegEx = /^Bearer$/i;
     readonly leadershipRoles = ['Presidente', 'Diretor(a)', 'Guardiã(o)'];
     readonly bannedRoles = ['Ex-Trainee'];
 
-    constructor(request: Request, response: Response, next: NextFunction) {
+    constructor(request: ERequest, response: EResponse, next: Next) {
         this.request = request;
         this.response = response;
         this.next = next;

@@ -1,5 +1,5 @@
 import { CleanUser } from '../../modules/user/user.model';
-import { fail, succeed, Result } from '../../utils/error.handling';
+import { fail, succeed } from '../../utils/error.handling';
 import Authorization from './auth.abstract';
 import { UnauthorizedError } from '../../utils/errors/errors';
 

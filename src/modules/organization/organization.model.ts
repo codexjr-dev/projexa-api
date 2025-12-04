@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { MongooseObject, TimeStamps } from '../../utils/common.types';
 
-interface IOrganization extends MongooseObject, TimeStamps {
+interface IOrganization extends MongooseObject, HasTimeStamps {
     name: string;
     departments?: string[];
     skills?: string[];

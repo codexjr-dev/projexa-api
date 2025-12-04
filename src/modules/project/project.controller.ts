@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import service from './project.service';
 import { IProject } from './project.model';
 
@@ -23,7 +22,7 @@ type ProjectUpdateParameters =
         >
     >;
 
-async function save(request: Request, response: Response): Promise<any> {
+async function save(request: ERequest, response: EResponse): Promise<any> {
     try {
         const { name, description, tags, organization, team } = request.body;
         const data: ProjectCreationParameters = {
@@ -44,7 +43,7 @@ async function save(request: Request, response: Response): Promise<any> {
 }
 
 async function findByOrganization
-(request: Request, response: Response): Promise<any> {
+(request: ERequest, response: EResponse): Promise<any> {
     try {
         /* Este ID é colocado aqui pelo middleware de autenticação. */
         const { id } = response.locals.organization;
@@ -59,7 +58,7 @@ async function findByOrganization
     }
 }
 
-async function findById(request: Request, response: Response): Promise<any> {
+async function findById(request: ERequest, response: EResponse): Promise<any> {
     try {
         const { id } = request.params;
 
@@ -73,7 +72,7 @@ async function findById(request: Request, response: Response): Promise<any> {
     }
 }
 
-async function remove(request: Request, response: Response): Promise<any> {
+async function remove(request: ERequest, response: EResponse): Promise<any> {
     try {
         const { id } = request.params;
 
@@ -90,7 +89,7 @@ async function remove(request: Request, response: Response): Promise<any> {
     }
 }
 
-async function update(request: Request, response: Response): Promise<any> {
+async function update(request: ERequest, response: EResponse): Promise<any> {
     try {
         const { id } = request.params;
         const data: ProjectUpdateParameters = request.body;

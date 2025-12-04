@@ -1,4 +1,4 @@
-import { fail, succeed, catchErrors, Result } from '../../utils/error.handling';
+import { fail, succeed, catchErrors } from '../../utils/error.handling';
 import Projects, { IProject } from '../../modules/project/project.model';
 import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
 import UnauthorizedError from '../../utils/errors/unauthorized.error';

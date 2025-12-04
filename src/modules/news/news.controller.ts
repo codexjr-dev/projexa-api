@@ -1,12 +1,11 @@
 import { INews, NewsParameters } from './news.model';
 import service from './news.service';
-import { Request, Response } from 'express';
 
 type NewsCreationParameters =
     Required< Pick<INews, 'description'> >
     & Partial< Pick<INews, 'image' | 'updateLink'> >;
 
-async function save(request: Request, response: Response) {
+async function save(request: ERequest, response: EResponse) {
     try {
         const { userId } = response.locals;
         const { projectId } = request.params;
@@ -27,7 +26,7 @@ async function save(request: Request, response: Response) {
     }
 }
 
-async function findByProject(request: Request, response: Response) {
+async function findByProject(request: ERequest, response: EResponse) {
     try {
         const { projectId } = request.params;
 
@@ -41,7 +40,7 @@ async function findByProject(request: Request, response: Response) {
     }
 }
 
-async function update(request: Request, response: Response) {
+async function update(request: ERequest, response: EResponse) {
     try {
         const { newsId, description, image, updateLink } = request.body;
 
@@ -64,7 +63,7 @@ async function update(request: Request, response: Response) {
     }
 }
 
-async function remove(request: Request, response: Response) {
+async function remove(request: ERequest, response: EResponse) {
     try {
         const { projectId } = request.params;
         const news = request.body;
@@ -82,7 +81,7 @@ async function remove(request: Request, response: Response) {
     }
 }
 
-async function getAllNewsByOrg(request: Request, response: Response) {
+async function getAllNewsByOrg(request: ERequest, response: EResponse) {
     try {
         const { organizationID } = response.locals;
 

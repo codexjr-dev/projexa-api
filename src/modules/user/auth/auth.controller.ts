@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import service from './auth.service';
 import { catchErrors } from '../../../utils/error.handling';
 
@@ -7,7 +6,7 @@ type Credentials = {
     password: string;
 }
 
-async function signIn(request: Request, response: Response) {
+async function signIn(request: ERequest, response: EResponse) {
     const { email, password } = request.body;
 
     const credentials: Credentials = { email, password };

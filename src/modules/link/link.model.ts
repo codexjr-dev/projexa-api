@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import Organization from '../organization/organization.model';
-import { ID } from '../../utils/common.types';
 
 type Tag = 'Importante' | 'Treinamento' | 'Documentação';
 type Department =

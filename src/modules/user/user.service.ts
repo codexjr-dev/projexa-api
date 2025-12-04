@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import Users, { IUser } from './user.model';
 import { DeleteResult, Schema } from 'mongoose';
-import { ID } from '../../utils/common.types';
 import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
 
 /* Relevant Types */

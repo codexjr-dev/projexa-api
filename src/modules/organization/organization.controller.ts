@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import service from './organization.service';
 import { IUser } from '../user/user.model';
 import { catchErrors } from '../../utils/error.handling';
@@ -13,7 +12,7 @@ type UserCreationParameters =
         | 'password'
     >;
 
-async function save(request: Request, response: Response) {
+async function save(request: ERequest, response: EResponse) {
     const { name, presidentData } = request.body;
     const president: UserCreationParameters = {
         name: presidentData.name,
@@ -33,7 +32,7 @@ async function save(request: Request, response: Response) {
     }
 }
 
-async function findAll(request: Request, response: Response) {
+async function findAll(request: ERequest, response: EResponse) {
     const result = await catchErrors(service.findAll());
     if (result.data) return response.status(200).send(result.data);
 
@@ -44,7 +43,7 @@ async function findAll(request: Request, response: Response) {
     }
 }
 
-async function findById(request: Request, response: Response) {
+async function findById(request: ERequest, response: EResponse) {
     const { id } = request.params;
 
     const result = await catchErrors(service.findById(id));
@@ -57,7 +56,7 @@ async function findById(request: Request, response: Response) {
     }
 }
 
-async function findPresident(request: Request, response: Response) {
+async function findPresident(request: ERequest, response: EResponse) {
     const { id } = request.params;
 
     const result = await catchErrors(service.findPresident(id));

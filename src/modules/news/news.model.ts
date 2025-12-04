@@ -1,9 +1,8 @@
 import { Schema, model } from 'mongoose';
 import User from '../user/user.model';
-import { ID, MongooseObject, TimeStamps } from '../../utils/common.types';
 type Buffer = Schema.Types.Buffer;
 
-interface INews extends MongooseObject, TimeStamps {
+interface INews extends MongooseObject, HasTimeStamps {
     user: ID;
     project: ID;
     description: string;

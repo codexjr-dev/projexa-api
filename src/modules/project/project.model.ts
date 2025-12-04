@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
 import Organizations from "../organization/organization.model";
 import Users from "../user/user.model";
-import { ID } from "../../utils/common.types";
 
 type Tag = "Backend"
         | "Frontend"

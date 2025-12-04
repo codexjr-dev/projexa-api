@@ -1,8 +1,7 @@
 import { Schema, model } from 'mongoose';
 import organization from '../organization/organization.model';
-import { MongooseObject, TimeStamps } from '../../utils/common.types';
 
-interface IUser extends MongooseObject, TimeStamps {
+interface IUser extends MongooseObject, HasTimeStamps {
     name: string;
     email: string;
     password: string;

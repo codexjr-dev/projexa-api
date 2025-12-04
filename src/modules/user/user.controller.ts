@@ -1,6 +1,5 @@
 import service from './user.service';
 import { IUser } from './user.model';
-import { Request, Response } from 'express';
 import { catchErrors } from '../../utils/error.handling';
 
 /* Relevant Types */
@@ -27,7 +26,7 @@ type UserUpdateParameters =
     >;
 
 async function save(
-    request: Request, response: Response
+    request: ERequest, response: EResponse
 ): Promise<any> {
     const organizationID = response.locals.organization;
     const { name, email, role, birthDate, password } = request.body;
@@ -51,7 +50,7 @@ async function save(
 }
 
 async function findByOrganization(
-    request: Request, response: Response
+    request: ERequest, response: EResponse
 ): Promise<any> {
     const organizationID = response.locals.organization;
     const result = await catchErrors(
@@ -67,7 +66,7 @@ async function findByOrganization(
 }
 
 async function findByToken(
-    request: Request, response: Response
+    request: ERequest, response: EResponse
 ): Promise<any> {
     const userID = response.locals.user._id;
     const result = await catchErrors(service.findOne(userID));
@@ -82,7 +81,7 @@ async function findByToken(
 
 
 async function remove(
-    request: Request, response: Response
+    request: ERequest, response: EResponse
 ): Promise<any> {
     const { id } = request.params;
 
@@ -97,7 +96,7 @@ async function remove(
 }
 
 async function update(
-    request: Request, response: Response
+    request: ERequest, response: EResponse
 ): Promise<any> {
     const { id } = request.params;
     const {
