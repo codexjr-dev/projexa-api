@@ -36,7 +36,7 @@ export const auth = {
                         id: "64a456",
                         name: "Maria Silva",
                         email: "maria@ej.com",
-                        organization: { id: "64a123", name: "Empresa Júnior X" },
+                        organization: { _id: "64a123", name: "Empresa Júnior X" },
                         },
                         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
                     },

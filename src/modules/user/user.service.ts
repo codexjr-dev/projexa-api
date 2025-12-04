@@ -63,7 +63,7 @@ async function save(
 }
 
 async function findOne(userID: ID): Promise<CleanUser> {
-    const user: IUser | null = await Users.findOne({ id: userID });
+    const user: IUser | null = await Users.findOne({ _id: userID });
     if (!user) throw new ObjectNotFoundError(msgUserNotFound);
     return sanitize(user);
 }
@@ -89,7 +89,7 @@ async function findPresident(organizationId: ID): Promise<CleanUser> {
 }
 async function remove(userId: ID): Promise<DeleteResult> {
     const result: DeleteResult = await Users
-        .deleteOne({ id: userId });
+        .deleteOne({ _id: userId });
     return result;
 }
 
@@ -112,7 +112,7 @@ async function update(
     }
 
     const result: IUser | null = await Users
-        .findByIdAndUpdate({ id: userId }, data)
+        .findByIdAndUpdate({ _id: userId }, data)
         .select("-password")
         .lean();
 
