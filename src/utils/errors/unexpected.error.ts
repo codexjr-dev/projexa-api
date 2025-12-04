@@ -1,9 +1,11 @@
-export default class UnexpectedError<E extends Error> extends Error {
+import CustomError from "./custom.error";
+
+export default class UnexpectedError<E extends Error> extends CustomError {
     public readonly originalError: Error;
     public readonly timestamp: Date;
-    public readonly code?: string;
+    public override readonly code?: string;
 
-    constructor(error: E, context?: string, code?: string) {
+    constructor(error: E, context?: string, code: string = '') {
         const message = context
             ? `${context}: ${error.message}`
             : error.message;
@@ -15,7 +17,7 @@ export default class UnexpectedError<E extends Error> extends Error {
 
         this.originalError = error;
         this.timestamp = new Date();
-        if (code) this.code = code;
+        this.code = code;
         if (error.stack) this.stack = error.stack;
 
         Object.assign(this, {

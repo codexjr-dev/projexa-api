@@ -1,3 +1,5 @@
-export default class MalformattedTokenError extends Error {
+import CustomError from "./custom.error";
+
+export default class MalformattedTokenError extends CustomError {
     override name = 'MalformattedTokenError';
 }
