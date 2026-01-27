@@ -9,13 +9,14 @@ type CreationResult = {
     organization: IOrganization;
     president: CleanUser;
 }
+type ID = string;
 
-async function save
-    (name: string, president: UserParameters): Promise<OrganizationAndMember> {
-    const alreadyExists = await User.findOne({ email: president.email });
-    if (alreadyExists) throw new
-        Error("Já existe uma Organização cadastrada para esse email!");
-    const organization = (await Organization.create(name)) as IOrganization;
+/* Constants */
+const SALT_ROUNDS = 10;
+const msgEmailExists = "Já existe uma Organização cadastrada para esse email!";
+const msgFoundNone = "Nenhuma organização encontrada";
+const msgCEONotFound = "Presidente não encontrado";
+const msgOrganizationNotFound = "Organização não encontrada";
 
 async function save(
     name: string,
@@ -27,14 +28,14 @@ async function save(
     const organization: IOrganization = await Organization.create({ name });
 
     const password: string = await bcrypt.hash(president.password!, SALT_ROUNDS);
-    const newMember: Omit<IUser, 'password'> = await User.create({
+    const newMember: CleanUser = await User.create({
         name: president.name,
         email: president.email,
         birthDate: president.birthDate,
         password,
         role: 'Presidente',
         organization: organization._id,
-    });
+    }) as CleanUser;
 
     return { organization, president: newMember };
 }
@@ -44,7 +45,8 @@ async function findAll(): Promise<IOrganization[]> {
 
     if (!organizations || organizations.length === 0) {
         throw new ObjectNotFoundError(msgFoundNone);
-    } return organizations;
+    }
+    return organizations;
 }
 
 async function findPresident(organizationID: ID): Promise<CleanUser> {
@@ -67,7 +69,7 @@ async function findById(organizationID: ID): Promise<IOrganization> {
 async function getBalance(organizationID: ID): Promise<number> {
     const organization = await Organization.findById(organizationID);
     if (!organization) {
-        throw new Error("Organização não encontrada");
+        throw new Error(msgOrganizationNotFound);
     }
 
     return organization.balance;
@@ -76,7 +78,7 @@ async function getBalance(organizationID: ID): Promise<number> {
 async function addFinancialEvent(organizationID: ID, event: any): Promise<number> {
     const organization = await Organization.findById(organizationID);
     if (!organization) {
-        throw new Error("Organização não encontrada");
+        throw new Error(msgOrganizationNotFound);
     }
     organization.financialEvents.push(event);
     organization.balance += event.value;
@@ -89,14 +91,13 @@ async function addFinancialEvent(organizationID: ID, event: any): Promise<number
 async function addRecurrentEvent(organizationID: ID, event: any): Promise<number> {
     const organization = await Organization.findById(organizationID);
     if (!organization) {
-        throw new Error("Organização não encontrada");
+        throw new Error(msgOrganizationNotFound);
     }
     organization.recurrentEvents.push(event);
-    //organization.balance += event.value;
+    
     await organization.save();
     return organization.balance;
 }
-
 
 export default {
     findAll,

@@ -1,5 +1,17 @@
 import UnexpectedError from './errors/unexpected.error';
 
+type Success<T> = {
+    data: T;
+    error: null;
+};
+
+type Failure<E extends Error> = {
+    data: null;
+    error: E;
+};
+
+type Result<T, E extends Error = Error> = Success<T> | Failure<E>;
+
 function fail<E extends new (...args: any[]) => Error> (
     ErrorType: E,
     message: string
@@ -31,3 +43,4 @@ async function catchErrors<T, E extends new (message?: string) => Error>(
 }
 
 export { catchErrors, fail, succeed };
+export type { Result, Success, Failure };
