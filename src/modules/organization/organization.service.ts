@@ -10,14 +10,12 @@ type CreationResult = {
     president: CleanUser;
 }
 
-/* Constants */
-const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
-const msgEmailExists = 'Já existe uma Organização cadastrada para esse email!';
-const msgCEONotFound = 'O Presidente desta organização não foi encontrado!';
-const msgOrganizationNotFound =
-    'Nenhuma organização foi encontrada com esse ID!';
-const msgFoundNone =
-    'Nenhuma organização foi encontrada no banco de dados!';
+async function save
+    (name: string, president: UserParameters): Promise<OrganizationAndMember> {
+    const alreadyExists = await User.findOne({ email: president.email });
+    if (alreadyExists) throw new
+        Error("Já existe uma Organização cadastrada para esse email!");
+    const organization = (await Organization.create(name)) as IOrganization;
 
 async function save(
     name: string,
@@ -66,9 +64,46 @@ async function findById(organizationID: ID): Promise<IOrganization> {
     return organization;
 }
 
+async function getBalance(organizationID: ID): Promise<number> {
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
+        throw new Error("Organização não encontrada");
+    }
+
+    return organization.balance;
+}
+
+async function addFinancialEvent(organizationID: ID, event: any): Promise<number> {
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
+        throw new Error("Organização não encontrada");
+    }
+    organization.financialEvents.push(event);
+    organization.balance += event.value;
+
+    await organization.save();
+
+    return organization.balance;
+}
+
+async function addRecurrentEvent(organizationID: ID, event: any): Promise<number> {
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
+        throw new Error("Organização não encontrada");
+    }
+    organization.recurrentEvents.push(event);
+    //organization.balance += event.value;
+    await organization.save();
+    return organization.balance;
+}
+
+
 export default {
     findAll,
     findById,
     findPresident,
     save,
+    getBalance,
+    addFinancialEvent,
+    addRecurrentEvent,
 }
