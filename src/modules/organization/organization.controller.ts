@@ -67,7 +67,10 @@ async function getBalance(request: Request, response: Response) {
     try {
         const { id } = request.params;
 
+
         const balance = await service.getBalance(id);
+
+
         return response.status(200).send({ balance });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
@@ -81,6 +84,7 @@ async function addFinancialEvent(request: Request, response: Response) {
     try {
         const { id } = request.params;
         const { description, date, value, author } = request.body;
+
         const financialEvent = {
             description,
             date,
@@ -88,6 +92,8 @@ async function addFinancialEvent(request: Request, response: Response) {
             author,
         };
         const result = await service.addFinancialEvent(id, financialEvent);
+
+
         return response.status(201).send({ financialEvent: result });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
@@ -97,7 +103,7 @@ async function addFinancialEvent(request: Request, response: Response) {
     }
 }
 
-async function addRecurrentEvent(request: Request, response: Response){
+async function addRecurrentEvent(request: Request, response: Response) {
     try {
         const { id } = request.params;
         const { description, startDate, endDate, frequency, value, author, exceptions } = request.body;
@@ -111,7 +117,7 @@ async function addRecurrentEvent(request: Request, response: Response){
             exceptions,
         };
         const result = await service.addRecurrentEvent(id, recurrentEvent);
-        return response.status(201).send({ recurrentEvent: result });     
+        return response.status(201).send({ message: "Evento recorrente adicionado com sucesso" });
     } catch (error: unknown) {
         if (error instanceof Error) return response.status(500).send({
             error: "Erro inesperado",

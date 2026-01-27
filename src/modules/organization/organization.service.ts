@@ -11,7 +11,7 @@ type OrganizationAndMember = {
 }
 
 async function save
-(name: string, president: UserParameters): Promise<OrganizationAndMember> {
+    (name: string, president: UserParameters): Promise<OrganizationAndMember> {
     const alreadyExists = await User.findOne({ email: president.email });
     if (alreadyExists) throw new
         Error("Já existe uma Organização cadastrada para esse email!");
@@ -46,30 +46,35 @@ async function findById(organizationID: ID): Promise<SearchResult> {
 }
 
 async function getBalance(organizationID: ID): Promise<number> {
-    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
-    if(!organization){
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
         throw new Error("Organização não encontrada");
     }
+
     return organization.balance;
 }
 
 async function addFinancialEvent(organizationID: ID, event: any): Promise<number> {
-    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
-    if(!organization){
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
         throw new Error("Organização não encontrada");
     }
     organization.financialEvents.push(event);
     organization.balance += event.value;
+
+    await organization.save();
+
     return organization.balance;
 }
 
 async function addRecurrentEvent(organizationID: ID, event: any): Promise<number> {
-    const organization = await Organization.findOne({ _id: organizationID }) as IOrganization;
-    if(!organization){
+    const organization = await Organization.findById(organizationID);
+    if (!organization) {
         throw new Error("Organização não encontrada");
     }
     organization.recurrentEvents.push(event);
-    organization.balance += event.value;
+    //organization.balance += event.value;
+    await organization.save();
     return organization.balance;
 }
 

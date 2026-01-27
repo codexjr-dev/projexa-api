@@ -46,6 +46,7 @@ const organizationSchema = new Schema<IOrganization>({
     balance: {
         type: Number,
         required: true,
+        default: 0,
     },
     financialEvents: [{
         description: {
