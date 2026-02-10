@@ -1,12 +1,13 @@
 openapi: 3.0.3
 info:
   title: Documentação das rotas do modulo organization
-  version: 1.0.0
+  version: 1.1.0
   description: |
-    Rotas do modulo organization
+    Rotas do modulo organization, incluindo gestão financeira.
 servers:
   - url: https://github.com/codexjr-dev/projexa-api/tree/main/src/modules/organization
     description: projexa
+
 paths:
   /organization:
     post:
@@ -55,12 +56,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-              example:
-                error: "erro inesperado"
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
       summary: Retorna todas as organizações
       tags:
@@ -79,12 +76,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-              example:
-                error: "erro inesperado"
+                $ref: '#/components/schemas/ErrorResponse'
+
   /organization/{id}:
     get:
       summary: Retorna uma organização pelo ID
@@ -97,6 +90,7 @@ paths:
           description: ID da organização
           schema:
             type: string
+            example: 65c3fa98d1b23a001234abcd
       responses:
         '200':
           description: Organização encontrada
@@ -109,12 +103,115 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /organization/{id}/balance:
+    get:
+      summary: Obter saldo da organização
+      description: Retorna o saldo financeiro atual da organização.
+      tags:
+        - Organizações
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da organização
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Saldo retornado com sucesso
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  error:
-                    type: string
-              example:
-                error: "erro inesperado"
+                  balance:
+                    type: number
+                    example: 1500.75
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /organization/{id}/financial-events:
+    post:
+      summary: Adicionar evento financeiro
+      description: Adiciona um evento financeiro pontual à organização e atualiza o saldo.
+      tags:
+        - Organizações
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da organização
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinancialEvent'
+      responses:
+        '201':
+          description: Evento financeiro adicionado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  financialEvent:
+                    type: number
+                    description: Novo saldo da organização
+                    example: 1249.25
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /organization/{id}/recurrent-events:
+    post:
+      summary: Adicionar evento financeiro recorrente
+      description: Adiciona um evento financeiro recorrente à organização e atualiza o saldo.
+      tags:
+        - Organizações
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da organização
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecurrentEvent'
+      responses:
+        '201':
+          description: Evento recorrente adicionado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recurrentEvent:
+                    type: number
+                    description: Novo saldo da organização
+                    example: 1150.35
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     Organization:
@@ -141,3 +238,73 @@ components:
             role:
               type: string
               example: "presidente"
+
+    FinancialEvent:
+      type: object
+      required:
+        - description
+        - date
+        - value
+        - author
+      properties:
+        description:
+          type: string
+          example: contrato de projeto
+        date:
+          type: string
+          format: date
+          example: "2025-02-01"
+        value:
+          type: number
+          example: 1250.50
+        author:
+          type: string
+          example: João Silva
+
+    RecurrentEvent:
+      type: object
+      required:
+        - description
+        - startDate
+        - frequency
+        - value
+        - author
+      properties:
+        description:
+          type: string
+          example: Assinatura de software
+        startDate:
+          type: string
+          format: date
+          example: "2025-01-01"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2025-12-31"
+        frequency:
+          type: string
+          enum: [daily, weekly, monthly, yearly]
+          example: monthly
+        value:
+          type: number
+          example: 99.90
+        author:
+          type: string
+          example: voltech
+        exceptions:
+          type: array
+          items:
+            type: string
+            format: date
+          example: ["2025-03-01"]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Erro inesperado
+        trace:
+          type: string
+          example: stack trace...
