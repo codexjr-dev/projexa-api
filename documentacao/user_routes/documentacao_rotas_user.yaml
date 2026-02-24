@@ -1,0 +1,232 @@
+openapi: 3.0.3
+info:
+  title: Documentação das rotas do módulo user
+  version: 1.0.0
+  description: |
+    Rotas para criar, listar, atualizar, remover e obter dados de usuários.
+
+servers:
+  - url: https://github.com/codexjr-dev/projexa-api/tree/main/src/modules/user
+    description: projexa
+
+paths:
+  /user:
+    post:
+      summary: Criar um novo usuário
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      summary: Listar todos os usuários da organização
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user/me:
+    get:
+      summary: Obter dados do usuário autenticado
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Dados do usuário
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user/{id}:
+    delete:
+      summary: Remover um usuário
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do usuário
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuário removido com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    patch:
+      summary: Atualizar um usuário
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do usuário
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '500':
+          description: Erro inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "64b123abc456def78901234"
+        name:
+          type: string
+          example: "João da Silva"
+        email:
+          type: string
+          example: "joao@example.com"
+        role:
+          type: string
+          example: "membro"
+        birthDate:
+          type: string
+          format: date
+          example: "1997-08-15"
+        organization:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+              example: "64a1bc23def456780123abcd"
+            name:
+              type: string
+              example: "Empresa Júnior Y"
+
+    UserCreate:
+      type: object
+      required:
+        - name
+        - email
+        - role
+        - birthDate
+        - password
+      properties:
+        name:
+          type: string
+          example: "João da Silva"
+        email:
+          type: string
+          example: "joao@example.com"
+        role:
+          type: string
+          example: "membro"
+        birthDate:
+          type: string
+          format: date
+          example: "1997-08-15"
+        password:
+          type: string
+          example: "senhaSegura123"
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        organization:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Erro inesperado"
+        trace:
+          type: string
+          example: "stack trace..."
