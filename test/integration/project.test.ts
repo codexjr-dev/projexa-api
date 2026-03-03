@@ -2,6 +2,8 @@ import * as chai from 'chai';
 import chaiHttp, { request } from 'chai-http';
 import server from '../../src/server';
 import Project from '../../src/modules/project/project.model';
+import { startDatabase } from '../../src/config/config';
+import * as dotenv from 'dotenv';
 import data from '../datas/projects.data.json';
 import mainData from '../data.json';
 
@@ -20,26 +22,29 @@ describe('@Project', () => {
     let EJ_MOCK: Record<string, string> = {};
 
     before(async () => {
-        const response = await request.execute(server)
-            .post('/ej')
+        dotenv.config();
+        await startDatabase();
+
+        const ejResponse = await request.execute(server)
+            .post('/organization')
             .send({ ...organizationDefault });
 
-        EJ_MOCK = response.body.ej;
+        EJ_MOCK = ejResponse.body.organization;
 
-        const login = await request.execute(server)
-            .post('/sign-in')
+        const loginResponse = await request.execute(server)
+            .post('/signIn')
             .send({
                 email: organizationDefault.presidentData.email,
                 password: organizationDefault.presidentData.password,
             });
 
-        DEFAULT.token = login.body.dados.token;
-        DEFAULT.valid_id = login.body.dados.user._id;
+        DEFAULT.token = loginResponse.body.dados.token;
+        DEFAULT.valid_id = loginResponse.body.dados.user._id;
     });
 
     describe('POST /project', () => {
 
-        it('01. With no Authorization header, should fail', async () => {
+        it('01. Tenta criar um projeto sem estar autorizado', async () => {
             const response = await request.execute(server)
                 .post('/project')
                 .send({ ...PROJECT_DEFAULT });

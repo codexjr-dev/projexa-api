@@ -5,7 +5,7 @@
             "name": "Pamplona",
             "email": "fulano@codexjr.com.br",
             "password": "senha",
-            "birthDate": "24-07-1998"
+            "birthDate": "1998-07-24"
         }
     },
     "presidentDefault": {
@@ -23,7 +23,7 @@
         "name": "CodeX Jr.",
         "email": "lucas@codexjr.com.br",
         "role": "diretor",
-        "birthDate": "24-07-1998"
+        "birthDate": "1998-07-24"
     },
     "HTTP_CODE": {
         "OK": 200,
