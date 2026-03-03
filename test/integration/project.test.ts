@@ -1,11 +1,11 @@
-import * as chai from 'chai';
-import chaiHttp, { request } from 'chai-http';
-import server from '../../src/server';
-import Project from '../../src/modules/project/project.model';
-import { startDatabase } from '../../src/config/config';
-import * as dotenv from 'dotenv';
-import data from '../datas/projects.data.json';
-import mainData from '../data.json';
+import * as chai from "chai";
+import chaiHttp, { request } from "chai-http";
+import server from "../../src/server";
+import Project from "../../src/modules/project/project.model";
+import { startDatabase } from "../../src/config/config";
+import * as dotenv from "dotenv";
+import data from "../datas/projects.data.json";
+import mainData from "../data.json";
 
 const HTTP_CODE = data.HTTP_CODE;
 const PROJECT_DEFAULT = data.projectDefault;
@@ -26,9 +26,10 @@ describe('@Project', () => {
         dotenv.config({ path: '.env.default' });
         await startDatabase();
 
-        const ejResponse = await request.execute(server)
-            .post('/organization')
-            .send({ ...organizationDefault });
+    const ejResponse = await request
+      .execute(server)
+      .post("/organization")
+      .send({ ...organizationDefault });
 
         if (ejResponse.status !== 201) {
             console.error('Erro ao criar organização:', ejResponse.status, ejResponse.body);
@@ -38,12 +39,10 @@ describe('@Project', () => {
         EJ_MOCK = ejResponse.body.organization || ejResponse.body;
         console.log('Organization criada:', EJ_MOCK);
 
-        const loginResponse = await request.execute(server)
-            .post('/signIn')
-            .send({
-                email: organizationDefault.presidentData.email,
-                password: organizationDefault.presidentData.password,
-            });
+    const loginResponse = await request.execute(server).post("/signIn").send({
+      email: organizationDefault.presidentData.email,
+      password: organizationDefault.presidentData.password,
+    });
 
         if (loginResponse.status !== 200) {
             console.error('Erro ao fazer login:', loginResponse.status);
@@ -60,12 +59,14 @@ describe('@Project', () => {
         DEFAULT.valid_id = loginResponse.body.dados.user._id;
     });
 
-    describe('POST /project', () => {
+  describe("POST /project", () => {
 
-        it('01. Tenta criar um projeto sem estar autorizado', async () => {
-            const response = await request.execute(server)
-                .post('/project')
-                .send({ ...PROJECT_DEFAULT });
+    // tá voltando 500, quando devia ser 401
+    it("01. Tenta criar um projeto sem estar autorizado", async () => {
+      const response = await request
+        .execute(server)
+        .post("/project")
+        .send({ ...PROJECT_DEFAULT });
 
             chai.expect(response).to.have.status(HTTP_CODE.UNAUTHORIZED);
             chai.expect(response.body).to.have.property('error');
