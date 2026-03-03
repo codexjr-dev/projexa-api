@@ -15,9 +15,10 @@ async function signIn(request: ERequest, response: EResponse) {
     if (result.data) return response.status(200).send({ dados: result.data });
     switch (result.error.name) {
         case 'InvalidCredentialsError':
-            return response.status(401).send(result.error);
+            return response.status(401).send({ error: result.error.message });
         default:
-            return response.status(500).send(result.error);
+            console.error('Auth error:', result.error);
+            return response.status(500).send({ error: result.error.message || 'Erro desconhecido' });
     }
 }
 
