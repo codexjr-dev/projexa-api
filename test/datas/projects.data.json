@@ -1,0 +1,58 @@
+{
+    "HTTP_CODE": {
+        "OK": 200,
+        "CREATED": 201,
+        "UNAUTHORIZED": 401,
+        "FORBIDDEN": 403,
+        "NOT_FOUND": 404,
+        "INTERNAL_ERROR": 500
+    },
+
+    "memberDefault": {
+        "token": "",
+        "valid_id": ""
+    },
+
+    "memberDirector": {
+        "name": "Fulano Diretor",
+        "email": "proj.diretor@codexjr.com.br",
+        "password": "senha123",
+        "role": "Diretor(a)",
+        "token": "",
+        "valid_id": ""
+    },
+
+    "memberAdvisor": {
+        "name": "Fulano Assessor",
+        "email": "proj.assessor@codexjr.com.br",
+        "password": "senha123",
+        "role": "Assessor(a)",
+        "token": "",
+        "valid_id": ""
+    },
+
+    "memberTrainee": {
+        "name": "Fulano Trainee",
+        "email": "proj.trainee@codexjr.com.br",
+        "password": "senha123",
+        "role": "Trainee",
+        "token": "",
+        "valid_id": ""
+    },
+
+    "projectDefault": {
+        "name": "Projeto Phoenix",
+        "description": "Projeto de melhoria de processos internos.",
+        "tags": ["Backend"],
+        "team": [],
+        "startDate": "2025-01-01",
+        "finishDate": "2025-12-31"
+    },
+
+    "projectPatch": {
+        "name": "Projeto Phoenix Atualizado",
+        "description": "Descrição atualizada do projeto.",
+        "startDate": "2025-06-01",
+        "finishDate": "2026-06-01"
+    }
+}
