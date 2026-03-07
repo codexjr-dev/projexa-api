@@ -2,6 +2,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import * as controller from "../../src/modules/news/news.controller";
 import service from "../../src/modules/news/news.service";
+import { INews, NewsParameters } from "../../src/modules/news/news.model";
 
 describe("News Controller", () => {
   let req: any;
