@@ -30,4 +30,4 @@ async function catchErrors<T, E extends new (message?: string) => Error>(
     }
 }
 
-export { catchErrors, fail, succeed };
+export { catchErrors, fail, succeed , Result};
