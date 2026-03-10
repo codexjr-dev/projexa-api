@@ -24,12 +24,14 @@ type ProjectUpdateParameters =
 
 async function save(request: ERequest, response: EResponse): Promise<any> {
     try {
-        const { name, description, tags, organization, team } = request.body;
+        const { name, description, tags, organization, team, startDate, finishDate } = request.body;
         const data: ProjectCreationParameters = {
             name,
             description,
             tags,
-            team
+            team,
+            startDate,
+            finishDate,
         };
 
         const newProject = await service.save(data, organization);
