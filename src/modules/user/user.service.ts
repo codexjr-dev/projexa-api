@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import Users, { IUser } from './user.model';
-import { DeleteResult, Schema } from 'mongoose';
+import mongoose, { DeleteResult } from 'mongoose';
 import ObjectNotFoundError from '../../utils/errors/objectNotFound.error';
 
 /* Relevant Types */
@@ -13,6 +13,7 @@ type UserCreationParameters =
         | 'role'
         | 'birthDate'
         | 'password'
+        | 'organization'
     >;
 type UserUpdateParameters =
     Partial<
@@ -28,33 +29,41 @@ type UserUpdateParameters =
     >;
 
 /* Constants */
-const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS!);
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS || '10');
 const msgEmailExists = 'Já existe um usuário cadastrado para esse email!';
 const msgUserNotFound = 'Usuário não encontrado!';
 const msgCEONotFound = 'O Presidente desta organização não foi encontrado!';
 const msgUsersNotFound = 'Nenhum usuário foi encontrado para esta organização!';
 
-async function save(
-    userData: UserCreationParameters,
-    organizationID: ID
-): Promise<CleanUser> {
-    const { name, email, role, birthDate, password } = userData;
+// Helper robusto para extrair o ObjectId real, independente de vir como string, objeto populado ou ObjectId nativo
+function parseObjectId(id: any): mongoose.Types.ObjectId {
+    // 🚀 CORREÇÃO: Impede crash se a organização vier nula
+    if (!id) throw new Error('ID da organização é nulo ou inválido.');
+    
+    if (id && id._id) return new mongoose.Types.ObjectId(id._id.toString());
+    return new mongoose.Types.ObjectId(id.toString());
+}
 
-    if (typeof organizationID === 'string') {
-        organizationID = new Schema.Types.ObjectId(organizationID);
-    }
+async function save(
+    userData: UserCreationParameters
+): Promise<CleanUser> {
+    const { name, email, role, birthDate, password, organization } = userData;
+
+    // Converte de forma segura
+    const orgId = parseObjectId(organization);
 
     const user: IUser | null = await Users.findOne({ email });
     if (user) throw new Error(msgEmailExists);
 
     const encryptedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    
     const createdUser = await Users.create({
         name,
         email,
         birthDate,
         password: encryptedPassword,
         role,
-        organization: organizationID,
+        organization: orgId,
     });
 
     const newUser: IUser = createdUser.toObject();
@@ -71,8 +80,10 @@ async function findOne(userID: ID): Promise<CleanUser> {
 }
 
 async function findByOrganization(organizationID: ID): Promise<CleanUser[]> {
+    const orgId = parseObjectId(organizationID);
+    
     const users: CleanUser[] = await Users
-        .find({ organization: organizationID })
+        .find({ organization: orgId })
         .select('-password -__v')
         .lean();
 
@@ -81,40 +92,39 @@ async function findByOrganization(organizationID: ID): Promise<CleanUser[]> {
 }
 
 async function findPresident(organizationId: ID): Promise<CleanUser> {
+    const orgId = parseObjectId(organizationId);
+    
     const president: CleanUser | null = await Users
-        .findOne({ organization: organizationId, role: 'Presidente' })
+        .findOne({ organization: orgId, role: 'Presidente' })
         .select('-password -__v')
         .lean();
 
     if (!president) throw new ObjectNotFoundError(msgCEONotFound);
     return president;
 }
+
 async function remove(userId: ID): Promise<DeleteResult> {
     const result: DeleteResult = await Users
         .deleteOne({ _id: userId });
+
+    if (result.deletedCount === 0) {
+        throw new ObjectNotFoundError(msgUserNotFound);
+    }
+
     return result;
 }
 
-/**
- * Atualiza um usuário existente no sistema.
- * @param {string | ObjectId} userId - ID do usuário a ser atualizado.
- * @param {UserUpdateParameters} data - Novos valores a serem atualizados.
- * Os campos são opcionais.
- * @returns {Promise<CleanUser>} Retorna um objeto com os dados atualizados
- * do usuário, caso a operação tenha sido um sucesso.
- * @throws {ObjectNotFoundError} Caso o ID do usuário não seja encontrado
- * no banco de dados.
- */
 async function update(
     userId: ID,
     data: UserUpdateParameters
 ): Promise<CleanUser> {
-    if (data.password) {
+    if (data.password !== undefined) {
+        if (data.password.trim() === '') throw new Error('A senha não pode ser vazia');
         data.password = await bcrypt.hash(data.password, SALT_ROUNDS);
     }
 
     const result: IUser | null = await Users
-        .findByIdAndUpdate({ _id: userId }, data)
+        .findByIdAndUpdate({ _id: userId }, data, { new: true, runValidators: true })
         .select('-password')
         .lean();
 
@@ -123,7 +133,7 @@ async function update(
 }
 
 function sanitize(user: IUser): CleanUser {
-    const { password, __v, ...otherFields } = user;
+    const { password, __v, ...otherFields } = user as any;
     return otherFields;
 }
 

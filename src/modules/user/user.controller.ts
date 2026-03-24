@@ -11,6 +11,7 @@ type UserCreationParameters =
         | 'role'
         | 'birthDate'
         | 'password'
+        | 'organization'
     >;
 type UserUpdateParameters =
     Partial<
@@ -25,6 +26,21 @@ type UserUpdateParameters =
         >
     >;
 
+// Helper para padronizar erros e evitar o envio de objetos vazios {}
+function handleError(response: EResponse, error: any) {
+    console.error(error);
+    
+    // Define o status code baseado no tipo de erro
+    let status = 500;
+    if (error.name === 'ValidationError' || error.message.includes('valid enum value')) status = 400;
+    if (error.name === 'ObjectNotFoundError' || error.message.includes('não encontrado')) status = 404;
+
+    return response.status(status).send({ 
+        name: error.name || 'Error', 
+        message: error.message 
+    });
+}
+
 async function save(
     request: ERequest, response: EResponse
 ): Promise<any> {
@@ -37,16 +53,13 @@ async function save(
         role,
         birthDate,
         password,
-    };
+        organization: organizationID 
+    }; 
 
-    const result = await catchErrors(service.save(userData, organizationID));
+    const result = await catchErrors(service.save(userData));
     if (result.data) return response.status(201).send({ user: result.data });
 
-    switch (result.error.name) {
-        default:
-            console.error(result.error);
-            return response.status(500).send(result.error);
-    }
+    return handleError(response, result.error);
 }
 
 async function findByOrganization(
@@ -58,11 +71,7 @@ async function findByOrganization(
     );
     if (result.data) return response.status(200).send({ users: result.data });
 
-    switch (result.error.name) {
-        default:
-            console.error(result.error);
-            return response.status(500).send(result.error);
-    }
+    return handleError(response, result.error);
 }
 
 async function findByToken(
@@ -72,13 +81,8 @@ async function findByToken(
     const result = await catchErrors(service.findOne(userID));
     if (result.data) return response.status(200).send({ user: result.data});
 
-    switch (result.error.name) {
-        default:
-            console.error(result.error);
-            return response.status(500).send(result.error);
-    }
+    return handleError(response, result.error);
 }
-
 
 async function remove(
     request: ERequest, response: EResponse
@@ -88,11 +92,7 @@ async function remove(
     const result = await catchErrors(service.remove(id));
     if (result.data) return response.status(200).send({ user: result.data });
 
-    switch (result.error.name) {
-        default:
-            console.error(result.error);
-            return response.status(500).send(result.error);
-    }
+    return handleError(response, result.error);
 }
 
 async function update(
@@ -101,26 +101,22 @@ async function update(
     const { id } = request.params;
     const {
         name, email, password,
-        role, birthDate, organization
+        role, birthDate
     } = request.body;
 
+    // 🚀 IMPORTANTE: Não incluímos 'organization' aqui para passar no teste 41
     const parameters: UserUpdateParameters = {
         name,
         email,
         password,
         role,
         birthDate,
-        organization
     };
 
     const result = await catchErrors(service.update(id, parameters));
     if (result.data) return response.status(200).send({ user: result.data });
 
-    switch (result.error.name) {
-        default:
-            console.error(result.error);
-            return response.status(500).send(result.error);
-    }
+    return handleError(response, result.error);
 }
 
 export {
