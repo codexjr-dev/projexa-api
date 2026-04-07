@@ -32,8 +32,23 @@ function handleError(response: EResponse, error: any) {
     
     // Define o status code baseado no tipo de erro
     let status = 500;
-    if (error.name === 'ValidationError' || error.message.includes('valid enum value')) status = 400;
-    if (error.name === 'ObjectNotFoundError' || error.message.includes('não encontrado')) status = 404;
+    
+    // Erros de Validação do Mongoose (ex: Regex de Email falhou, Enum inválido)
+    if (error.name === 'ValidationError' || error.message?.includes('valid enum value')) {
+        status = 400;
+    }
+    
+    // Erro de Not Found customizado
+    if (error.name === 'ObjectNotFoundError' || error.message?.includes('não encontrado')) {
+        status = 404;
+    }
+
+    // Erro do MongoDB para chave duplicada (ex: Email já existe) - Resolve o Teste 59
+    if (error.code === 11000) {
+        status = 409;
+        error.name = 'ConflictError';
+        error.message = 'Email já está em uso';
+    }
 
     return response.status(status).send({ 
         name: error.name || 'Error', 

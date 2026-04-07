@@ -1,5 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import organization from '../organization/organization.model';
+
+// Tipagens provisórias baseadas no seu código
+interface MongooseObject extends Document {}
+interface HasTimeStamps {
+    createdAt?: Date;
+    updatedAt?: Date;
+}
 
 interface IUser extends MongooseObject, HasTimeStamps {
     name: string;
@@ -23,6 +30,10 @@ const userSchema = new Schema<IUser>({
     email: {
         type: String,
         required: true,
+        unique: true, // Necessário para o Teste 59 (colisão de email)
+        trim: true,
+        lowercase: true,
+        match: [/^\S+@\S+\.\S+$/, 'Formato de email inválido'], // Necessário para os Testes 48 e 60
     },
     password: {
         type: String,
@@ -32,7 +43,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         enum: [
             'Presidente', 'Diretor(a)', 'Assessor(a)',
-            'Conselheiro(a)','Pós-Júnior', 'Guardiã(o)',
+            'Conselheiro(a)','Pós-Júnior', 'Guardião', // Corrigi aqui para ficar igual à Interface
             'Trainee', 'Ex-Trainee'
         ],
         required: true,
@@ -44,11 +55,11 @@ const userSchema = new Schema<IUser>({
     },
     organization: {
         type: Schema.Types.ObjectId,
-        ref: organization,
+        ref: 'Organization', // Ideal passar como string referenciando o nome do model
         required: true,
     },
 },
-{ timestamps: true, });
+{ timestamps: true });
 
-export default model('User', userSchema);
+export default model<IUser>('User', userSchema);
 export { IUser, CleanUser };
