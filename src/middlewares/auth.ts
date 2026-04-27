@@ -18,8 +18,13 @@ export function authorize(
 
         if (result.data) return next();
         switch (result.error!.name) {
+            case 'InvalidTokenError':
+            case 'MalformattedTokenError':
+            case 'NoHeaderError':
+            case 'UnauthorizedError':
+                return response.status(401).send({ error: result.error.message });
             default:
-                return response.status(500).send(result.error);
+                return response.status(500).send({ error: result.error.message });
         }
     };
 }

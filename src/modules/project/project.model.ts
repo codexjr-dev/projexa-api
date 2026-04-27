@@ -72,11 +72,11 @@ const projectSchema = new Schema<IProject>({
     ],
     startDate: {
         type: Date,
-        required: true,
+        required: false,
     },
     finishDate: {
         type: Date,
-        required: true,
+        required: false,
     },
     contractLink: {
         type: String,

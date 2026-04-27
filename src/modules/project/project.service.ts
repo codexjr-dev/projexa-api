@@ -40,7 +40,7 @@ async function findByOrganization(organizationID: string): Promise<IProject[]> {
 
 async function findById(projectID: string): Promise<IProject | null> {
     const project: IProject | null = await Project
-        .findOne({ projectID })
+        .findOne({ _id: projectID })
         .populate({ path: 'team', select: 'name role _id' })
         .lean();
     return project;
@@ -58,7 +58,7 @@ async function update(
     data: ProjectUpdateParameters
 ): Promise<IProject | null> {
     const updatedProject: IProject | null = await Project
-        .findOneAndUpdate({ _id: projectID }, data);
+        .findOneAndUpdate({ _id: projectID }, data, { new: true });
     return updatedProject;
 }
 
