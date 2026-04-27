@@ -51,10 +51,10 @@ async function findByOrganization
         const projects = await service.findByOrganization(id);
         return response.status(200).send({ projects })
     } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
+        if (error instanceof Error) return response.status(401).send({
             error: 'Erro desconhecido',
             trace: error.stack,
-        }); else return response.status(500).send({ error });
+        }); else return response.status(401).send({ error });
     }
 }
 
@@ -65,10 +65,10 @@ async function findById(request: ERequest, response: EResponse): Promise<any> {
         const project = await service.findById(id);
         return response.status(200).send({ project });
     } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
+        if (error instanceof Error) return response.status(401).send({
             error: 'Erro desconhecido',
             trace: error.stack,
-        }); else return response.status(500).send({ error });
+        }); else return response.status(401).send({ error });
     }
 }
 
@@ -82,10 +82,10 @@ async function remove(request: ERequest, response: EResponse): Promise<any> {
             message: 'Projeto removido com sucesso!'
         });
     } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
+        if (error instanceof Error) return response.status(401).send({
             error: 'Erro desconhecido',
             trace: error.stack,
-        }); else return response.status(500).send({ error });
+        }); else return response.status(401).send({ error });
     }
 }
 
@@ -100,10 +100,10 @@ async function update(request: ERequest, response: EResponse): Promise<any> {
             message: 'Projeto atualizado com sucesso!'
         });
     } catch (error: unknown) {
-        if (error instanceof Error) return response.status(500).send({
+        if (error instanceof Error) return response.status(401).send({
             error: 'Erro desconhecido',
             trace: error.stack,
-        }); else return response.status(500).send({ error });
+        }); else return response.status(401).send({ error });
     }
 }
 
